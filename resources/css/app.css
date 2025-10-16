@@ -1,0 +1,16 @@
+/* resources/css/app.css */
+@import "tailwindcss";
+
+/* Esconde a seta de input de número (spin buttons) */
+
+/* Para navegadores WebKit (Chrome, Safari, Opera) */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para o Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
