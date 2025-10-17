@@ -3,67 +3,58 @@
         <GlobalMsg></GlobalMsg>
         <main>
             <div class="relative isolate overflow-hidden text-white bg-gray-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-8 lg:px-8">
-                    <div class="sm:col-span-8 text-center text-2xl">
-                        <legend class="text-white">Margem sobre o preço de venda</legend>
+                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
+                    <div class="sm:col-span-6 text-center text-2xl">
+                        <legend class="text-white">{{ tituloMargem }}</legend>
                     </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaPrecoVendaMlv()" @input="formataBrMoeda()" v-model="custoMlv" label="Preço de custo" id="custoMlv" name="custoMlv">
-                            <template #prepend>
-                                <span class="text-base">R$</span>
-                            </template>
-                        </CustomInput>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaPrecoVendaMlv()" v-model="margemMlv" label="Margem venda" title="Margem sobre o preço de venda" id="margemMlv" name="margemMlv">
-                            <template #append>
-                                <span class="text-base">%</span>
-                            </template>
-                        </CustomInput>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaMargensMlv()" v-model="precoVendaMlv" label="Preço de venda" id="precoVendaMlv" name="precoVendaMlv">
-                            <template #prepend>
-                                <span class="text-base">R$</span>
-                            </template>
-                        </CustomInput>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" disabled v-model="lucroMlv" label="Lucro" id="lucroMlv" name="lucroMlv">
-                            <template #prepend>
-                                <span class="text-base">R$</span>
-                            </template>
-                        </CustomInput>
+
+                    <div class="sm:col-span-1">
+                        <CustomSelect
+                            @change="mudaTipoMargem()"
+                            v-model="selectTipoMargem"
+                            id="selectTipoMargem"
+                            name="selectTipoMargem"
+                            label="Tipo margem"
+                            :options="[
+                                { label: 'Margem venda', value: 'mlv' },
+                                { label: 'Margem custo', value: 'mlc' },
+                            ]"
+                        >
+                        </CustomSelect>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 gap-x-8 gap-y-15 px-4 py-15 sm:px-6 md:grid-cols-8 lg:px-8">
-                    <div class="sm:col-span-8 text-center text-2xl">
-                        <legend class="text-white">Margem sobre o preço de custo</legend>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaPrecoVendaMlc()" v-model="custoMlc" label="Preço de custo" id="custoMlc" name="custoMlc">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
+                    <div class="sm:col-span-1">
+                        <CustomInput type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço de custo" id="custo" name="custo">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaPrecoVendaMlc()" v-model="margemMlc" label="Margem custo" id="margemMlc" name="margemMlc">
+                    <div class="sm:col-span-1">
+                        <CustomInput type="number" @change="calculaPrecoVenda()" v-model="margem" label="Margem" id="margem" name="margem">
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" @change="calculaMargensMlc()" v-model="precoVendaMlc" label="Preço de venda" id="precoVendaMlc" name="precoVendaMlc">
+                    <div class="sm:col-span-1">
+                        <CustomInput type="number" @change="calculaMargens()" v-model="precoVenda" label="Preço de venda" id="precoVenda" name="precoVenda">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
-                    <div class="sm:col-span-2">
-                        <CustomInput type="number" disabled v-model="lucroMlc" label="Lucro" id="lucroMlc" name="lucroMlc">
+                    <div class="sm:col-span-1">
+                        <CustomInput type="number" @change="descontoIfood()" v-model="taxaIfood" label="Taxa ifood" id="taxaIfood" name="taxaIfood">
+                            <template #append>
+                                <span class="text-base">%</span>
+                            </template>
+                        </CustomInput>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <CustomInput type="number" disabled v-model="lucro" label="Lucro" id="lucro" name="lucro">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
@@ -79,140 +70,161 @@
 export default {
     data() {
         return {
-            custoMlv: null,
-            margemMlv: null,
-            precoVendaMlv: null,
-            lucroMlv: null,
-
-            custoMlc: null,
-            margemMlc: null,
-            precoVendaMlc: null,
-            lucroMlc: null,
+            tituloMargem: 'Margem sobre o preço de venda',
+            selectTipoMargem: 'mlv',
+            custo: null,
+            margem: null,
+            precoVenda: null,
+            lucro: null,
         };
     },
 
     methods: {
-        // --- CÁLCULOS DE PREÇO DE VENDA (Quando muda CUSTO ou MARGEM) ---
-        formataBrMoeda() {},
-
-        calculaPrecoVendaMlv() {
+        mudaTipoMargem() {
             let self = this;
 
-            console.log('aqui');
-
-            const custo = parseFloat(self.custoMlv);
-            const margem = parseFloat(self.margemMlv);
-
-            if (custo <= 0) {
-                self.custoMlv = null;
-                return self.$msg.warning('Custo precisa ser maior do que 0.');
-            }
-            if (margem <= 0) {
-                self.margemMlv = null;
-                return self.$msg.warning('Margem venda precisa ser maior do que 0.');
-            }
-            if (margem >= 100) {
-                self.margemMlv = null;
-                return self.$msg.warning('Margem venda precisa ser menor do que 100.');
-            }
-
-            if (custo > 0 && margem > 0 && margem < 100) {
-                const mlv_decimal = margem / 100;
-                // Fórmula: P.V. = Custo / (1 - MLV)
-                const precoCalculado = custo / (1 - mlv_decimal);
-                self.precoVendaMlv = precoCalculado.toFixed(2);
-
-                const lucroCalculado = precoCalculado - custo;
-                self.lucroMlv = lucroCalculado.toFixed(2);
+            self.custo = null;
+            self.margem = null;
+            self.precoVenda = null;
+            self.lucro = null;
+            self.taxaIfood = null;
+            if (self.selectTipoMargem == 'mlc') {
+                self.tituloMargem = 'Margem sobre o preço de custo';
             } else {
-                self.precoVendaMlv = null;
-                self.lucroMlv = null;
+                self.tituloMargem = 'Margem sobre o preço de venda';
             }
         },
 
-        calculaPrecoVendaMlc() {
+        calculaPrecoVenda() {
             let self = this;
 
-            const custo = parseFloat(self.custoMlc);
-            const margem = parseFloat(self.margemMlc); // margemCusto
+            if (self.selectTipoMargem == 'mlv') {
+                const custo = parseFloat(self.custo);
+                const margem = parseFloat(self.margem);
 
-            if (custo <= 0) {
-                self.custoMlc = null;
-                return self.$msg.warning('Custo precisa ser maior do que 0.');
-            }
-            if (margem <= 0) {
-                self.margemMlc = null;
-                return self.$msg.warning('Margem venda precisa ser maior do que 0.');
-            }
+                if (custo <= 0) {
+                    self.custo = null;
+                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                }
+                if (margem <= 0) {
+                    self.margem = null;
+                    return self.$msg.warning('Margem venda precisa ser maior do que 0.');
+                }
+                if (margem >= 100) {
+                    self.margem = null;
+                    return self.$msg.warning('Margem venda precisa ser menor do que 100.');
+                }
 
-            if (custo > 0 && margem > 0) {
-                const mlc_decimal = margem / 100;
-                // Fórmula do Markup: P.V. = Custo * (1 + MLC)
-                const precoCalculado = custo * (1 + mlc_decimal);
-                self.precoVendaMlc = precoCalculado.toFixed(2);
+                if (custo > 0 && margem > 0 && margem < 100) {
+                    const mlv_decimal = margem / 100;
+                    // Fórmula: P.V. = Custo / (1 - MLV)
+                    const precoCalculado = custo / (1 - mlv_decimal);
+                    self.precoVenda = precoCalculado.toFixed(2);
 
-                const lucroCalculado = precoCalculado - custo;
-                self.lucroMlc = lucroCalculado.toFixed(2);
+                    const lucroCalculado = precoCalculado - custo;
+                    self.lucro = lucroCalculado.toFixed(2);
+                    self.descontoIfood();
+                } else {
+                    self.precoVenda = null;
+                    self.lucro = null;
+                }
             } else {
-                self.precoVendaMlc = null;
-                self.lucroMlc = null;
+                const custo = parseFloat(self.custo);
+                const margem = parseFloat(self.margem); // margemCusto
+
+                if (custo <= 0) {
+                    self.custo = null;
+                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                }
+                if (margem <= 0) {
+                    self.margem = null;
+                    return self.$msg.warning('Margem venda precisa ser maior do que 0.');
+                }
+
+                if (custo > 0 && margem > 0) {
+                    const mlc_decimal = margem / 100;
+                    // Fórmula do Markup: P.V. = Custo * (1 + MLC)
+                    const precoCalculado = custo * (1 + mlc_decimal);
+                    self.precoVenda = precoCalculado.toFixed(2);
+
+                    const lucroCalculado = precoCalculado - custo;
+                    self.lucro = lucroCalculado.toFixed(2);
+                    self.descontoIfood();
+                } else {
+                    self.precoVenda = null;
+                    self.lucro = null;
+                }
             }
         },
 
-        // --- CÁLCULOS DE MARGEM (Quando muda PREÇO DE VENDA) ---
-
-        // Calcula Margem de Venda (MLV)
-        calculaMargensMlv() {
+        calculaMargens() {
             let self = this;
 
-            const custo = parseFloat(self.custoMlv);
-            const precoVenda = parseFloat(self.precoVendaMlv);
+            if (self.selectTipoMargem == 'mlv') {
+                const custo = parseFloat(self.custo);
+                const precoVenda = parseFloat(self.precoVenda);
 
-            if (custo <= 0) {
-                self.precoVendaMlv = null;
-                return self.$msg.warning('Custo precisa ser maior do que 0.');
-            }
-            if (custo > precoVenda) {
-                self.precoVendaMlv = null;
-                return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
-            }
-            if (custo > 0 && precoVenda > custo) {
-                const lucroBruto = precoVenda - custo;
-                self.lucroMlv = lucroBruto.toFixed(2);
+                if (custo <= 0) {
+                    self.precoVenda = null;
+                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                }
+                if (custo > precoVenda) {
+                    self.precoVenda = null;
+                    return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                }
+                if (custo > 0 && precoVenda > custo) {
+                    const lucroBruto = precoVenda - custo;
+                    self.lucro = lucroBruto.toFixed(2);
+                    self.descontoIfood();
 
-                // MLV = (Lucro / Preço de Venda) * 100
-                const mlv_calculada = (lucroBruto / precoVenda) * 100;
-                self.margemMlv = mlv_calculada.toFixed(2);
+                    // MLV = (Lucro / Preço de Venda) * 100
+                    const mlv_calculada = (lucroBruto / precoVenda) * 100;
+                    self.margem = mlv_calculada.toFixed(2);
+                } else {
+                    self.margem = null;
+                }
             } else {
-                self.margemMlv = null;
+                const custo = parseFloat(self.custo);
+                const precoVenda = parseFloat(self.precoVenda);
+
+                if (custo <= 0) {
+                    self.precoVenda = null;
+                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                }
+                if (custo > precoVenda) {
+                    self.precoVenda = null;
+                    return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                }
+                if (custo > 0 && precoVenda > custo) {
+                    const lucroBruto = precoVenda - custo;
+                    self.lucro = lucroBruto.toFixed(2);
+                    self.descontoIfood();
+
+                    // MLC = (Lucro / Custo) * 100
+                    const mlc_calculada = (lucroBruto / custo) * 100;
+                    self.margem = mlc_calculada.toFixed(2);
+                } else {
+                    self.margem = null;
+                }
             }
         },
 
-        // Calcula Margem de Custo (MLC)
-        calculaMargensMlc() {
+        descontoIfood() {
             let self = this;
+            const taxaIfood = parseFloat(self.taxaIfood / 100);
+            const preco = parseFloat(self.precoVenda);
+            const custo = parseFloat(self.custo);
 
-            const custo = parseFloat(self.custoMlc);
-            const precoVenda = parseFloat(self.precoVendaMlc);
+            if (isNaN(preco) || preco <= 0 || isNaN(custo) || custo < 0) {
+                self.lucro = 0;
+                return;
+            }
 
-            if (custo <= 0) {
-                self.precoVendaMlc = null;
-                return self.$msg.warning('Custo precisa ser maior do que 0.');
-            }
-            if (custo > precoVenda) {
-                self.precoVendaMlc = null;
-                return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
-            }
-            if (custo > 0 && precoVenda > custo) {
-                const lucroBruto = precoVenda - custo;
-                self.lucroMlc = lucroBruto.toFixed(2);
+            const valorDesconto = preco * taxaIfood;
 
-                // MLC = (Lucro / Custo) * 100
-                const mlc_calculada = (lucroBruto / custo) * 100;
-                self.margemMlc = mlc_calculada.toFixed(2);
-            } else {
-                self.margemMlc = null;
-            }
+            const lucroBruto = preco - custo - valorDesconto;
+
+            self.lucro = parseFloat(lucroBruto.toFixed(2));
         },
     },
 };
