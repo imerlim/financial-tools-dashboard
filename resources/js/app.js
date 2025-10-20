@@ -13,6 +13,9 @@ import CustomSelect from './Components/CustomSelect.vue';
 import CustomTextArea from './Components/CustomTextArea.vue';
 import msg from './Plugins/msg';
 import GlobalMsg from './Components/GlobalMsg.vue';
+import Table from './Components/Table.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import '@tailwindplus/elements';
 
 createInertiaApp({
     title: title => (title ? `${title} - Minha Aplicação` : 'Minha Aplicação'),
@@ -24,6 +27,8 @@ createInertiaApp({
         if (!page) {
             throw new Error(`Página ${name} não encontrada em ./Pages`);
         }
+        // Todas as outras páginas usam o layout autenticado (com Navbar)
+        page.default.layout = page.default.layout || AuthenticatedLayout;
 
         return page;
     },
@@ -44,6 +49,7 @@ createInertiaApp({
         vueApp.component('CustomSelect', CustomSelect);
         vueApp.component('CustomTextArea', CustomTextArea);
         vueApp.component('GlobalMsg', GlobalMsg);
+        vueApp.component('Table', Table);
 
         vueApp.mount(el);
     },

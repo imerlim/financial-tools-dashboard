@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-gray-900">
+    <div class="bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <main>
-            <div class="relative isolate overflow-hidden text-white bg-gray-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
+            <div class="relative isolate overflow-hidden text-white bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                     <div class="sm:col-span-6 text-center text-2xl">
                         <legend class="text-white">{{ tituloMargem }}</legend>
@@ -26,39 +26,42 @@
 
                 <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                     <div class="sm:col-span-1">
-                        <CustomInput type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço de custo" id="custo" name="custo">
+                        <CustomInput inputmode="numeric" type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço de custo" id="custo" name="custo" maxlength="10">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput type="number" @change="calculaPrecoVenda()" v-model="margem" label="Margem" id="margem" name="margem">
+                        <CustomInput inputmode="numeric" @change="calculaPrecoVenda()" :formata="true" v-model="margem" label="Margem" id="margem" name="margem">
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput type="number" @change="calculaMargens()" v-model="precoVenda" label="Preço de venda" id="precoVenda" name="precoVenda">
+                        <CustomInput inputmode="numeric" @change="calculaMargens()" :formata="true" v-model="precoVenda" label="Preço de venda" id="precoVenda" name="precoVenda">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput type="number" @change="descontoIfood()" v-model="taxaIfood" label="Taxa ifood" id="taxaIfood" name="taxaIfood">
+                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaIfood" label="Taxa ifood" id="taxaIfood" name="taxaIfood">
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput type="number" disabled v-model="lucro" label="Lucro" id="lucro" name="lucro">
+                        <CustomInput inputmode="numeric" disabled v-model="lucro" :formata="true" label="Lucro" id="lucro" name="lucro">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
+                    </div>
+                    <div class="sm:col-span-6">
+                        <Table :headers="headersCaixa" :items="itemsCaixa" :per-page="5" :show-search="true" :loading="loadCaixa" :multi-select="false" />
                     </div>
                 </div>
             </div>
@@ -76,6 +79,28 @@ export default {
             margem: null,
             precoVenda: null,
             lucro: null,
+            taxaIfood: null,
+
+            loadCaixa: false,
+            headersCaixa: [
+                { label: 'Pedido', key: 'PEDIDO' },
+                { label: 'Data', key: 'DATA' },
+                { label: 'Valor', key: 'VALORFORMATADO' },
+                { label: 'Operador', key: 'OPERADOR' },
+                { label: 'Pagamento', key: 'FORMA' },
+                { label: 'Descrição', key: 'PAG' },
+            ],
+            itemsCaixa: [
+                {
+                    PEDIDO: 'teste',
+                    DATA: 'teste',
+                    VALOR: 'teste',
+                    VALORFORMATADO: 'teste',
+                    OPERADOR: 'teste',
+                    FORMA: 'teste',
+                    PAG: 'teste',
+                },
+            ],
         };
     },
 
@@ -119,10 +144,10 @@ export default {
                     const mlv_decimal = margem / 100;
                     // Fórmula: P.V. = Custo / (1 - MLV)
                     const precoCalculado = custo / (1 - mlv_decimal);
-                    self.precoVenda = precoCalculado.toFixed(2);
+                    self.precoVenda = isNaN(parseFloat(precoCalculado)) ? 'R$ 0,00' : parseFloat(precoCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = lucroCalculado.toFixed(2);
+                    self.lucro = isNaN(parseFloat(lucroCalculado)) ? 'R$ 0,00' : parseFloat(lucroCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     self.descontoIfood();
                 } else {
                     self.precoVenda = null;
@@ -145,10 +170,10 @@ export default {
                     const mlc_decimal = margem / 100;
                     // Fórmula do Markup: P.V. = Custo * (1 + MLC)
                     const precoCalculado = custo * (1 + mlc_decimal);
-                    self.precoVenda = precoCalculado.toFixed(2);
+                    self.precoVenda = isNaN(parseFloat(precoCalculado)) ? 'R$ 0,00' : parseFloat(precoCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = lucroCalculado.toFixed(2);
+                    self.lucro = isNaN(parseFloat(lucroCalculado)) ? 'R$ 0,00' : parseFloat(lucroCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     self.descontoIfood();
                 } else {
                     self.precoVenda = null;
@@ -174,12 +199,12 @@ export default {
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = lucroBruto.toFixed(2);
+                    self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     self.descontoIfood();
 
                     // MLV = (Lucro / Preço de Venda) * 100
                     const mlv_calculada = (lucroBruto / precoVenda) * 100;
-                    self.margem = mlv_calculada.toFixed(2);
+                    self.margem = isNaN(parseFloat(mlv_calculada)) ? 'R$ 0,00' : parseFloat(mlv_calculada).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 } else {
                     self.margem = null;
                 }
@@ -197,12 +222,12 @@ export default {
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = lucroBruto.toFixed(2);
+                    self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     self.descontoIfood();
 
                     // MLC = (Lucro / Custo) * 100
                     const mlc_calculada = (lucroBruto / custo) * 100;
-                    self.margem = mlc_calculada.toFixed(2);
+                    self.margem = isNaN(parseFloat(mlc_calculada)) ? 'R$ 0,00' : parseFloat(mlc_calculada).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 } else {
                     self.margem = null;
                 }
@@ -211,20 +236,26 @@ export default {
 
         descontoIfood() {
             let self = this;
-            const taxaIfood = parseFloat(self.taxaIfood / 100);
+
+            const taxa = parseFloat(self.taxaIfood) / 100;
             const preco = parseFloat(self.precoVenda);
             const custo = parseFloat(self.custo);
 
-            if (isNaN(preco) || preco <= 0 || isNaN(custo) || custo < 0) {
+            if (taxa >= 1) {
+                self.taxaIfood = null;
+                return self.$msg.warning('Taxa do ifood precisa ser menor do que o 100%.');
+            }
+
+            if (isNaN(preco) || preco <= 0 || isNaN(custo) || custo < 0 || isNaN(taxa) || taxa >= 100) {
                 self.lucro = 0;
                 return;
             }
 
-            const valorDesconto = preco * taxaIfood;
+            const valorDesconto = preco * taxa;
 
             const lucroBruto = preco - custo - valorDesconto;
 
-            self.lucro = parseFloat(lucroBruto.toFixed(2));
+            self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         },
     },
 };

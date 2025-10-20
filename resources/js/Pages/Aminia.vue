@@ -2,7 +2,7 @@
     <div class="bg-gray-900">
         <GlobalMsg></GlobalMsg>
         <!-- Header -->
-        <header class="absolute inset-x-0 top-0 z-50">
+        <header class="absolute inset-x-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
                     <a href="#" class="-m-1.5 p-1.5">
@@ -32,10 +32,9 @@
                         <div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div class="sm:col-span-6" style="text-align: left">
                                 <h1 class="text-xl font-bold text-center">O que é a Aminia Produções</h1>
-                                <h3><br /><br />
-                                    A Aminia Produções é uma produtora audiovisual independente criada por Lucas Madeira
-                                    (<a href="https://www.instagram.com/diretor_blackwood?igsh=MXRxdnoyZ3FsN2tyMQ==" target="_blank" class="text-yellow-400">@diretor_blackwood</a>),
-                                    dedicada a celebrar e divulgar a Black Music no Brasil.<br /><br />
+                                <h3>
+                                    <br /><br />
+                                    A Aminia Produções é uma produtora audiovisual independente criada por Lucas Madeira (<a href="https://www.instagram.com/diretor_blackwood?igsh=MXRxdnoyZ3FsN2tyMQ==" target="_blank" class="text-yellow-400">@diretor_blackwood</a>), dedicada a celebrar e divulgar a Black Music no Brasil.<br /><br />
 
                                     Mais do que uma produtora, a Aminia é um movimento que une arte, som e imagem para valorizar a cultura Black em todas as suas expressões. Encontramos no YouTube o espaço perfeito para compartilhar essa visão — produzindo tributos audiovisuais a grandes nomes da Black Music mundial, como Stevie Wonder, Michael Jackson, Blackstreet, TLC, SWV, Marvin Gaye e muitos outros.<br /><br />
 
@@ -62,7 +61,7 @@
                             </div>
 
                             <div class="sm:col-span-4">
-                                <CustomTextArea v-model="mensagem" id="mensagem" name="mensagem" label="Mensagem" placeholder="Digite sua mensagem aqui..." :rows="5"/>
+                                <CustomTextArea v-model="mensagem" id="mensagem" name="mensagem" label="Mensagem" placeholder="Digite sua mensagem aqui..." :rows="5" />
                             </div>
 
                             <div class="sm:col-span-6 justify-end flex self-end mt-6">
@@ -146,7 +145,7 @@
                     <div class="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
                         <div class="relative aspect-2/1 h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
                             <div class="relative w-full h-64 md:h-80 xl:h-auto">
-                                <img class="w-full h-full rounded-2xl bg-gray-900 object-contain shadow-2xl" src="/storage/Ceo_Aminia.jpeg" alt="CEO Aminia" />
+                                <img class="w-full h-full rounded-2xl bg-gray-900 object-contain shadow-2xl" src="/storage/Ceo_Aminia.jpeg" alt="Diretor Blackwood" />
                             </div>
                         </div>
                     </div>
@@ -386,16 +385,18 @@ export default {
         enviaMensagem() {
             let self = this;
 
-            self.openModalContato = false
-            axios.post('envia-mensagem', {
-                nome: self.nome,
-                email: self.email,
-                assunto: self.assunto,
-                mensagem: self.mensagem,
-            }).then((response)=>{
-                this.$msg.success('Mensagem enviada com sucesso!')
-            })
-        }
+            self.openModalContato = false;
+            axios
+                .post('envia-mensagem', {
+                    nome: self.nome,
+                    email: self.email,
+                    assunto: self.assunto,
+                    mensagem: self.mensagem,
+                })
+                .then(response => {
+                    this.$msg.success('Mensagem enviada com sucesso!');
+                });
+        },
     },
 };
 </script>
