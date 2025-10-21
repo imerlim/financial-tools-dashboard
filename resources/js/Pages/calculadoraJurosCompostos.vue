@@ -1,22 +1,80 @@
 <template>
-    <div class="bg-gray-900">
+    <div class="bg-slate-100 dark:bg-slate-800">
+        <GlobalMsg></GlobalMsg>
         <main>
-            <div class="relative isolate overflow-hidden bg-gray-900 min-h-screen pt-32 sm:px-64 sm:pt-0">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-10 px-4 py-10 sm:px-6 md:grid-cols-6 lg:px-8">
-                    <div class="sm:col-span-6 text-center text-2xl">
+            <div class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
+                    <div class="sm:col-span-4 text-center text-2xl">
                         <legend class="text-white">Calculadora juros compostos</legend>
                     </div>
-                    <div class="sm:col-span-3">
-                        <CustomInput v-model="codGrupo" label="Código grupo" id="codGrupo" name="codGrupo" />
+                    <div class="sm:col-span-4 justify-items-center">
+                        <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
+                            <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Valor investido</dt>
+                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                                    {{ valorTotalInvestido }}
+                                </dd>
+                            </div>
+                            <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Montante final</dt>
+                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                                    {{ montanteFinal }}
+                                </dd>
+                            </div>
+                            <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Total em juros</dt>
+                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                                    {{ totalEmJuros }}
+                                </dd>
+                            </div>
+                        </div>
                     </div>
-                    <div class="sm:col-span-3">
-                        <CustomInput v-model="codGrupo" label="Código grupo" id="codGrupo" name="codGrupo" />
+                    <div class="sm:col-span-1">
+                        <CustomInput :formata="true" v-model="valorInicial" label="Valor inicial" id="valorInicial" name="valorInicial" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                            <template #prepend>
+                                <span class="text-base">R$</span>
+                            </template>
+                        </CustomInput>
                     </div>
-                    <div class="sm:col-span-3">
-                        <CustomInput v-model="codGrupo" label="Código grupo" id="codGrupo" name="codGrupo" />
+                    <div class="sm:col-span-1">
+                        <CustomInput :formata="true" v-model="valorMensal" label="Valor mensal" id="valorMensal" name="valorMensal" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                            <template #prepend>
+                                <span class="text-base">R$</span>
+                            </template>
+                        </CustomInput>
                     </div>
-                    <div class="sm:col-span-3">
-                        <CustomInput v-model="codGrupo" label="Código grupo" id="codGrupo" name="codGrupo" />
+                    <div class="sm:col-span-1">
+                        <CustomInput :propLargeAppend="true" v-model="taxaJuros" label="Taxa de juros" id="taxaJuros" name="taxaJuros" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                            <template #append>
+                                <CustomSelect
+                                    :options="[
+                                        { label: 'Mensal', value: 'Mensal' },
+                                        { label: 'Anual', value: 'Anual' },
+                                    ]"
+                                    v-model="taxaJurosSelect"
+                                    id="taxaJurosSelect"
+                                    name="taxaJurosSelect"
+                                ></CustomSelect>
+                            </template>
+                        </CustomInput>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <CustomInput :propLargeAppend="true" v-model="periodo" label="Período" id="periodo" name="periodo" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                            <template #append>
+                                <CustomSelect
+                                    :options="[
+                                        { label: 'Anos', value: 'Anos' },
+                                        { label: 'Meses', value: 'Meses' },
+                                    ]"
+                                    v-model="periodoSelect"
+                                    id="periodoSelect"
+                                    name="periodoSelect"
+                                ></CustomSelect>
+                            </template>
+                        </CustomInput>
+                    </div>
+                    <div class="sm:col-span-4 flex justify-end self-end mt-5">
+                        <button ref="botaoIncluirItem" type="button" class="cursor-pointer rounded-md ml-1 bg-sky-800 px-3 py-2 text-base font-semibold text-white shadow-xs hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 inline-flex" @click="calculaJurosCompostos()">Calcular</button>
                     </div>
                 </div>
             </div>
@@ -28,15 +86,36 @@
 export default {
     data() {
         return {
-            openDrop1: false,
-            openModalContato: false,
-            openModalDescricao: false,
-
-            nome: null,
-            email: null,
-            assunto: null,
-            mensagem: null,
+            valorInicial: null,
+            valorMensal: null,
+            taxaJuros: null,
+            taxaJurosSelect: 'Mensal',
+            periodo: null,
+            periodoSelect: 'Anos',
+            montanteFinal: 'R$ 0,00',
+            valorTotalInvestido: 'R$ 0,00',
+            totalEmJuros: 'R$ 0,00',
         };
+    },
+
+    methods: {
+        calculaJurosCompostos() {
+            let self = this;
+
+            const C = parseFloat(self.valorInicial);
+            const A = parseFloat(self.valorMensal);
+
+            const i = self.taxaJurosSelect == 'Mensal' ? parseFloat(self.taxaJuros) / 100 : Math.pow(1 + parseFloat(self.taxaJuros) / 100, 1 / 12) - 1;
+            const t = self.periodoSelect == 'Anos' ? parseFloat(self.periodo) * 12 : parseFloat(self.periodo);
+
+            const M = C * (1 + i) ** t + (A / i) * ((1 + i) ** t - 1);
+            const valorTotalInvestido = C + A * t;
+            const totalEmJuros = M - valorTotalInvestido;
+
+            self.montanteFinal = M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            self.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            self.totalEmJuros = totalEmJuros.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        },
     },
 };
 </script>

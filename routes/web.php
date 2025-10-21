@@ -11,12 +11,12 @@ Route::get('/aminia', function () {
 
 Route::get('/calculadora-juros-compostos', function () {
     return Inertia::render('CalculadoraJurosCompostos');
-});
+})->name('calculadora.juros.compostos');
 
 // Sua rota principal DEVE ter um nome para ser usada pelo Ziggy
 Route::get('/', function () {
     return Inertia::render('CadastroProduto');
-})->name('home');
+})->name('/');
 
 Route::controller(HomeController::class)->group(function () {
     Route::post('envia-mensagem', 'enviaMensagem')->name('envia.mensagem');

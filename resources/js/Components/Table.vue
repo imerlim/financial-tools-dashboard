@@ -346,6 +346,7 @@ export default {
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .btn {
     @apply w-8 h-8 flex items-center justify-center text-sm rounded-md border dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600 disabled:opacity-50;
 }

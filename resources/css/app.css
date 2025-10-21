@@ -1,6 +1,7 @@
 /* resources/css/app.css */
 @import "tailwindcss";
 
+/* @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *)); */
 /* Esconde a seta de input de número (spin buttons) */
 
 /* Para navegadores WebKit (Chrome, Safari, Opera) */

@@ -29,6 +29,7 @@ const props = defineProps({
     showAdd: Boolean,
 
     error: { type: Boolean, default: false },
+    propLargeAppend: { type: Boolean, default: false },
     errorMessage: { type: String, default: '' },
 
     textSize: {
@@ -46,15 +47,39 @@ const hasButtons = computed(() => {
 });
 
 const updateValue = event => {
+    let raw = event.target.value;
+
     if (props.formata) {
-        const valor = isNaN(parseFloat(event.target.value))
-            ? 'R$ 0,00'
-            : parseFloat(event.target.value).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        emit('update:modelValue', valor);
+        // 1️⃣ Troca vírgula por ponto (trata decimal BR)
+        raw = raw.replace(',', '.');
+
+        // 2️⃣ Remove apenas separadores de milhar (ponto no meio dos números inteiros)
+        //    Ex: 1.000.000 -> 1000000
+        //    Mas mantém ponto decimal caso só tenha um
+        const partes = raw.split('.');
+        if (partes.length > 2) {
+            // se tiver mais de um ponto, remove todos menos o último (decimal)
+            const decimal = partes.pop();
+            raw = partes.join('') + '.' + decimal;
+        }
+
+        // 3️⃣ Converte para número
+        const numero = parseFloat(raw) || 0;
+
+        // 4️⃣ Emite número limpo para o pai
+        emit('update:modelValue', numero);
     } else {
-        emit('update:modelValue', event.target.value);
+        emit('update:modelValue', raw);
     }
 };
+
+function formatarMoeda(valor) {
+    if (valor === null || valor === undefined || isNaN(valor)) return '';
+    return Number(valor).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+}
 
 // 🔹 ref do input
 const fieldRef = ref(null); // Renomeado para clareza
@@ -112,8 +137,9 @@ const iconSizeClass = computed(() => {
             <!-- Campo de input -->
             <div class="flex-grow min-w-0">
                 <div
-                    class="flex items-center w-full overflow-hidden rounded-lg px-2 bg-slate-50 dark:bg-slate-700"
+                    class="flex items-center w-full overflow-hidden rounded-lg bg-slate-50 dark:bg-slate-700"
                     :class="[
+                        propLargeAppend ? 'px-0' : 'px-2',
                         error
                             ? 'border border-red-500 focus-within:ring-red-500'
                             : 'border border-slate-300 dark:border-slate-600 focus-within:ring-blue-500 focus-within:border-blue-500',
@@ -146,7 +172,7 @@ const iconSizeClass = computed(() => {
                         :disabled="disabled"
                         :required="required"
                         :maxlength="maxlength"
-                        :value="modelValue"
+                        :value="props.formata ? formatarMoeda(modelValue) : modelValue"
                         autocomplete="off"
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
@@ -165,7 +191,7 @@ const iconSizeClass = computed(() => {
                         :disabled="disabled"
                         :required="required"
                         :maxlength="maxlength"
-                        :value="modelValue"
+                        :value="props.formata ? formatarMoeda(modelValue) : modelValue"
                         autocomplete="off"
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
@@ -176,8 +202,8 @@ const iconSizeClass = computed(() => {
                     <!-- Append -->
                     <div
                         v-if="$slots.append || append"
-                        class="flex items-center gap-1 text-slate-700 dark:text-slate-300"
-                        :class="textSize"
+                        class="flex items-end justify-end gap-1 text-slate-700 dark:text-slate-300"
+                        :class="[textSize, propLargeAppend ? 'w-50' : 'w-4']"
                     >
                         <slot name="append">
                             {{ append }}

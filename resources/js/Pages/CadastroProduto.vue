@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-slate-800">
+    <div class="bg-slate-100 dark:bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <main>
-            <div class="relative isolate overflow-hidden text-white bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
+            <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                     <div class="sm:col-span-6 text-center text-2xl">
                         <legend class="text-white">{{ tituloMargem }}</legend>
@@ -47,7 +47,7 @@
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaIfood" label="Taxa ifood" id="taxaIfood" name="taxaIfood">
+                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaIfood" label="Taxa" id="taxaIfood" name="taxaIfood" title="Taxa sobre preço de venda">
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
@@ -57,6 +57,13 @@
                         <CustomInput inputmode="numeric" disabled v-model="lucro" :formata="true" label="Lucro" id="lucro" name="lucro">
                             <template #prepend>
                                 <span class="text-base">R$</span>
+                            </template>
+                        </CustomInput>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <CustomInput inputmode="numeric" disabled v-model="margemLiquida" :formata="true" label="Margem líquida" id="margemLiquida" name="margemLiquida" title="Margem após desconto da taxa ifood">
+                            <template #append>
+                                <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
@@ -80,6 +87,7 @@ export default {
             precoVenda: null,
             lucro: null,
             taxaIfood: null,
+            margemLiquida: null,
 
             loadCaixa: false,
             headersCaixa: [
@@ -110,6 +118,7 @@ export default {
 
             self.custo = null;
             self.margem = null;
+            self.margemLiquida = null;
             self.precoVenda = null;
             self.lucro = null;
             self.taxaIfood = null;
@@ -123,9 +132,12 @@ export default {
         calculaPrecoVenda() {
             let self = this;
 
+            console.log(self.custo, self.margem);
             if (self.selectTipoMargem == 'mlv') {
                 const custo = parseFloat(self.custo);
+
                 const margem = parseFloat(self.margem);
+                console.log(custo, margem);
 
                 if (custo <= 0) {
                     self.custo = null;
@@ -133,10 +145,12 @@ export default {
                 }
                 if (margem <= 0) {
                     self.margem = null;
+                    self.margemLiquida = null;
                     return self.$msg.warning('Margem venda precisa ser maior do que 0.');
                 }
                 if (margem >= 100) {
                     self.margem = null;
+                    self.margemLiquida = null;
                     return self.$msg.warning('Margem venda precisa ser menor do que 100.');
                 }
 
@@ -144,10 +158,13 @@ export default {
                     const mlv_decimal = margem / 100;
                     // Fórmula: P.V. = Custo / (1 - MLV)
                     const precoCalculado = custo / (1 - mlv_decimal);
-                    self.precoVenda = isNaN(parseFloat(precoCalculado)) ? 'R$ 0,00' : parseFloat(precoCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.precoVenda = precoCalculado;
+                    self.precoVenda = precoCalculado;
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = isNaN(parseFloat(lucroCalculado)) ? 'R$ 0,00' : parseFloat(lucroCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.lucro = lucroCalculado;
+                    self.lucro = lucroCalculado;
+
                     self.descontoIfood();
                 } else {
                     self.precoVenda = null;
@@ -163,6 +180,7 @@ export default {
                 }
                 if (margem <= 0) {
                     self.margem = null;
+                    self.margemLiquida = null;
                     return self.$msg.warning('Margem venda precisa ser maior do que 0.');
                 }
 
@@ -170,10 +188,10 @@ export default {
                     const mlc_decimal = margem / 100;
                     // Fórmula do Markup: P.V. = Custo * (1 + MLC)
                     const precoCalculado = custo * (1 + mlc_decimal);
-                    self.precoVenda = isNaN(parseFloat(precoCalculado)) ? 'R$ 0,00' : parseFloat(precoCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.precoVenda = precoCalculado;
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = isNaN(parseFloat(lucroCalculado)) ? 'R$ 0,00' : parseFloat(lucroCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.lucro = lucroCalculado;
                     self.descontoIfood();
                 } else {
                     self.precoVenda = null;
@@ -199,14 +217,16 @@ export default {
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    self.descontoIfood();
+                    self.lucro = lucroBruto;
 
                     // MLV = (Lucro / Preço de Venda) * 100
                     const mlv_calculada = (lucroBruto / precoVenda) * 100;
-                    self.margem = isNaN(parseFloat(mlv_calculada)) ? 'R$ 0,00' : parseFloat(mlv_calculada).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.margem = mlv_calculada;
+                    self.margemLiquida = self.margem;
+                    self.descontoIfood();
                 } else {
                     self.margem = null;
+                    self.margemLiquida = null;
                 }
             } else {
                 const custo = parseFloat(self.custo);
@@ -222,14 +242,16 @@ export default {
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    self.descontoIfood();
+                    self.lucro = lucroBruto;
 
                     // MLC = (Lucro / Custo) * 100
                     const mlc_calculada = (lucroBruto / custo) * 100;
-                    self.margem = isNaN(parseFloat(mlc_calculada)) ? 'R$ 0,00' : parseFloat(mlc_calculada).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    self.margem = mlc_calculada;
+                    self.margemLiquida = self.margem;
+                    self.descontoIfood();
                 } else {
                     self.margem = null;
+                    self.margemLiquida = null;
                 }
             }
         },
@@ -237,7 +259,7 @@ export default {
         descontoIfood() {
             let self = this;
 
-            const taxa = parseFloat(self.taxaIfood) / 100;
+            const taxa = isNaN(parseFloat(self.taxaIfood) / 100) ? 0 : parseFloat(self.taxaIfood) / 100;
             const preco = parseFloat(self.precoVenda);
             const custo = parseFloat(self.custo);
 
@@ -255,7 +277,10 @@ export default {
 
             const lucroBruto = preco - custo - valorDesconto;
 
-            self.lucro = isNaN(parseFloat(lucroBruto)) ? 'R$ 0,00' : parseFloat(lucroBruto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const margemLiq = (lucroBruto / preco) * 100;
+
+            self.margemLiquida = margemLiq;
+            self.lucro = lucroBruto;
         },
     },
 };
