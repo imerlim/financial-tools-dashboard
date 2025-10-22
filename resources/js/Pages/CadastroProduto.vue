@@ -4,8 +4,8 @@
         <main>
             <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
-                    <div class="sm:col-span-6 text-center text-2xl">
-                        <legend class="text-white">{{ tituloMargem }}</legend>
+                    <div class="sm:col-span-6 text-center text-2xl mt-10">
+                        <legend class="text-slate-900 dark:text-white">{{ tituloMargem }}</legend>
                     </div>
 
                     <div class="sm:col-span-1">

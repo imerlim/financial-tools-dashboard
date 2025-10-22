@@ -12,12 +12,10 @@ const loginUrl = computed(() => (typeof window !== 'undefined' && window.Ziggy ?
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col">
-        <!-- Navbar sempre no topo -->
+    <div class="min-h-screen flex flex-col bg-white dark:bg-gray-900">
         <NavBar :home-url="homeUrl" :login-url="loginUrl" />
 
-        <!-- Conteúdo principal da página -->
-        <main class="pt-16 flex-1">
+        <main class="pt-16 flex-1 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
             <slot />
         </main>
     </div>
