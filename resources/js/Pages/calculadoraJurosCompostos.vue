@@ -10,19 +10,19 @@
                     <div class="sm:col-span-4 justify-items-center">
                         <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                             <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Valor investido</dt>
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-white">Valor investido</dt>
                                 <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                     {{ valorTotalInvestido }}
                                 </dd>
                             </div>
                             <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Montante final</dt>
-                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-sky-500">Montante final</dt>
+                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-sky-500">
                                     {{ montanteFinal }}
                                 </dd>
                             </div>
                             <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-slate-300">Total em juros</dt>
+                                <dt class="text-2xl font-semibold text-slate-600 dark:text-white">Total em juros</dt>
                                 <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                     {{ totalEmJuros }}
                                 </dd>
