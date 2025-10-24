@@ -30,21 +30,21 @@
                         </div>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput :formata="true" v-model="valorInicial" label="Valor inicial" id="valorInicial" name="valorInicial" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                        <CustomInput inputmode="numeric" :formata="true" v-model="valorInicial" label="Valor inicial" id="valorInicial" name="valorInicial" @keydown.enter="$refs.botaoIncluirItem.focus()">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput :formata="true" v-model="valorMensal" label="Valor mensal" id="valorMensal" name="valorMensal" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                        <CustomInput inputmode="numeric" :formata="true" v-model="valorMensal" label="Valor mensal" id="valorMensal" name="valorMensal" @keydown.enter="$refs.botaoIncluirItem.focus()">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput :propLargeAppend="true" v-model="taxaJuros" label="Taxa de juros" id="taxaJuros" name="taxaJuros" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                        <CustomInput inputmode="numeric" :propLargeAppend="true" v-model="taxaJuros" label="Taxa de juros" id="taxaJuros" name="taxaJuros" @keydown.enter="$refs.botaoIncluirItem.focus()">
                             <template #append>
                                 <CustomSelect
                                     :options="[
@@ -59,7 +59,7 @@
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput :propLargeAppend="true" v-model="periodo" label="Período" id="periodo" name="periodo" @keydown.enter="$refs.botaoIncluirItem.focus()">
+                        <CustomInput inputmode="numeric" :propLargeAppend="true" v-model="periodo" label="Período" id="periodo" name="periodo" @keydown.enter="$refs.botaoIncluirItem.focus()">
                             <template #append>
                                 <CustomSelect
                                     :options="[
