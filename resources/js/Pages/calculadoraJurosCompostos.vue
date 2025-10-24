@@ -115,7 +115,7 @@ export default {
             self.montanteFinal = isNaN(parseFloat(M)) ? 'R$ 0,00' : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             self.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             self.totalEmJuros = totalEmJuros.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('montanteDiv').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('montanteDiv').scrollIntoView({ behavior: 'smooth', block: 'center' });
         },
     },
 };
