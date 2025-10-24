@@ -5,24 +5,24 @@
             <div class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
                     <div class="sm:col-span-4 text-center text-2xl">
-                        <legend class="text-white">Calculadora juros compostos</legend>
+                        <legend class="text-slate-900 dark:text-white">Calculadora juros compostos</legend>
                     </div>
-                    <div class="sm:col-span-4 justify-items-center">
+                    <div class="sm:col-span-4 justify-items-center" v-if="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
                         <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                             <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-white">Valor investido</dt>
+                                <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Valor investido</dt>
                                 <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                     {{ valorTotalInvestido }}
                                 </dd>
                             </div>
-                            <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-sky-500">Montante final</dt>
-                                <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-sky-500">
+                            <div id="montanteDiv" class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
+                                <dt class="text-2xl font-semibold text-sky-500">Montante final</dt>
+                                <dd class="order-first text-3xl font-semibold tracking-tight text-sky-500">
                                     {{ montanteFinal }}
                                 </dd>
                             </div>
                             <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                <dt class="text-2xl font-semibold text-slate-600 dark:text-white">Total em juros</dt>
+                                <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Total em juros</dt>
                                 <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                     {{ totalEmJuros }}
                                 </dd>
@@ -112,9 +112,10 @@ export default {
             const valorTotalInvestido = C + A * t;
             const totalEmJuros = M - valorTotalInvestido;
 
-            self.montanteFinal = M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            self.montanteFinal = isNaN(parseFloat(M)) ? 'R$ 0,00' : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             self.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             self.totalEmJuros = totalEmJuros.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('montanteDiv').scrollIntoView({ behavior: 'smooth' });
         },
     },
 };
