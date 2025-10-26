@@ -11,6 +11,7 @@ import ModalMedium from './Components/ModalMedium.vue';
 import CustomInput from './Components/CustomInput.vue';
 import CustomSelect from './Components/CustomSelect.vue';
 import CustomTextArea from './Components/CustomTextArea.vue';
+import CustomCheckbox from './Components/CustomCheckbox.vue';
 import msg from './Plugins/msg';
 import GlobalMsg from './Components/GlobalMsg.vue';
 import Table from './Components/Table.vue';
@@ -48,6 +49,7 @@ createInertiaApp({
         vueApp.component('CustomInput', CustomInput);
         vueApp.component('CustomSelect', CustomSelect);
         vueApp.component('CustomTextArea', CustomTextArea);
+        vueApp.component('CustomCheckbox', CustomCheckbox);
         vueApp.component('GlobalMsg', GlobalMsg);
         vueApp.component('Table', Table);
 

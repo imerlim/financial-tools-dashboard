@@ -5,7 +5,7 @@
         <header class="absolute inset-x-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
-                    <a href="#" class="-m-1.5 p-1.5">
+                    <a href="/" class="-m-1.5 p-1.5">
                         <img class="h-8 w-auto" src="../../../storage/app/public/logo_aminia.jpg" alt="Logo" />
                     </a>
                 </div>
@@ -349,6 +349,8 @@ body {
 
 <script>
 export default {
+    layout: null,
+
     data() {
         return {
             openDrop1: false,

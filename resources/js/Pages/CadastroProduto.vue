@@ -3,8 +3,42 @@
         <GlobalMsg></GlobalMsg>
         <main>
             <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
-                    <div class="sm:col-span-6 text-center text-2xl mt-10">
+                <!-- <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
+                    <div class="sm:col-span-6 text-xl">
+                        <legend class="text-slate-900 dark:text-white">Calculo preço de custo ingredientes</legend>
+                    </div>
+
+                    <div class="sm:col-span-1 sm:col-start-1">
+                        <CustomInput inputmode="numeric" type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço" id="custo" name="custo" maxlength="10">
+                            <template #prepend>
+                                <span class="text-base">R$</span>
+                            </template>
+                        </CustomInput>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                        <CustomInput :propLargeAppend="true" inputmode="numeric" type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Qtd (gramas)" id="custo" name="custo" maxlength="10">
+                            <template #append>
+                                <CustomSelect
+                                    :options="[
+                                        { label: 'Gramas', value: 'Gramas' },
+                                        { label: 'Ml', value: 'Ml' },
+                                    ]"
+                                    v-model="taxaJurosSelect"
+                                    id="taxaJurosSelect"
+                                    name="taxaJurosSelect"
+                                ></CustomSelect>
+                            </template>
+                        </CustomInput>
+                    </div>
+
+                    <div class="sm:col-span-6">
+                        <Table :headers="headersCaixa" :items="itemsCaixa" :per-page="5" :show-search="true" :loading="loadCaixa" :multi-select="false" />
+                    </div>
+                </div> -->
+
+                <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
+                    <div class="sm:col-span-6 text-xl">
                         <legend class="text-slate-900 dark:text-white">{{ tituloMargem }}</legend>
                     </div>
 
@@ -14,7 +48,6 @@
                             v-model="selectTipoMargem"
                             id="selectTipoMargem"
                             name="selectTipoMargem"
-                            label="Tipo margem"
                             :options="[
                                 { label: 'Margem venda', value: 'mlv' },
                                 { label: 'Margem custo', value: 'mlc' },
@@ -22,16 +55,15 @@
                         >
                         </CustomSelect>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
-                    <div class="sm:col-span-1">
+                    <div class="sm:col-span-1 sm:col-start-1">
                         <CustomInput inputmode="numeric" type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço de custo" id="custo" name="custo" maxlength="10">
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
+
                     <div class="sm:col-span-1">
                         <CustomInput inputmode="numeric" @change="calculaPrecoVenda()" :formata="true" v-model="margem" label="Margem" id="margem" name="margem">
                             <template #append>
@@ -67,9 +99,6 @@
                             </template>
                         </CustomInput>
                     </div>
-                    <div class="sm:col-span-6">
-                        <Table :headers="headersCaixa" :items="itemsCaixa" :per-page="5" :show-search="true" :loading="loadCaixa" :multi-select="false" />
-                    </div>
                 </div>
             </div>
         </main>
@@ -88,6 +117,10 @@ export default {
             lucro: null,
             taxaIfood: null,
             margemLiquida: null,
+
+            /* ---------------------- */
+            checkQtd: false,
+            labelQtd: 'Qtd em gramas',
 
             loadCaixa: false,
             headersCaixa: [
@@ -277,7 +310,7 @@ export default {
 
             const lucroBruto = preco - custo - valorDesconto;
 
-            const margemLiq = (lucroBruto / preco) * 100;
+            const margemLiq = this.selectTipoMargem == 'mlv' ? (lucroBruto / preco) * 100 : (lucroBruto / custo) * 100;
 
             self.margemLiquida = margemLiq;
             self.lucro = lucroBruto;

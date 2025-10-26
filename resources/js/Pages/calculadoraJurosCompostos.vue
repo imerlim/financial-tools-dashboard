@@ -3,7 +3,7 @@
         <GlobalMsg></GlobalMsg>
         <main>
             <div class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-11 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
                     <div class="sm:col-span-4 text-center text-2xl">
                         <legend class="text-slate-900 dark:text-white">Calculadora juros compostos</legend>
                     </div>

@@ -150,7 +150,7 @@ const iconSizeClass = computed(() => {
                     <input v-else :id="id" ref="fieldRef" :inputmode="inputmode" :name="name" :type="type" :accept="accept" :placeholder="placeholder" :disabled="disabled" :required="required" :maxlength="maxlength" :value="props.formata ? formatarMoeda(modelValue) : modelValue" autocomplete="off" class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none" :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]" :max="type === 'date' ? '9999-12-31' : null" @change="updateValue" />
 
                     <!-- Append -->
-                    <div v-if="$slots.append || append" class="flex items-end justify-end gap-1 text-slate-700 dark:text-slate-300" :class="[textSize, propLargeAppend ? 'w-40' : 'w-4']">
+                    <div v-if="$slots.append || append" class="flex items-end justify-end gap-1 text-slate-700 dark:text-slate-300" :class="[textSize, propLargeAppend ? 'w-60' : 'w-4']">
                         <slot name="append">
                             {{ append }}
                         </slot>
