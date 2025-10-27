@@ -166,17 +166,17 @@ const iconSizeClass = computed(() => {
                 </button>
 
                 <!-- Clear -->
-                <button v-if="showClear" type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-clear')">
+                <button v-if="showClear" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-clear')">
                     <BackspaceIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
 
                 <!-- Search -->
-                <button v-if="showSearch" type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-search')">
+                <button v-if="showSearch" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-search')">
                     <MagnifyingGlassIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
 
                 <!-- Add -->
-                <button v-if="showAdd" type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-add')">
+                <button v-if="showAdd" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-add')">
                     <PlusIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
             </div>

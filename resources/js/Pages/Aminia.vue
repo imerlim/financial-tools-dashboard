@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-slate-100 dark:bg-slate-800">
+    <div class="bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <!-- Header -->
         <header class="absolute inset-x-0 z-50">
@@ -20,7 +20,7 @@
                             <a href="https://www.youtube.com/@aminiaprod" target="_blank" class="cursor-pointer rounded-md mx-2 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:text-yellow-400 focus:outline-none"> Black Music </a>
                         </div>
                         <!-- DROPDOWN -->
-                        <div v-show="openDrop1" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-slate-100 dark:bg-slate-700 ring-1 ring-black ring-opacity-5 z-50">
+                        <div v-show="openDrop1" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-slate-700 ring-1 ring-black ring-opacity-5 z-50">
                             <div class="py-1 px-2 text-yellow-400">
                                 <button @click="openModalDescricao = true" class="cursor-pointer rounded-md text-sm font-semibold text-slate-200 shadow-xs hover:text-yellow-400 focus:outline-none">O que é Aminia Produções</button>
                                 <button @click="openModalContato = true" class="cursor-pointer rounded-md text-sm font-semibold text-slate-200 shadow-xs hover:text-yellow-400 focus:outline-none">Contato</button>
@@ -75,7 +75,7 @@
 
         <main>
             <!-- Hero section -->
-            <div class="relative isolate overflow-hidden bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:pt-0">
+            <div class="relative isolate overflow-hidden bg-slate-800 min-h-screen pt-32 sm:pt-0">
                 <img src="../../../storage/app/public/capateste1.png" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
 
                 <div class="absolute inset-0 bg-black/50-z-10"></div>
@@ -105,8 +105,8 @@
             </div>
 
             <!-- NOVA CAMADA -->
-            <div class="relative z-10 bg-slate-100 dark:bg-slate-800 w-screen h-screen">
-                <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800" aria-hidden="true"></div>
+            <div class="relative z-10 bg-slate-800 w-screen h-screen">
+                <div class="absolute inset-0 bg-slate-800" aria-hidden="true"></div>
 
                 <div class="relative z-20 flex justify-center items-center w-full h-full">
                     <div class="px-6 text-center">
@@ -135,7 +135,7 @@
       </div> -->
 
             <!-- Testimonial section -->
-            <div class="relative z-10 bg-slate-100 dark:bg-slate-800 pt-32 pb-20 sm:pt-56 sm:pb-24 xl:pb-0">
+            <div class="relative z-10 bg-slate-800 pt-32 pb-20 sm:pt-56 sm:pb-24 xl:pb-0">
                 <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
                     <div class="absolute top-[calc(50%-36rem)] left-[calc(50%-19rem)] transform-gpu blur-3xl">
                         <div class="aspect-1097/1023 w-274.25 bg-linear-to-r from-[#ff4694] to-[#776fff] opacity-25" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
@@ -145,7 +145,7 @@
                     <div class="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
                         <div class="relative aspect-2/1 h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
                             <div class="relative w-full h-64 md:h-80 xl:h-auto">
-                                <img class="w-full h-full rounded-2xl bg-slate-100 dark:bg-slate-800 object-contain shadow-2xl" src="/storage/Ceo_Aminia.jpeg" alt="Diretor Blackwood" />
+                                <img class="w-full h-full rounded-2xl bg-slate-800 object-contain shadow-2xl" src="/storage/Ceo_Aminia.jpeg" alt="Diretor Blackwood" />
                             </div>
                         </div>
                     </div>

@@ -132,7 +132,7 @@ const iconSizeClass = computed(() => {
 
                 <!-- Clear -->
                 <div v-if="showClear" class="relative group">
-                    <button type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-clear')">
+                    <button type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-merlimSystem-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-clear')">
                         <BackspaceIcon :class="iconSizeClass" aria-hidden="true" />
                     </button>
                     <span class="tooltip">Limpar</span>
@@ -140,7 +140,7 @@ const iconSizeClass = computed(() => {
 
                 <!-- Search -->
                 <div v-if="showSearch" class="relative group">
-                    <button type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-search')">
+                    <button type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-search')">
                         <MagnifyingGlassIcon :class="iconSizeClass" aria-hidden="true" />
                     </button>
                     <span class="tooltip">Buscar</span>
@@ -148,7 +148,7 @@ const iconSizeClass = computed(() => {
 
                 <!-- Add -->
                 <div v-if="showAdd" class="relative group">
-                    <button type="button" :class="`rounded-md bg-indigo-600 text-white shadow-xs hover:bg-indigo-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-600 ${buttonSizeClass}`" @click="$emit('on-add')">
+                    <button type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-add')">
                         <PlusIcon :class="iconSizeClass" aria-hidden="true" />
                     </button>
                     <span class="tooltip">Adicionar</span>

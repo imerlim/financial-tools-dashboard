@@ -6,10 +6,7 @@
                 <CustomInput v-model="searchQuery" type="text" placeholder="Buscar..." style="align-self: flex-end"> </CustomInput>
                 <div>
                     <label class="text-sm font-medium text-slate-700 dark:text-slate-400 mr-2">Itens por página:</label>
-                    <select
-                        v-model.number="localItemsPerPage"
-                        class="block w-full p-2 text-slate-900 border border-slate-300 rounded-lg bg-slate-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
+                    <select v-model.number="localItemsPerPage" class="block w-full p-2 text-slate-900 border border-slate-300 rounded-lg bg-slate-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option v-for="option in [5, 10, 20, 50]" :key="option" :value="option">
                             {{ option }}
                         </option>
@@ -24,12 +21,7 @@
             <table class="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
                 <thead class="bg-slate-50 dark:bg-slate-600">
                     <tr>
-                        <th
-                            v-for="(column, index) in headers"
-                            :key="index"
-                            class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white cursor-pointer"
-                            @click="sortColumn(column)"
-                        >
+                        <th v-for="(column, index) in headers" :key="index" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white cursor-pointer" @click="sortColumn(column)">
                             {{ column.label }}
                             <span v-if="sortBy === column.key">
                                 <i v-if="sortDirection === 'asc'" class="ml-2 fas fa-arrow-up" />
@@ -42,32 +34,15 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 bg-white dark:bg-slate-700">
-                    <tr
-                        v-for="(item, index) in paginatedItems"
-                        :key="index"
-                        :class="getRowClass(item)"
-                        :style="{ cursor: clickableRows ? 'pointer' : 'default' }"
-                        @click="handleRowClick(item)"
-                    >
-                        <td
-                            v-for="(column, colIndex) in headers"
-                            :key="colIndex"
-                            class="px-3 py-5 text-sm text-slate-500 dark:text-slate-300"
-                        >
+                    <tr v-for="(item, index) in paginatedItems" :key="index" :class="getRowClass(item)" :style="{ cursor: clickableRows ? 'pointer' : 'default' }" @click="handleRowClick(item)">
+                        <td v-for="(column, colIndex) in headers" :key="colIndex" class="px-3 py-5 text-sm text-slate-500 dark:text-slate-300">
                             <div v-if="column.customRender">
                                 <slot :name="column.customRender" :item="item" />
                             </div>
                             <div v-else>
                                 <div v-if="column.keys && Array.isArray(column.keys)">
                                     <div v-for="(subKey, subIndex) in column.keys" :key="subIndex">
-                                        <span
-                                            v-if="item[subKey]"
-                                            :class="
-                                                subIndex === 0
-                                                    ? 'font-semibold text-slate-900 dark:text-white'
-                                                    : 'text-slate-500 dark:text-slate-400'
-                                            "
-                                        >
+                                        <span v-if="item[subKey]" :class="subIndex === 0 ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'">
                                             {{ item[subKey] }}
                                         </span>
                                     </div>
@@ -78,20 +53,8 @@
                             </div>
                         </td>
                         <td v-if="showActions" class="relative py-5 pr-4 pl-3 text-right text-sm sm:pr-6">
-                            <button
-                                :class="[
-                                    'hover:opacity-80 transition',
-                                    actionType === 'delete'
-                                        ? 'text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300'
-                                        : 'text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300',
-                                ]"
-                                @click="$emit(actionType === 'delete' ? 'delete' : 'edit', item)"
-                            >
-                                <component
-                                    :is="actionType === 'delete' ? 'TrashIcon' : 'PencilSquareIcon'"
-                                    class="size-5 shrink-0"
-                                    aria-hidden="true"
-                                />
+                            <button :class="['hover:opacity-80 transition', actionType === 'delete' ? 'text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300' : 'text-sky-600 dark:text-sky-400 hover:text-sky-900 dark:hover:text-sky-300']" @click="$emit(actionType === 'delete' ? 'delete' : 'edit', item)">
+                                <component :is="actionType === 'delete' ? 'TrashIcon' : 'PencilSquareIcon'" class="size-5 shrink-0" aria-hidden="true" />
                             </button>
                         </td>
                     </tr>
@@ -104,28 +67,14 @@
             <div class="flex items-center space-x-1 mt-2 sm:mt-0">
                 <Tooltip text="Primeira página">
                     <button :disabled="currentPage === 1" class="btn" @click="changePage(1)">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
                         </svg>
                     </button>
                 </Tooltip>
                 <Tooltip text="Página anterior">
                     <button :disabled="currentPage === 1" class="btn" @click="prevPage">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
@@ -135,10 +84,7 @@
                 <span v-if="currentPage > 4" class="text-sm text-slate-400 px-1">...</span>
 
                 <template v-for="page in paginationRange" :key="page">
-                    <button
-                        :class="['btn', page === currentPage ? 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white' : '']"
-                        @click="changePage(page)"
-                    >
+                    <button :class="['btn', page === currentPage ? 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white' : '']" @click="changePage(page)">
                         {{ page }}
                     </button>
                 </template>
@@ -150,14 +96,7 @@
 
                 <Tooltip text="Página seguinte">
                     <button :disabled="currentPage === totalPages" class="btn" @click="nextPage">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
@@ -165,14 +104,7 @@
 
                 <Tooltip text="Última página">
                     <button :disabled="currentPage === totalPages" class="btn" @click="changePage(totalPages)">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>

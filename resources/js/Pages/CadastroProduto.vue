@@ -79,7 +79,7 @@
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaIfood" label="Taxa" id="taxaIfood" name="taxaIfood" title="Taxa sobre preço de venda">
+                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaDesconto" label="Desconto" id="taxaDesconto" name="taxaDesconto" title="Taxa sobre preço de venda">
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
@@ -115,7 +115,7 @@ export default {
             margem: null,
             precoVenda: null,
             lucro: null,
-            taxaIfood: null,
+            taxaDesconto: null,
             margemLiquida: null,
 
             /* ---------------------- */
@@ -154,7 +154,7 @@ export default {
             self.margemLiquida = null;
             self.precoVenda = null;
             self.lucro = null;
-            self.taxaIfood = null;
+            self.taxaDesconto = null;
             if (self.selectTipoMargem == 'mlc') {
                 self.tituloMargem = 'Margem sobre o preço de custo';
             } else {
@@ -292,12 +292,12 @@ export default {
         descontoIfood() {
             let self = this;
 
-            const taxa = isNaN(parseFloat(self.taxaIfood) / 100) ? 0 : parseFloat(self.taxaIfood) / 100;
+            const taxa = isNaN(parseFloat(self.taxaDesconto) / 100) ? 0 : parseFloat(self.taxaDesconto) / 100;
             const preco = parseFloat(self.precoVenda);
             const custo = parseFloat(self.custo);
 
             if (taxa >= 1) {
-                self.taxaIfood = null;
+                self.taxaDesconto = null;
                 return self.$msg.warning('Taxa do ifood precisa ser menor do que o 100%.');
             }
 

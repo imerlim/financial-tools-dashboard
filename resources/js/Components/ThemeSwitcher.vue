@@ -27,8 +27,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <button @click="toggleTheme" class="rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    <button @click="toggleTheme" class="rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
         <SunIcon v-if="isDarkMode" class="h-6 w-6 text-yellow-500" />
-        <MoonIcon v-else class="h-6 w-6 text-indigo-700" />
+        <MoonIcon v-else class="h-6 w-6 text-sky-700" />
     </button>
 </template>
