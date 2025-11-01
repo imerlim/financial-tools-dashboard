@@ -2,7 +2,7 @@
     <div class="bg-slate-100 dark:bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <main>
-            <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y">
+            <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen py-5 sm:px-5 sm:py-2 divide-y">
                 <!-- <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                     <div class="sm:col-span-6 text-xl">
                         <legend class="text-slate-900 dark:text-white">Calculo preço de custo ingredientes</legend>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import NavBar from './NavBar.vue';
+import Footer from './Footer.vue';
 import { route } from 'ziggy-js';
 import { usePage } from '@inertiajs/vue3'; // <--- NOVO IMPORT
 
@@ -31,7 +32,7 @@ const loginUrl = computed(() => (typeof window !== 'undefined' && window.Ziggy ?
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div class="min-h-screen flex flex-col bg-white dark:bg-slate-850">
         <!-- RENDERIZAÇÃO CONDICIONAL: NavBar só é exibida se showNavbar for true -->
         <NavBar v-if="showNavbar" :home-url="homeUrl" :login-url="loginUrl" />
 
@@ -40,8 +41,10 @@ const loginUrl = computed(() => (typeof window !== 'undefined' && window.Ziggy ?
             Se a NavBar estiver visível (showNavbar é true), usa pt-16.
             Se a NavBar estiver oculta, usa pt-0 para que o conteúdo comece no topo.
         -->
-        <main :class="['flex-1 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200', showNavbar ? 'pt-16' : 'pt-0']">
+        <main :class="['flex-1 bg-white dark:bg-slate-850 text-gray-800 dark:text-gray-200', showNavbar ? 'pt-16' : 'pt-0']">
             <slot />
         </main>
+
+        <Footer></Footer>
     </div>
 </template>
