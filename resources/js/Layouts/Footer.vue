@@ -9,8 +9,8 @@ const props = defineProps({
 
 <template>
     <footer class="bg-white dark:bg-slate-850 border-t border-black dark:border-white">
-        <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
-            <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-20">
+            <div class="xl:grid xl:grid-cols-3 xl:gap-5">
                 <div class="m-2 flex justify-center space-x-6 xl:col-span-3">
                     <!-- Instagram -->
                     <a
@@ -54,10 +54,10 @@ const props = defineProps({
                             />
                         </svg>
                     </a>
-                    <div>
-                        <p class="text-xl text-slate-900 dark:text-white">Contato</p>
-                        <p class="text-xl text-slate-900 dark:text-white">i.merlim@totalcontrol.com.br</p>
-                    </div>
+                </div>
+
+                <div class="m-2 flex justify-center space-x-6 xl:col-span-3">
+                    <p class="text-xl text-slate-900 dark:text-white">i.merlim@totalcontrol.com.br</p>
                 </div>
             </div>
         </div>
