@@ -4,6 +4,7 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
+import { Ziggy } from './ziggy';
 import { Head, Link } from '@inertiajs/vue3';
 import { UsersIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 
@@ -19,8 +20,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import '@tailwindplus/elements';
 
 createInertiaApp({
-    title: title => (title ? `${title} - Minha Aplicação` : 'Minha Aplicação'),
-
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
         const page = pages[`./Pages/${name}.vue`];
@@ -40,7 +39,7 @@ createInertiaApp({
         vueApp;
         vueApp.use(plugin);
         vueApp.use(msg); // ✅ CORREÇÃO: Use o plugin 'msg' aqui!
-        vueApp.use(ZiggyVue);
+        vueApp.use(ZiggyVue, Ziggy);
         vueApp.component('Head', Head);
         vueApp.component('Link', Link);
         vueApp.component('UsersIcon', UsersIcon);

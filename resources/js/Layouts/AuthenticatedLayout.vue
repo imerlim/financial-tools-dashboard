@@ -21,6 +21,12 @@ const showNavbar = computed(() => {
     // Assim, se a rota for '/login' ou '/aminia', showNavbar será false.
     return !rotasSemNavbar.some(routePath => currentPath.startsWith(routePath));
 });
+
+const showFooter = computed(() => {
+    const currentPath = page.url;
+
+    return !rotasSemNavbar.some(routePath => currentPath.startsWith(routePath));
+});
 // Fim da Lógica de Visibilidade
 
 // Estado para exemplo (mobile menu, etc.) caso queira passar para NavBar
@@ -41,10 +47,15 @@ const loginUrl = computed(() => (typeof window !== 'undefined' && window.Ziggy ?
             Se a NavBar estiver visível (showNavbar é true), usa pt-16.
             Se a NavBar estiver oculta, usa pt-0 para que o conteúdo comece no topo.
         -->
-        <main :class="['flex-1 bg-white dark:bg-slate-850 text-gray-800 dark:text-gray-200', showNavbar ? 'pt-16' : 'pt-0']">
+        <main
+            :class="[
+                'flex-1 bg-white dark:bg-slate-850 text-gray-800 dark:text-gray-200',
+                showNavbar ? 'pt-16' : 'pt-0',
+            ]"
+        >
             <slot />
         </main>
 
-        <Footer></Footer>
+        <Footer v-if="showFooter"></Footer>
     </div>
 </template>

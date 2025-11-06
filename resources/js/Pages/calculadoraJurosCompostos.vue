@@ -1,4 +1,5 @@
 <template>
+    <Head title="Calculadora juros compostos" />
     <div class="bg-slate-100 dark:bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <main>
@@ -146,6 +147,12 @@ export default {
             valorTotalInvestido: 'R$ 0,00',
             totalEmJuros: 'R$ 0,00',
         };
+    },
+
+    mounted() {
+        setTimeout(() => {
+            this.valorInicial = 600000;
+        }, 3000);
     },
 
     methods: {

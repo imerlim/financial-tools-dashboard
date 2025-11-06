@@ -136,21 +136,75 @@ const iconSizeClass = computed(() => {
         <div class="flex items-center w-full" :class="{ 'gap-2': hasButtons }">
             <!-- Campo de input -->
             <div class="flex-grow min-w-0">
-                <div class="flex items-center w-full overflow-hidden rounded-lg bg-slate-50 dark:bg-slate-700" :class="[propLargeAppend ? 'px-0' : 'px-2', error ? 'border border-red-500 focus-within:ring-red-500' : 'border border-slate-300 dark:border-slate-600 focus-within:ring-blue-500 focus-within:border-blue-500', 'focus-within:ring-1']">
+                <div
+                    class="flex items-center w-full overflow-hidden rounded-lg bg-slate-50 dark:bg-slate-700"
+                    :class="[
+                        propLargeAppend ? 'px-0' : 'px-2',
+                        error
+                            ? 'border border-red-500 focus-within:ring-red-500'
+                            : 'border border-slate-300 dark:border-slate-600 focus-within:ring-blue-500 focus-within:border-blue-500',
+                        'focus-within:ring-1',
+                    ]"
+                >
                     <!-- Prepend -->
-                    <div v-if="$slots.prepend || prepend" class="flex items-center gap-1 select-none text-slate-700 dark:text-slate-300" :class="textSize">
+                    <div
+                        v-if="$slots.prepend || prepend"
+                        class="flex items-center gap-1 select-none text-slate-700 dark:text-slate-300"
+                        :class="textSize"
+                    >
                         <slot name="prepend">
                             {{ prepend }}
                         </slot>
                     </div>
 
                     <!-- Input -->
-                    <component :is="mask ? 'input' : 'input'" v-if="mask" :id="id" ref="fieldRef" v-mask="mask" :inputmode="inputmode" :name="name" :type="type" :accept="accept" :placeholder="placeholder" :disabled="disabled" :required="required" :maxlength="maxlength" :value="props.formata ? formatarMoeda(modelValue) : modelValue" autocomplete="off" class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none" :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]" @change="updateValue" />
+                    <component
+                        :is="mask ? 'input' : 'input'"
+                        v-if="mask"
+                        :id="id"
+                        ref="fieldRef"
+                        v-mask="mask"
+                        :inputmode="inputmode"
+                        :name="name"
+                        :type="type"
+                        :accept="accept"
+                        :placeholder="placeholder"
+                        :disabled="disabled"
+                        :required="required"
+                        :maxlength="maxlength"
+                        :value="props.formata ? formatarMoeda(modelValue) : modelValue"
+                        autocomplete="off"
+                        class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
+                        :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
+                        @change="updateValue"
+                    />
 
-                    <input v-else :id="id" ref="fieldRef" :inputmode="inputmode" :name="name" :type="type" :accept="accept" :placeholder="placeholder" :disabled="disabled" :required="required" :maxlength="maxlength" :value="props.formata ? formatarMoeda(modelValue) : modelValue" autocomplete="off" class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none" :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]" :max="type === 'date' ? '9999-12-31' : null" @change="updateValue" />
+                    <input
+                        v-else
+                        :id="id"
+                        ref="fieldRef"
+                        :inputmode="inputmode"
+                        :name="name"
+                        :type="type"
+                        :accept="accept"
+                        :placeholder="placeholder"
+                        :disabled="disabled"
+                        :required="required"
+                        :maxlength="maxlength"
+                        :value="props.formata ? formatarMoeda(modelValue) : modelValue"
+                        autocomplete="off"
+                        class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
+                        :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
+                        :max="type === 'date' ? '9999-12-31' : null"
+                        @change="updateValue"
+                    />
 
                     <!-- Append -->
-                    <div v-if="$slots.append || append" class="flex items-end justify-end gap-1 text-slate-700 dark:text-slate-300" :class="[textSize, propLargeAppend ? 'w-60' : 'w-4']">
+                    <div
+                        v-if="$slots.append || append"
+                        class="flex items-end justify-end gap-1 text-slate-700 dark:text-slate-300"
+                        :class="[textSize, propLargeAppend ? 'w-60' : 'w-4']"
+                    >
                         <slot name="append">
                             {{ append }}
                         </slot>
@@ -161,22 +215,42 @@ const iconSizeClass = computed(() => {
             <!-- Botões - só renderiza se houver botões visíveis -->
             <div v-if="hasButtons" class="flex-shrink-0 flex items-center gap-2">
                 <!-- Trash -->
-                <button v-if="showTrash" type="button" :class="`rounded-md bg-red-600 text-white shadow-xs hover:bg-red-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-red-600 ${buttonSizeClass}`" @click="$emit('on-trash')">
+                <button
+                    v-if="showTrash"
+                    type="button"
+                    :class="`rounded-md bg-red-600 text-white shadow-xs hover:bg-red-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-red-600 ${buttonSizeClass}`"
+                    @click="$emit('on-trash')"
+                >
                     <TrashIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
 
                 <!-- Clear -->
-                <button v-if="showClear" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-clear')">
+                <button
+                    v-if="showClear"
+                    type="button"
+                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    @click="$emit('on-clear')"
+                >
                     <BackspaceIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
 
                 <!-- Search -->
-                <button v-if="showSearch" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-search')">
+                <button
+                    v-if="showSearch"
+                    type="button"
+                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    @click="$emit('on-search')"
+                >
                     <MagnifyingGlassIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
 
                 <!-- Add -->
-                <button v-if="showAdd" type="button" :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`" @click="$emit('on-add')">
+                <button
+                    v-if="showAdd"
+                    type="button"
+                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    @click="$emit('on-add')"
+                >
                     <PlusIcon :class="iconSizeClass" aria-hidden="true" />
                 </button>
             </div>
