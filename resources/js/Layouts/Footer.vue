@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <footer class="bg-white dark:bg-slate-850 border-t border-black dark:border-white">
+    <footer class="bg-white dark:bg-slate-950 border-t border-black dark:border-white">
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
             <div class="m-2 flex justify-center space-x-6 xl:col-span-6">
                 <!-- Instagram -->

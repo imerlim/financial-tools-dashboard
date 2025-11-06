@@ -39,11 +39,24 @@ const navigation = [
 ];
 
 const products = [
-    { name: 'Aminia', description: 'Music website', href: '/aminia', icon: ChartPieIcon },
+    {
+        name: 'Aminia',
+        description: 'Music website',
+        href: '/aminia',
+        // icon: ChartPieIcon
+        icon: CursorArrowRaysIcon,
+    },
     {
         name: 'Calculadora de margem',
         description: 'Calcula margem de lucro de produtos',
         href: '/calculo-margem',
+        icon: CursorArrowRaysIcon,
+    },
+    {
+        name: 'Calculadora de juros',
+        description: 'Simulador de Juros Compostos com Aportes Mensais',
+        href: '/calculadora-juros-compostos',
+        // icon: CursorArrowRaysIcon,
         icon: CursorArrowRaysIcon,
     },
     // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
@@ -57,9 +70,9 @@ const callsToAction = [
 </script>
 
 <template>
-    <header class="bg-white dark:bg-slate-850 fixed top-0 z-50 w-full p-2">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-            <div class="flex lg:flex-1">
+    <header class="bg-white dark:bg-slate-950 fixed top-0 z-50 w-full p-2">
+        <nav class="mx-auto flex items-center justify-between p-2 sm:p-5" aria-label="Global">
+            <div class="flex lg:flex-1 sm:ml-5">
                 <a href="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
                     <img

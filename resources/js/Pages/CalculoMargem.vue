@@ -1,8 +1,10 @@
 <template>
-    <div class="bg-slate-100 dark:bg-slate-800">
+    <div class="bg-slate-100 dark:bg-slate-900">
         <GlobalMsg></GlobalMsg>
         <main>
-            <div class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-800 min-h-screen py-5 sm:px-5 sm:py-2 divide-y">
+            <div
+                class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-900 min-h-screen py-5 sm:px-5 sm:py-2 divide-y"
+            >
                 <!-- <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                     <div class="sm:col-span-6 text-xl">
                         <legend class="text-slate-900 dark:text-white">Calculo preço de custo ingredientes</legend>
@@ -57,7 +59,17 @@
                     </div>
 
                     <div class="sm:col-span-1 sm:col-start-1">
-                        <CustomInput inputmode="numeric" type="text" @change="calculaPrecoVenda()" :formata="true" v-model="custo" label="Preço de custo" id="custo" name="custo" maxlength="10">
+                        <CustomInput
+                            inputmode="numeric"
+                            type="text"
+                            @change="calculaPrecoVenda()"
+                            :formata="true"
+                            v-model="custo"
+                            label="Preço de custo"
+                            id="custo"
+                            name="custo"
+                            maxlength="10"
+                        >
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
@@ -65,35 +77,77 @@
                     </div>
 
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" @change="calculaPrecoVenda()" :formata="true" v-model="margem" label="Margem" id="margem" name="margem">
+                        <CustomInput
+                            inputmode="numeric"
+                            @change="calculaPrecoVenda()"
+                            :formata="true"
+                            v-model="margem"
+                            label="Margem"
+                            id="margem"
+                            name="margem"
+                        >
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" @change="calculaMargens()" :formata="true" v-model="precoVenda" label="Preço de venda" id="precoVenda" name="precoVenda">
+                        <CustomInput
+                            inputmode="numeric"
+                            @change="calculaMargens()"
+                            :formata="true"
+                            v-model="precoVenda"
+                            label="Preço de venda"
+                            id="precoVenda"
+                            name="precoVenda"
+                        >
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" @change="descontoIfood()" :formata="true" v-model="taxaDesconto" label="Desconto" id="taxaDesconto" name="taxaDesconto" title="Taxa sobre preço de venda">
+                        <CustomInput
+                            inputmode="numeric"
+                            @change="descontoIfood()"
+                            :formata="true"
+                            v-model="taxaDesconto"
+                            label="Desconto"
+                            id="taxaDesconto"
+                            name="taxaDesconto"
+                            title="Taxa sobre preço de venda"
+                        >
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" disabled v-model="lucro" :formata="true" label="Lucro" id="lucro" name="lucro">
+                        <CustomInput
+                            inputmode="numeric"
+                            disabled
+                            v-model="lucro"
+                            :formata="true"
+                            label="Lucro"
+                            id="lucro"
+                            name="lucro"
+                        >
                             <template #prepend>
                                 <span class="text-base">R$</span>
                             </template>
                         </CustomInput>
                     </div>
                     <div class="sm:col-span-1">
-                        <CustomInput inputmode="numeric" disabled v-model="margemLiquida" :formata="true" label="Margem líquida" id="margemLiquida" name="margemLiquida" title="Margem após desconto da taxa ifood">
+                        <CustomInput
+                            inputmode="numeric"
+                            disabled
+                            v-model="margemLiquida"
+                            :formata="true"
+                            label="Margem líquida"
+                            id="margemLiquida"
+                            name="margemLiquida"
+                            title="Margem após desconto da taxa ifood"
+                        >
                             <template #append>
                                 <span class="text-base">%</span>
                             </template>
