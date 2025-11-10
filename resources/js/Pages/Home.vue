@@ -31,6 +31,7 @@ onMounted(() => {
     <div class="w-full">
         <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900">
             <GoldenSpiral class="absolute inset-0 z-10"></GoldenSpiral>
+            <!-- <CuboScroll class="absolute inset-0 z-10"></CuboScroll> -->
 
             <div class="text-center mt-32 relative z-20">
                 <h1 class="js-title text-5xl font-bold text-white">Igor Merlim</h1>

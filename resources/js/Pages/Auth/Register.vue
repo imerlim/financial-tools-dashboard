@@ -26,7 +26,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
+                <!-- <InputLabel for="name" value="Name" />
 
                 <TextInput
                     id="name"
@@ -34,15 +34,25 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.name"
                     required
-                    autofocus
                     autocomplete="name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.name" /> -->
+
+                <CustomInput
+                    v-model="form.name"
+                    label="Nome completo"
+                    id="name"
+                    name="name"
+                    :autofocus="true"
+                    autocomplete="name"
+                    :required="true"
+                >
+                </CustomInput>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <!-- <InputLabel for="email" value="Email" />
 
                 <TextInput
                     id="email"
@@ -53,11 +63,21 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" /> -->
+
+                <CustomInput
+                    v-model="form.email"
+                    label="Email"
+                    id="email"
+                    name="email"
+                    autocomplete="username"
+                    :required="true"
+                >
+                </CustomInput>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <!-- <InputLabel for="password" value="Password" />
 
                 <TextInput
                     id="password"
@@ -68,14 +88,22 @@ const submit = () => {
                     autocomplete="new-password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password" /> -->
+
+                <CustomInput
+                    v-model="form.password"
+                    type="password"
+                    label="Senha"
+                    id="password"
+                    name="password"
+                    autocomplete="new-password"
+                    :required="true"
+                >
+                </CustomInput>
             </div>
 
             <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
+                <!-- <InputLabel for="password_confirmation" value="Confirm Password" />
 
                 <TextInput
                     id="password_confirmation"
@@ -86,10 +114,18 @@ const submit = () => {
                     autocomplete="new-password"
                 />
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" /> -->
+
+                <CustomInput
+                    v-model="form.password_confirmation"
+                    type="password"
+                    label="Confirmar senha"
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    autocomplete="new-password"
+                    :required="true"
+                >
+                </CustomInput>
             </div>
 
             <div class="mt-4 flex items-center justify-end">
@@ -100,11 +136,7 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
+                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Register
                 </PrimaryButton>
             </div>

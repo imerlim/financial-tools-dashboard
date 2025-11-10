@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from 'vue';
-
 const props = defineProps({
     homeUrl: { type: String, required: true },
     loginUrl: { type: String, required: true },
@@ -26,7 +24,7 @@ const props = defineProps({
                 </a>
 
                 <a
-                    href="https://www.linkedin.com/in/igor-merlim-62a83a388/"
+                    href="https://www.linkedin.com/in/igor-merlim/"
                     target="_blank"
                     class="text-slate-900 hover:text-sky-700 dark:text-white dark:hover:text-sky-700"
                 >

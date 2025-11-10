@@ -7,6 +7,7 @@ const props = defineProps({
     accept: String,
     id: String,
     name: String,
+    autocomplete: String,
     inputmode: String,
 
     type: {
@@ -37,6 +38,7 @@ const props = defineProps({
         default: 'text-base',
     },
     formata: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(['update:modelValue', 'on-search', 'on-clear', 'on-trash', 'on-add']);
@@ -159,9 +161,10 @@ const iconSizeClass = computed(() => {
 
                     <!-- Input -->
                     <component
-                        :is="mask ? 'input' : 'input'"
                         v-if="mask"
+                        :autofocus="autofocus"
                         :id="id"
+                        :is="mask ? 'input' : 'input'"
                         ref="fieldRef"
                         v-mask="mask"
                         :inputmode="inputmode"
@@ -173,7 +176,7 @@ const iconSizeClass = computed(() => {
                         :required="required"
                         :maxlength="maxlength"
                         :value="props.formata ? formatarMoeda(modelValue) : modelValue"
-                        autocomplete="off"
+                        :autocomplete="autocomplete"
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
                         @change="updateValue"
@@ -181,6 +184,7 @@ const iconSizeClass = computed(() => {
 
                     <input
                         v-else
+                        :autofocus="autofocus"
                         :id="id"
                         ref="fieldRef"
                         :inputmode="inputmode"
@@ -192,7 +196,7 @@ const iconSizeClass = computed(() => {
                         :required="required"
                         :maxlength="maxlength"
                         :value="props.formata ? formatarMoeda(modelValue) : modelValue"
-                        autocomplete="off"
+                        :autocomplete="autocomplete"
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
                         :max="type === 'date' ? '9999-12-31' : null"

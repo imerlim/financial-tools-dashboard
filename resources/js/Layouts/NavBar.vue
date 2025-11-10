@@ -21,7 +21,6 @@ import {
     SquaresPlusIcon,
     XMarkIcon,
 } from '@heroicons/vue/24/outline';
-import { defineProps } from 'vue';
 import ThemeSwitcher from '../Components/ThemeSwitcher.vue';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid';
 
@@ -163,7 +162,9 @@ const callsToAction = [
             </PopoverGroup>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <ThemeSwitcher class="mr-4" />
-                <!-- <a href="#" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log in <span aria-hidden="true">&rarr;</span></a> -->
+                <a href="#" class="text-sm/6 font-semibold text-gray-900 dark:text-white"
+                    >Log in <span aria-hidden="true">&rarr;</span></a
+                >
             </div>
         </nav>
         <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -219,7 +220,11 @@ const callsToAction = [
                         </div>
                         <div class="py-6">
                             <ThemeSwitcher class="mr-4" />
-                            <!-- <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5">Log in</a> -->
+                            <a
+                                href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
+                                >Log in</a
+                            >
                         </div>
                     </div>
                 </div>

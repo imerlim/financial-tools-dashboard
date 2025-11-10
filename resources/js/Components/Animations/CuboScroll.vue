@@ -34,6 +34,8 @@ onMounted(() => {
     const cubes = document.querySelectorAll('.cube');
     const cubeContainer = document.querySelector('.cubeContainer');
 
+    gsap.set(cubeContainer, { opacity: 0.4 });
+
     // 1. Animação de Rotação Individual (mantida)
     cubes.forEach(cube => {
         gsap.to(cube, {
@@ -65,7 +67,7 @@ onMounted(() => {
         scrollTrigger: {
             trigger: 'body', // O gatilho da animação é a rolagem do corpo
             start: '0', // Inicia quando o topo da página (body) atinge o topo da viewport
-            end: '6000', // Termina 1000 pixels abaixo do ponto de início
+            end: '1400', // Termina 1000 pixels abaixo do ponto de início
             scrub: 0.1, // Suaviza a animação com a rolagem
         },
     });
@@ -93,6 +95,7 @@ body {
 .cubeContainer {
     position: fixed;
     inset: 0;
+    opacity: 0.4;
 }
 
 .cubeOfCubes {
@@ -104,8 +107,8 @@ body {
 }
 
 .cube {
-    top: calc(50% - #{$cube-edge / 2});
-    left: calc(50% - #{$cube-edge / 2});
+    top: calc(50% - $cube-edge / 2);
+    left: calc(50% - $cube-edge / 2);
     width: $cube-edge;
     height: $cube-edge;
     transform: translate(var(--x), var(--y)) rotateY(-90deg) translateX(var(--z)) rotateY(90deg);
