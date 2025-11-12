@@ -10,7 +10,7 @@ const page = usePage();
 
 // 2. DEFINE AS ROTAS ONDE A NAVBAR DEVE SER OCULTADA
 // Adicione aqui qualquer rota que não deve mostrar a barra de navegação (ex: /login, /cadastro)
-const rotasSemNavbar = ['/login', '/cadastro', '/aminia']; // <-- '/aminia' ADICIONADO AQUI
+const rotasSemNavbar = ['/aminia']; // <-- '/aminia' ADICIONADO AQUI
 
 // 3. LÓGICA COMPUTADA PARA VISIBILIDADE
 const showNavbar = computed(() => {

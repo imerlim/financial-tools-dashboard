@@ -1,5 +1,5 @@
 <template>
-    <Head title="Calculadora juros compostos" />
+    <Head title="Aminia" />
     <div class="bg-slate-800">
         <GlobalMsg></GlobalMsg>
         <!-- Header -->
@@ -555,7 +555,6 @@ export default {
     watch: {},
 
     mounted() {
-        let self = this;
         document.addEventListener('click', this.handleClickOutside);
     },
 
@@ -565,24 +564,20 @@ export default {
 
     methods: {
         handleClickOutside(event) {
-            let self = this;
-
-            const dropdown1 = self.$refs.dropdownContainer1;
+            const dropdown1 = this.$refs.dropdownContainer1;
             if (dropdown1 && !dropdown1.contains(event.target)) {
-                self.openDrop1 = false;
+                this.openDrop1 = false;
             }
         },
 
         enviaMensagem() {
-            let self = this;
-
-            self.openModalContato = false;
+            this.openModalContato = false;
             axios
                 .post('envia-mensagem', {
-                    nome: self.nome,
-                    email: self.email,
-                    assunto: self.assunto,
-                    mensagem: self.mensagem,
+                    nome: this.nome,
+                    email: this.email,
+                    assunto: this.assunto,
+                    mensagem: this.mensagem,
                 })
                 .then(response => {
                     this.$msg.success('Mensagem enviada com sucesso!');

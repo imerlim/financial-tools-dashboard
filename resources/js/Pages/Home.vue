@@ -28,6 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <Head title="Igor Merlim" />
     <div class="w-full">
         <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900">
             <GoldenSpiral class="absolute inset-0 z-10"></GoldenSpiral>

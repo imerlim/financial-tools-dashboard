@@ -13,6 +13,7 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @inertiaHead
+    @routes
 </head>
 <body class="antialiased h-full">
     @inertia

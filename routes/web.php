@@ -7,21 +7,12 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('/');
+Route::inertia('/', 'Home')->name('/');
+Route::inertia('/aminia', 'Aminia')->name('Aminia');
+Route::inertia('/calculadora-juros-compostos', 'CalculadoraJurosCompostos')->name('calculadora.juros.compostos');
+Route::inertia('/calculadora-margem', 'CalculadoraMargem')->name('calculadora.margem');
+Route::inertia('/controle-financeiro', 'ControleFinanceiro')->name('controle.financeiro');
 
-Route::get('/aminia', function () {
-    return Inertia::render('Aminia');
-})->name('aminia');
-
-Route::get('/calculadora-juros-compostos', function () {
-    return Inertia::render('CalculadoraJurosCompostos');
-})->name('calculadora.juros.compostos');
-
-Route::get('/calculo-margem', function () {
-    return Inertia::render('CalculoMargem');
-})->name('calculo.margem');
 
 
 // Route::get('/', function () {

@@ -179,7 +179,7 @@ const iconSizeClass = computed(() => {
                         :autocomplete="autocomplete"
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
-                        @change="updateValue"
+                        v-on="props.formata ? { change: updateValue } : { input: updateValue }"
                     />
 
                     <input
@@ -200,7 +200,7 @@ const iconSizeClass = computed(() => {
                         class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
                         :max="type === 'date' ? '9999-12-31' : null"
-                        @change="updateValue"
+                        v-on="props.formata ? { change: updateValue } : { input: updateValue }"
                     />
 
                     <!-- Append -->
