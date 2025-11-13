@@ -49,6 +49,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 :formata="true"
                                 v-model="valorInicial"
                                 label="Valor inicial"
@@ -64,6 +65,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 :formata="true"
                                 v-model="valorMensal"
                                 label="Valor mensal"
@@ -79,6 +81,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 :propLargeAppend="true"
                                 v-model="taxaJuros"
                                 label="Taxa de juros"
@@ -102,6 +105,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 :propLargeAppend="true"
                                 v-model="periodo"
                                 label="Período"

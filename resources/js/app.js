@@ -6,7 +6,6 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
 import { Ziggy } from './ziggy';
 import { Head, Link } from '@inertiajs/vue3';
-import { UsersIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 
 import ModalMedium from './Components/ModalMedium.vue';
 import CustomInput from './Components/CustomInput.vue';
@@ -16,8 +15,11 @@ import CustomCheckbox from './Components/CustomCheckbox.vue';
 import msg from './Plugins/msg';
 import GlobalMsg from './Components/GlobalMsg.vue';
 import Table from './Components/Table.vue';
+import PrimaryButton from './Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import '@tailwindplus/elements';
+
+import icons from './heroicons.js';
 
 createInertiaApp({
     resolve: name => {
@@ -36,14 +38,16 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         const vueApp = createApp({ render: () => h(App, props) });
 
-        vueApp;
+        // 1. Plugins e Mixins
         vueApp.use(plugin);
-        vueApp.use(msg); // ✅ CORREÇÃO: Use o plugin 'msg' aqui!
+        vueApp.use(msg);
         vueApp.use(ZiggyVue, Ziggy);
+
+        // 2. Componentes Individuais
         vueApp.component('Head', Head);
         vueApp.component('Link', Link);
-        vueApp.component('UsersIcon', UsersIcon);
-        vueApp.component('XMarkIcon', XMarkIcon);
+        // vueApp.component('UsersIcon', UsersIcon); // Removidos, pois serão registrados abaixo
+        // vueApp.component('XMarkIcon', XMarkIcon);
         vueApp.component('ModalMedium', ModalMedium);
         vueApp.component('CustomInput', CustomInput);
         vueApp.component('CustomSelect', CustomSelect);
@@ -51,6 +55,15 @@ createInertiaApp({
         vueApp.component('CustomCheckbox', CustomCheckbox);
         vueApp.component('GlobalMsg', GlobalMsg);
         vueApp.component('Table', Table);
+        vueApp.component('PrimaryButton', PrimaryButton);
+        vueApp.component('AuthenticatedLayout', AuthenticatedLayout);
+
+        // 3. REGISTRO GLOBAL DE HEROICONS (Corrigido)
+        // Percorre o objeto 'icons' e registra cada um usando o nome (chave)
+        // e o componente (valor) na instância 'vueApp'.
+        Object.entries(icons).forEach(([name, component]) => {
+            vueApp.component(name, component); // <<< CORREÇÃO AQUI: Usando 'vueApp'
+        });
 
         vueApp.mount(el);
     },

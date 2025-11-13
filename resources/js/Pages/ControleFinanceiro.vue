@@ -9,32 +9,51 @@
                 <div class="container mx-auto sm:px-16">
                     <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                         <div class="sm:col-span-1">
+                            <CustomSelect
+                                @change="mudaTipoMargem()"
+                                v-model="selectTipo"
+                                id="selectTipo"
+                                name="selectTipo"
+                                label="Tipo"
+                                :options="[
+                                    { label: 'Entrada', value: 'E' },
+                                    { label: 'Saída', value: 'S' },
+                                ]"
+                            >
+                            </CustomSelect>
+                        </div>
+                        <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 :formata="true"
-                                v-model="valorInicial"
-                                label="Valor inicial"
-                                id="valorInicial"
-                                name="valorInicial"
-                                @keydown.enter="$refs.botaoIncluirItem.focus()"
+                                v-model="valor"
+                                label="Valor"
+                                id="valor"
+                                name="valor"
                             >
                                 <template #prepend>
                                     <span class="text-base">R$</span>
                                 </template>
                             </CustomInput>
                         </div>
+                        <div class="sm:col-span-2">
+                            <CustomSelect
+                                v-model="categoria"
+                                label="Categoria"
+                                id="categoria"
+                                name="categoria"
+                                :show-add="true"
+                            ></CustomSelect>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <CustomInput type="date" v-model="data" label="Data" id="data" name="data"></CustomInput>
+                        </div>
                         <div class="sm:col-span-6 flex justify-end self-end mt-5">
-                            <button
-                                ref="botaoIncluirItem"
-                                type="button"
-                                class="cursor-pointer rounded-md ml-1 px-3 py-2 text-base font-semibold bg-sky-800 text-white shadow-xs hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 inline-flex"
-                                @click="calculaJurosCompostos()"
-                            >
-                                Calcular
-                            </button>
+                            <PrimaryButton> Salvar </PrimaryButton>
                         </div>
 
-                        <div class="sm:col-span-6">
+                        <!-- <div class="sm:col-span-6">
                             <Table
                                 :headers="headersDadosFinanceiro"
                                 :items="itemsDadosFinanceiro"
@@ -43,7 +62,7 @@
                                 :loading="loadDadosFinanceiro"
                                 :multi-select="false"
                             />
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -75,11 +94,14 @@ export default {
                     PAG: 'teste',
                 },
             ],
+
+            selectTipo: null,
+            valor: null,
         };
     },
 
     methods: {
-        calculaJurosCompostos() {
+        salvaDadosFinanceiro() {
             this.itemsDadosFinanceiro.push({});
         },
     },

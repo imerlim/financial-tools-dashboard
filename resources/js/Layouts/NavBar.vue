@@ -13,13 +13,12 @@ import {
     PopoverPanel,
 } from '@headlessui/vue';
 import {
-    ArrowPathIcon,
+    MusicalNoteIcon,
     Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
+    PresentationChartLineIcon,
+    CalculatorIcon,
     XMarkIcon,
+    ChartPieIcon,
 } from '@heroicons/vue/24/outline';
 import ThemeSwitcher from '../Components/ThemeSwitcher.vue';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid';
@@ -42,21 +41,25 @@ const products = [
         name: 'Aminia',
         description: 'Music website',
         href: '/aminia',
-        // icon: ChartPieIcon
-        icon: CursorArrowRaysIcon,
+        icon: MusicalNoteIcon,
     },
     {
         name: 'Calculadora de margem',
         description: 'Calcula margem de lucro de produtos',
         href: '/calculadora-margem',
-        icon: CursorArrowRaysIcon,
+        icon: CalculatorIcon,
     },
     {
         name: 'Calculadora de juros',
-        description: 'Simulador de Juros Compostos com Aportes Mensais',
+        description: 'Planeje sua aposentadoria com investimentos',
         href: '/calculadora-juros-compostos',
-        // icon: CursorArrowRaysIcon,
-        icon: CursorArrowRaysIcon,
+        icon: PresentationChartLineIcon,
+    },
+    {
+        name: 'Controle financeiro',
+        description: 'Visualização de dados financeiros',
+        href: '/controle-financeiro',
+        icon: ChartPieIcon,
     },
     // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
     // { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
@@ -169,12 +172,12 @@ const callsToAction = [
                 </PopoverGroup>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                     <ThemeSwitcher class="mr-4" />
-                    <!-- <a href="/login" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white"
+                    <a href="/login" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white"
                         >Log in <span aria-hidden="true">&rarr;</span></a
                     >
                     <a href="/register" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white"
                         >Cadastre-se <span aria-hidden="true"></span
-                    ></a> -->
+                    ></a>
                 </div>
             </nav>
             <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -230,7 +233,7 @@ const callsToAction = [
                             </div>
                             <div class="py-6">
                                 <ThemeSwitcher class="mr-4" />
-                                <!-- <a
+                                <a
                                     href="/login"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                                     >Log in</a
@@ -239,7 +242,7 @@ const callsToAction = [
                                     href="/register"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                                     >Cadastre-se</a
-                                > -->
+                                >
                             </div>
                         </div>
                     </div>

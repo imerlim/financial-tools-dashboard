@@ -29,6 +29,7 @@
                         <div class="sm:col-span-1 sm:col-start-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 type="text"
                                 @change="calculaPrecoVenda()"
                                 :formata="true"
@@ -47,6 +48,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 @change="calculaPrecoVenda()"
                                 :formata="true"
                                 v-model="margem"
@@ -62,6 +64,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 @change="calculaMargens()"
                                 :formata="true"
                                 v-model="precoVenda"
@@ -77,6 +80,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 @change="descontoIfood()"
                                 :formata="true"
                                 v-model="taxaDesconto"
@@ -93,6 +97,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 disabled
                                 v-model="lucro"
                                 :formata="true"
@@ -108,6 +113,7 @@
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
+                                placeholder="0,00"
                                 disabled
                                 v-model="margemLiquida"
                                 :formata="true"
