@@ -33,7 +33,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // CORREÇÃO: Usar o helper de redirecionamento do Laravel
+        return redirect()->intended('/');
     }
 
     /**
@@ -47,6 +48,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        // O redirecionamento de logout também deve usar o helper do Laravel,
+        // para garantir que ele retorne um RedirectResponse
         return redirect('/');
     }
 }

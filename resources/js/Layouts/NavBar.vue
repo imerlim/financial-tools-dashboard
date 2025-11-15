@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { Link, usePage, router } from '@inertiajs/vue3';
 import {
     Dialog,
     DialogPanel,
@@ -12,16 +12,14 @@ import {
     PopoverGroup,
     PopoverPanel,
 } from '@headlessui/vue';
-import {
-    MusicalNoteIcon,
-    Bars3Icon,
-    PresentationChartLineIcon,
-    CalculatorIcon,
-    XMarkIcon,
-    ChartPieIcon,
-} from '@heroicons/vue/24/outline';
+import { MusicalNoteIcon, Bars3Icon, PresentationChartLineIcon, CalculatorIcon, XMarkIcon, ChartPieIcon } from '@heroicons/vue/24/outline';
 import ThemeSwitcher from '../Components/ThemeSwitcher.vue';
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid';
+
+const logout = () => {
+    router.post(route('logout'));
+};
+const page = usePage();
+const user = computed(() => page.props.auth.user);
 
 const props = defineProps({
     homeUrl: { type: String, required: true },
@@ -97,14 +95,9 @@ const callsToAction = [
                 </div>
                 <PopoverGroup class="hidden lg:flex lg:gap-x-12">
                     <Popover class="relative">
-                        <PopoverButton
-                            class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900 dark:text-white"
-                        >
+                        <PopoverButton class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900 dark:text-white">
                             Projetos
-                            <ChevronDownIcon
-                                class="size-5 flex-none text-gray-400 dark:text-gray-500"
-                                aria-hidden="true"
-                            />
+                            <ChevronDownIcon class="size-5 flex-none text-gray-400 dark:text-gray-500" aria-hidden="true" />
                         </PopoverButton>
 
                         <transition
@@ -134,10 +127,7 @@ const callsToAction = [
                                             />
                                         </div>
                                         <div class="flex-auto">
-                                            <a
-                                                :href="item.href"
-                                                class="block font-semibold text-gray-900 dark:text-white"
-                                            >
+                                            <a :href="item.href" class="block font-semibold text-gray-900 dark:text-white">
                                                 {{ item.name }}
                                                 <span class="absolute inset-0" />
                                             </a>
@@ -172,12 +162,18 @@ const callsToAction = [
                 </PopoverGroup>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                     <ThemeSwitcher class="mr-4" />
-                    <a href="/login" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white"
-                        >Log in <span aria-hidden="true">&rarr;</span></a
-                    >
-                    <a href="/register" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white"
-                        >Cadastre-se <span aria-hidden="true"></span
-                    ></a>
+                    <template v-if="!user">
+                        <a href="/login" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white">
+                            Log in <span aria-hidden="true">&rarr;</span>
+                        </a>
+                        <a href="/register" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white">
+                            Cadastre-se <span aria-hidden="true"></span>
+                        </a>
+                    </template>
+
+                    <template v-else>
+                        <button @click="logout" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white">Logout</button>
+                    </template>
                 </div>
             </nav>
             <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -211,10 +207,7 @@ const callsToAction = [
                                         class="flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                                     >
                                         Projetos
-                                        <ChevronDownIcon
-                                            :class="[open ? 'rotate-180' : '', 'size-5 flex-none']"
-                                            aria-hidden="true"
-                                        />
+                                        <ChevronDownIcon :class="[open ? 'rotate-180' : '', 'size-5 flex-none']" aria-hidden="true" />
                                     </DisclosureButton>
                                     <DisclosurePanel class="mt-2 space-y-2">
                                         <DisclosureButton

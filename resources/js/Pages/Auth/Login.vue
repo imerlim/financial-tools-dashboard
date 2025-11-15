@@ -1,10 +1,6 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -23,6 +19,7 @@ const form = useForm({
 });
 
 const submit = () => {
+    console.log('ola');
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
@@ -59,7 +56,6 @@ const submit = () => {
                     label="Senha"
                     id="password"
                     name="password"
-                    :autofocus="true"
                     :required="true"
                     autocomplete="username"
                 >
@@ -78,13 +74,13 @@ const submit = () => {
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
-                    :href="route('password.request')"
+                    :href="'/forgot-password'"
                     class="rounded-md text-sm text-slate-900 dark:text-white underline dark:hover:text-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Forgot your password?
                 </Link>
 
-                <PrimaryButton class="ml-4" :disabled="form.processing">Log in</PrimaryButton>
+                <PrimaryButton type="submit" class="ml-4" :disabled="form.processing">Log in</PrimaryButton>
             </div>
         </form>
     </GuestLayout>

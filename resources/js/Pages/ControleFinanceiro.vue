@@ -44,6 +44,7 @@
                                 id="categoria"
                                 name="categoria"
                                 :show-add="true"
+                                @on-add="openModalCategoria = true"
                             ></CustomSelect>
                         </div>
                         <div class="sm:col-span-1">
@@ -53,7 +54,7 @@
                             <PrimaryButton> Salvar </PrimaryButton>
                         </div>
 
-                        <!-- <div class="sm:col-span-6">
+                        <div class="sm:col-span-6">
                             <Table
                                 :headers="headersDadosFinanceiro"
                                 :items="itemsDadosFinanceiro"
@@ -62,7 +63,7 @@
                                 :loading="loadDadosFinanceiro"
                                 :multi-select="false"
                             />
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,9 +72,12 @@
 </template>
 
 <script>
+import { usePage } from '@inertiajs/vue3';
 export default {
     data() {
         return {
+            openModalCategoria: false,
+
             loadDadosFinanceiro: false,
             headersDadosFinanceiro: [
                 { label: 'Nome', key: 'PEDIDO' },
@@ -98,6 +102,14 @@ export default {
             selectTipo: null,
             valor: null,
         };
+    },
+
+    mounted() {
+        const userProps = usePage();
+        this.user = userProps.props.auth.user.name;
+
+        console.log(userProps);
+        console.log(this.user);
     },
 
     methods: {

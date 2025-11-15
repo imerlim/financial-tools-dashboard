@@ -55,7 +55,7 @@
 
                     <ModalMedium v-model="openModalDescricao" title="A Casa da Black Music">
                         <div
-                            class="bg-white text-slate-900 dark:bg-slate-800 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                            class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                         >
                             <div class="sm:col-span-6" style="text-align: left">
                                 <h1 class="text-xl font-bold text-center">O que é a Aminia Produções</h1>
@@ -87,7 +87,7 @@
 
                     <ModalMedium v-model="openModalContato" title="Contato">
                         <div
-                            class="bg-white text-slate-900 dark:bg-slate-800 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                            class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                         >
                             <div class="sm:col-span-4">
                                 <CustomInput v-model="nome" id="nome" name="nome" label="Nome"></CustomInput>

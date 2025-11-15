@@ -8,6 +8,7 @@ import { Ziggy } from './ziggy';
 import { Head, Link } from '@inertiajs/vue3';
 
 import ModalMedium from './Components/ModalMedium.vue';
+import Modal from './Components/Modal.vue';
 import CustomInput from './Components/CustomInput.vue';
 import CustomSelect from './Components/CustomSelect.vue';
 import CustomTextArea from './Components/CustomTextArea.vue';
@@ -49,6 +50,7 @@ createInertiaApp({
         // vueApp.component('UsersIcon', UsersIcon); // Removidos, pois serão registrados abaixo
         // vueApp.component('XMarkIcon', XMarkIcon);
         vueApp.component('ModalMedium', ModalMedium);
+        vueApp.component('Modal', Modal);
         vueApp.component('CustomInput', CustomInput);
         vueApp.component('CustomSelect', CustomSelect);
         vueApp.component('CustomTextArea', CustomTextArea);
