@@ -232,7 +232,7 @@ const iconSizeClass = computed(() => {
                 <button
                     v-if="showClear"
                     type="button"
-                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                     @click="$emit('on-clear')"
                 >
                     <BackspaceIcon :class="iconSizeClass" aria-hidden="true" />
@@ -242,7 +242,7 @@ const iconSizeClass = computed(() => {
                 <button
                     v-if="showSearch"
                     type="button"
-                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                     @click="$emit('on-search')"
                 >
                     <MagnifyingGlassIcon :class="iconSizeClass" aria-hidden="true" />
@@ -252,7 +252,7 @@ const iconSizeClass = computed(() => {
                 <button
                     v-if="showAdd"
                     type="button"
-                    :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                    :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                     @click="$emit('on-add')"
                 >
                     <PlusIcon :class="iconSizeClass" aria-hidden="true" />

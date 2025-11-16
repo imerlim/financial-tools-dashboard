@@ -8,7 +8,7 @@ onMounted(() => {
     const tl = gsap.timeline();
 
     tl.from('.js-title', {
-        duration: 1.8,
+        duration: 3,
         y: 30,
         opacity: 0,
         ease: 'power2.out',
@@ -56,19 +56,15 @@ onMounted(() => {
                             class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]"
                         >
                             <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
-                                <p
-                                    class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white"
-                                >
+                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
                                     Módulos gestão de empresa
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Desenvolvimento de módulos de cadastro para controle de funcionários, clientes e
-                                        fornecedores.
+                                        Desenvolvimento de módulos de cadastro para controle de funcionários, clientes e fornecedores.
                                     </li>
                                     <li class="list-disc mx-auto mt-8">
-                                        Criação de módulos de estoque, incluindo cadastro de produtos e entrada de
-                                        mercadorias via XML.
+                                        Criação de módulos de estoque, incluindo cadastro de produtos e entrada de mercadorias via XML.
                                     </li>
                                 </ul>
                             </div>
@@ -78,22 +74,17 @@ onMounted(() => {
                         ></div>
                     </div>
                     <div class="relative max-lg:row-start-1">
-                        <div
-                            class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] dark:bg-gray-800"
-                        ></div>
+                        <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] dark:bg-gray-800"></div>
                         <div
                             class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]"
                         >
                             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p
-                                    class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white"
-                                >
+                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
                                     Integrações
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Integração de sistemas com plataformas de e-commerce como Nuvemshop e
-                                        WooCommerce.
+                                        Integração de sistemas com plataformas de e-commerce como Nuvemshop e WooCommerce.
                                     </li>
                                 </ul>
                             </div>
@@ -104,19 +95,15 @@ onMounted(() => {
                     </div>
                     <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
                         <div class="absolute inset-px rounded-lg bg-white dark:bg-gray-800"></div>
-                        <div
-                            class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]"
-                        >
+                        <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p
-                                    class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white"
-                                >
+                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
                                     Análise financeiro
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        desenvolvimento de telas de relatórios personalizados e dashboards interativos
-                                        com gráficos de vendas mensais e anuais.
+                                        desenvolvimento de telas de relatórios personalizados e dashboards interativos com gráficos de
+                                        vendas mensais e anuais.
                                     </li>
                                 </ul>
                             </div>
@@ -133,15 +120,10 @@ onMounted(() => {
                             class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]"
                         >
                             <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
-                                <p
-                                    class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white"
-                                >
-                                    CRM
-                                </p>
+                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">CRM</p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Implementação de módulos de CRM para acompanhamento de clientes e oportunidades
-                                        de venda
+                                        Implementação de módulos de CRM para acompanhamento de clientes e oportunidades de venda
                                     </li>
                                 </ul>
                             </div>

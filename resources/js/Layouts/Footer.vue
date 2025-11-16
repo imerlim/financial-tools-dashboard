@@ -13,7 +13,7 @@ const props = defineProps({
                 <a
                     href="https://www.instagram.com/i.merlim/"
                     target="_blank"
-                    class="text-slate-900 hover:text-pink-700 dark:text-white dark:hover:text-pink-700"
+                    class="text-slate-700 hover:text-pink-700 dark:text-white dark:hover:text-pink-700"
                 >
                     <span class="sr-only">Instagram</span>
                     <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -26,7 +26,7 @@ const props = defineProps({
                 <a
                     href="https://www.linkedin.com/in/igor-merlim/"
                     target="_blank"
-                    class="text-slate-900 hover:text-sky-700 dark:text-white dark:hover:text-sky-700"
+                    class="text-slate-700 hover:text-sky-700 dark:text-white dark:hover:text-sky-700"
                 >
                     <span class="sr-only">LinkedIn</span>
 
@@ -41,7 +41,7 @@ const props = defineProps({
                 <a
                     href="https://wa.me/5521982100397"
                     target="_blank"
-                    class="text-slate-900 hover:text-green-700 dark:text-white dark:hover:text-green-700"
+                    class="text-slate-700 hover:text-green-700 dark:text-white dark:hover:text-green-700"
                 >
                     <span class="sr-only">WhatsApp</span>
                     <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 640 640" aria-hidden="true">
@@ -56,9 +56,7 @@ const props = defineProps({
             <div class="sm:col-span-6 flex flex-col items-center">
                 <div class="sm:ml-auto">
                     <p class="text-xl text-slate-900 dark:text-white text-center sm:text-left">Emails para contato</p>
-                    <p class="text-lg text-slate-900 dark:text-white text-center sm:text-left">
-                        i.merlim@totalcontrol.com.br
-                    </p>
+                    <p class="text-lg text-slate-900 dark:text-white text-center sm:text-left">i.merlim@totalcontrol.com.br</p>
                     <p class="text-lg text-slate-900 dark:text-white text-center sm:text-left">imerlimdev@gmail.com</p>
                 </div>
             </div>

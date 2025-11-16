@@ -30,9 +30,7 @@
                             class="relative w-full max-w-3xl transform rounded-lg bg-white dark:bg-slate-900 text-left shadow-xl transition-all flex flex-col max-h-[90vh]"
                         >
                             <!-- Cabeçalho -->
-                            <div
-                                class="w-full flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700"
-                            >
+                            <div class="w-full flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
                                 <DialogTitle
                                     as="h3"
                                     class="text-lg font-semibold text-slate-900 dark:text-white flex items-center justify-center text-center w-full"
@@ -84,15 +82,11 @@
 </template>
 
 <script>
-// Importa todos os componentes necessários do Headless UI
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
-// O componente XMarkIcon já é global, mas importá-lo aqui não causa problemas
-// e torna a dependência explícita.
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 export default {
-    // Registra os componentes para serem usados NESTE template
     components: {
         Dialog,
         DialogPanel,

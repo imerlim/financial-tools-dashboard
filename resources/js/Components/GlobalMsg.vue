@@ -5,8 +5,9 @@
             class="fixed top-5 right-5 px-4 py-3 rounded-lg shadow-lg text-white text-sm z-[9999]"
             :class="{
                 'bg-amber-600': type === 'warning',
-                'bg-red-500': type === 'error',
-                'bg-blue-500': type === 'info',
+                'bg-red-600': type === 'error',
+                'bg-blue-600': type === 'info',
+                'bg-emerald-600': type === 'success',
             }"
         >
             <strong class="block text-base mb-1">{{ title }}</strong>

@@ -103,11 +103,7 @@ const iconSizeClass = computed(() => {
                     ]"
                 >
                     <!-- Prepend -->
-                    <div
-                        v-if="$slots.prepend || prepend"
-                        class="flex items-center text-slate-700 dark:text-slate-300"
-                        :class="textSize"
-                    >
+                    <div v-if="$slots.prepend || prepend" class="flex items-center text-slate-700 dark:text-slate-300" :class="textSize">
                         <slot name="prepend">
                             {{ prepend }}
                         </slot>
@@ -134,11 +130,7 @@ const iconSizeClass = computed(() => {
                     </select>
 
                     <!-- Append -->
-                    <div
-                        v-if="$slots.append || append"
-                        class="flex items-center text-slate-700 dark:text-slate-300"
-                        :class="textSize"
-                    >
+                    <div v-if="$slots.append || append" class="flex items-center text-slate-700 dark:text-slate-300" :class="textSize">
                         <slot name="append">
                             {{ append }}
                         </slot>
@@ -164,7 +156,7 @@ const iconSizeClass = computed(() => {
                 <div v-if="showClear" class="relative group">
                     <button
                         type="button"
-                        :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-merlimSystem-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                        :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-merlimSystem-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                         @click="$emit('on-clear')"
                     >
                         <BackspaceIcon :class="iconSizeClass" aria-hidden="true" />
@@ -176,7 +168,7 @@ const iconSizeClass = computed(() => {
                 <div v-if="showSearch" class="relative group">
                     <button
                         type="button"
-                        :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                        :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-sky-800 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                         @click="$emit('on-search')"
                     >
                         <MagnifyingGlassIcon :class="iconSizeClass" aria-hidden="true" />
@@ -188,7 +180,7 @@ const iconSizeClass = computed(() => {
                 <div v-if="showAdd" class="relative group">
                     <button
                         type="button"
-                        :class="`rounded-md bg-sky-600 text-white shadow-xs hover:bg-sky-500 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
+                        :class="`rounded-md bg-sky-800 text-white shadow-xs hover:bg-sky-800 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-sky-600 ${buttonSizeClass}`"
                         @click="$emit('on-add')"
                     >
                         <PlusIcon :class="iconSizeClass" aria-hidden="true" />

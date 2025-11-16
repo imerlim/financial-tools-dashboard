@@ -46,12 +46,30 @@
                                 :show-add="true"
                                 @on-add="openModalCategoria = true"
                             ></CustomSelect>
+
+                            <ModalMedium v-model="openModalCategoria" title="Cadastro de categoria">
+                                <div
+                                    class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+                                >
+                                    <div class="sm:col-span-3">
+                                        <CustomInput
+                                            id="novaCategoria"
+                                            v-model="novaCategoria"
+                                            label="Nova categoria"
+                                            name="novaCategoria"
+                                        />
+                                    </div>
+                                    <div class="sm:col-span-1 self-end flex">
+                                        <PrimaryButton @click="createCategoria()">Cadastrar</PrimaryButton>
+                                    </div>
+                                </div>
+                            </ModalMedium>
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput type="date" v-model="data" label="Data" id="data" name="data"></CustomInput>
                         </div>
                         <div class="sm:col-span-6 flex justify-end self-end mt-5">
-                            <PrimaryButton> Salvar </PrimaryButton>
+                            <PrimaryButton @click="createDados()"> Salvar </PrimaryButton>
                         </div>
 
                         <div class="sm:col-span-6">
@@ -98,23 +116,36 @@ export default {
                     PAG: 'teste',
                 },
             ],
+            loadCategoria: false,
 
+            user: null,
             selectTipo: null,
             valor: null,
+            novaCategoria: null,
         };
     },
 
     mounted() {
         const userProps = usePage();
-        this.user = userProps.props.auth.user.name;
-
-        console.log(userProps);
-        console.log(this.user);
+        this.user = userProps.props.auth.user?.name ?? null;
     },
 
     methods: {
-        salvaDadosFinanceiro() {
-            this.itemsDadosFinanceiro.push({});
+        /* CREATE */
+        createDados() {
+            if (this.user == null) {
+                this.$msg.warning('Realize login antes de processeguir!');
+            }
+        },
+
+        async createCategoria() {
+            this.loadCategoria = true;
+            try {
+                await this.$axios.post('/create-categoria', { novaCategoria: this.novaCategoria });
+                this.allCategorias();
+            } catch {
+                this.loadCategoria = false;
+            }
         },
     },
 };

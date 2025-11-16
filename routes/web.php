@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\ControleFinanceiroController;
 use App\Http\Controllers\HomeController;
 
 Route::inertia('/', 'Home')->name('/');
@@ -13,24 +14,9 @@ Route::inertia('/calculadora-juros-compostos', 'CalculadoraJurosCompostos')->nam
 Route::inertia('/calculadora-margem', 'CalculadoraMargem')->name('calculadora.margem');
 Route::inertia('/controle-financeiro', 'ControleFinanceiro')->name('controle.financeiro');
 
-
-
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
-
+Route::controller(ControleFinanceiroController::class)->group(function () {
+    Route::post('create-categoria', 'createCategoria')->name('create.categoria');
+});
 
 Route::controller(HomeController::class)->group(function () {
     Route::post('envia-mensagem', 'enviaMensagem')->name('envia.mensagem');
