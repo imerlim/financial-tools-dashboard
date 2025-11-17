@@ -1,16 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BOZmhQ_0.css",
+    "file": "assets/app-C3EUfMup.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DiCtqPb3.js",
+    "file": "assets/app-CAoV2DjV.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-CqRhppr5.css"
+      "assets/app-BsDZXvFO.css"
     ],
     "assets": [
       "assets/logo_aminia-Dem-v2TR.jpg",

@@ -6,7 +6,7 @@
                 <div class="sm:col-span-3">
                     <CustomInput class="mt-7" v-model="searchQuery" type="text" placeholder="Buscar..."></CustomInput>
                 </div>
-                <div class="sm:col-span-1 sm:col-start-6">
+                <div class="sm:col-span-3 sm:col-start-6">
                     <CustomSelect
                         label="Itens por página:"
                         v-model.number="localItemsPerPage"
@@ -105,13 +105,8 @@
             </table>
         </div>
 
-        <div
-            v-if="!loading && sortedItems.length > 0"
-            class="flex flex-col sm:flex-row items-center justify-between mt-4 px-2"
-        >
-            <div class="text-base text-slate-400">
-                Mostrando {{ startRecord }} - {{ endRecord }} de {{ sortedItems.length }}
-            </div>
+        <div v-if="!loading && sortedItems.length > 0" class="flex flex-col sm:flex-row items-center justify-between mt-4 px-2">
+            <div class="text-base text-slate-400">Mostrando {{ startRecord }} - {{ endRecord }} de {{ sortedItems.length }}</div>
             <div class="flex items-center space-x-1 mt-2 sm:mt-0">
                 <Tooltip text="Primeira página">
                     <button :disabled="currentPage === 1" class="btn" @click="changePage(1)">
@@ -123,11 +118,7 @@
                             stroke="currentColor"
                             class="size-4"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
-                            />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
                         </svg>
                     </button>
                 </Tooltip>
@@ -151,10 +142,7 @@
 
                 <template v-for="page in paginationRange" :key="page">
                     <button
-                        :class="[
-                            'btn',
-                            page === currentPage ? 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white' : '',
-                        ]"
+                        :class="['btn', page === currentPage ? 'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white' : '']"
                         @click="changePage(page)"
                     >
                         {{ page }}
@@ -191,11 +179,7 @@
                             stroke="currentColor"
                             class="size-4"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
-                            />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
                 </Tooltip>
