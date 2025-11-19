@@ -11,20 +11,11 @@
                         <div class="sm:col-span-4 text-center text-2xl">
                             <legend class="text-slate-900 dark:text-white">Calculadora juros compostos</legend>
                         </div>
-                        <div
-                            class="sm:col-span-4 justify-items-center"
-                            v-if="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'"
-                        >
-                            <div
-                                class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3"
-                            >
+                        <div class="sm:col-span-4 justify-items-center" v-if="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
+                            <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">
-                                        Valor investido
-                                    </dt>
-                                    <dd
-                                        class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white"
-                                    >
+                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Valor investido</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                         {{ valorTotalInvestido }}
                                     </dd>
                                 </div>
@@ -35,12 +26,8 @@
                                     </dd>
                                 </div>
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">
-                                        Total em juros
-                                    </dt>
-                                    <dd
-                                        class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white"
-                                    >
+                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Total em juros</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                         {{ totalEmJuros }}
                                     </dd>
                                 </div>
@@ -82,6 +69,7 @@
                             <CustomInput
                                 inputmode="numeric"
                                 placeholder="0,00"
+                                :formata="true"
                                 :propLargeAppend="true"
                                 v-model="taxaJuros"
                                 label="Taxa de juros"
@@ -176,9 +164,7 @@ export default {
             const valorTotalInvestido = C + A * t;
             const totalEmJuros = M - valorTotalInvestido;
 
-            self.montanteFinal = isNaN(parseFloat(M))
-                ? 'R$ 0,00'
-                : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            self.montanteFinal = isNaN(parseFloat(M)) ? 'R$ 0,00' : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             self.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',

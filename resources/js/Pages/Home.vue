@@ -14,11 +14,11 @@ onMounted(() => {
     const drawable = svg.createDrawable('.animated-svg path');
 
     animate(drawable, {
-        // draw: ['0 0', '0 1', '1 1'],
-        draw: ['0 0', '0 1'],
+        draw: ['0 0', '0 1', '1 1'],
+        // draw: ['0 0', '0 1'],
         ease: 'inOutQuad',
         duration: 8888,
-        // loop: true,
+        loop: true,
     });
 
     // Código GSAP

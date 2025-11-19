@@ -5,12 +5,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CAoV2DjV.js",
+    "file": "assets/app-BUpvDTHS.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-BsDZXvFO.css"
+      "assets/app-BVsVi0Wd.css"
     ],
     "assets": [
       "assets/logo_aminia-Dem-v2TR.jpg",

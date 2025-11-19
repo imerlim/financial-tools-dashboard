@@ -19,7 +19,7 @@ class ControleFinanceiroController extends Controller
     public function createCategoria(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->createCategoria($request->novaCategoria);
+            $result = $this->controleFinanceiroService->createCategoria($request->novaCategoria, $request->userId);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

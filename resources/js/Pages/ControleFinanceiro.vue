@@ -175,6 +175,7 @@ export default {
             loadDadosFinanceiro: true,
 
             user: null,
+            userId: null,
             selectTipo: null,
             valor: null,
             categoria: null,
@@ -187,6 +188,7 @@ export default {
     mounted() {
         const userProps = usePage();
         this.user = userProps.props.auth.user?.name ?? null;
+        this.userId = userProps.props.auth.user?.id ?? null;
 
         function formatDate(date) {
             var d = new Date(date),
@@ -223,7 +225,7 @@ export default {
             }
             this.loadCategoria = true;
             try {
-                await axios.post('/create-categoria', { novaCategoria: this.novaCategoria });
+                await axios.post('/create-categoria', { novaCategoria: this.novaCategoria, userId: this.userId });
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
@@ -247,7 +249,6 @@ export default {
         },
 
         async handleDeleteCategoria(item) {
-            console.log('ola');
             this.loadCategoria = true;
             try {
                 await axios.delete('/delete-categoria', {

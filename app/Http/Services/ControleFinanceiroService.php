@@ -9,7 +9,7 @@ use App\Models\Categoria;
 
 class ControleFinanceiroService
 {
-    public function createCategoria($novaCategoria)
+    public function createCategoria($novaCategoria, $userId)
     {
         $existe = Categoria::where('categoria', $novaCategoria)->exists();
 
@@ -20,6 +20,7 @@ class ControleFinanceiroService
         $query = new Categoria;
 
         $query->categoria = $novaCategoria;
+        $query->id_usuario = $userId;
 
         if (!$query->save()) {
             return ['Error' => 2, 'msg' => 'Erro ao salvar categoria.'];
@@ -41,7 +42,7 @@ class ControleFinanceiroService
 
     public function deleteCategoria($idCategoria)
     {
-        $query = Categoria::where('idCategoria', '=', $idCategoria)->delete();
+        $query = Categoria::where('id_categoria', '=', $idCategoria)->delete();
 
         if (!$query) {
             return ['error' => 1, 'msg' => "Erro ao excluir categoria."];
