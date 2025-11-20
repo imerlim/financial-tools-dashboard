@@ -2,6 +2,9 @@
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { getCurrentInstance } from 'vue';
+
+const { proxy } = getCurrentInstance();
 
 defineProps({
     canResetPassword: {
@@ -19,9 +22,14 @@ const form = useForm({
 });
 
 const submit = () => {
-    console.log('ola');
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
+        onError: errors => {
+            if (errors.email) {
+                proxy.$msg.warning('Usuário ou senha incorretos.');
+            }
+            console.log('Objeto de erro completo:', errors);
+        },
     });
 };
 </script>
@@ -63,12 +71,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4 block">
-                <CustomCheckbox
-                    label="Remember me"
-                    id="remember"
-                    name="remember"
-                    v-model="form.remember"
-                ></CustomCheckbox>
+                <CustomCheckbox label="Remember me" id="remember" name="remember" v-model="form.remember"></CustomCheckbox>
             </div>
 
             <div class="mt-4 flex items-center justify-end">

@@ -1,7 +1,6 @@
 <template>
     <Head title="Aminia" />
     <div class="bg-slate-800">
-        <GlobalMsg></GlobalMsg>
         <!-- Header -->
         <header class="absolute inset-x-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -61,25 +60,23 @@
                                 <h1 class="text-xl font-bold text-center">O que é a Aminia Produções</h1>
                                 <h3>
                                     <br /><br />
-                                    A Aminia Produções é uma produtora audiovisual independente criada por Lucas Madeira
-                                    (<a
+                                    A Aminia Produções é uma produtora audiovisual independente criada por Lucas Madeira (<a
                                         href="https://www.instagram.com/diretor_blackwood?igsh=MXRxdnoyZ3FsN2tyMQ=="
                                         target="_blank"
                                         class="text-yellow-400"
                                         >@diretor_blackwood</a
                                     >), dedicada a celebrar e divulgar a Black Music no Brasil.<br /><br />
 
-                                    Mais do que uma produtora, a Aminia é um movimento que une arte, som e imagem para
-                                    valorizar a cultura Black em todas as suas expressões. Encontramos no YouTube o
-                                    espaço perfeito para compartilhar essa visão — produzindo tributos audiovisuais a
-                                    grandes nomes da Black Music mundial, como Stevie Wonder, Michael Jackson,
-                                    Blackstreet, TLC, SWV, Marvin Gaye e muitos outros.<br /><br />
+                                    Mais do que uma produtora, a Aminia é um movimento que une arte, som e imagem para valorizar a cultura
+                                    Black em todas as suas expressões. Encontramos no YouTube o espaço perfeito para compartilhar essa visão
+                                    — produzindo tributos audiovisuais a grandes nomes da Black Music mundial, como Stevie Wonder, Michael
+                                    Jackson, Blackstreet, TLC, SWV, Marvin Gaye e muitos outros.<br /><br />
 
-                                    Cada produção é pensada como uma homenagem autêntica e respeitosa, recriando com
-                                    qualidade e emoção os sons e visuais que marcaram gerações.<br /><br />
+                                    Cada produção é pensada como uma homenagem autêntica e respeitosa, recriando com qualidade e emoção os
+                                    sons e visuais que marcaram gerações.<br /><br />
 
-                                    Nosso propósito é claro: preservar o legado da Black Music, inspirar novas gerações
-                                    e consolidar o espaço dessa cultura no audiovisual brasileiro.
+                                    Nosso propósito é claro: preservar o legado da Black Music, inspirar novas gerações e consolidar o
+                                    espaço dessa cultura no audiovisual brasileiro.
                                 </h3>
                             </div>
                         </div>
@@ -98,12 +95,7 @@
                             </div>
 
                             <div class="sm:col-span-4">
-                                <CustomInput
-                                    v-model="assunto"
-                                    id="assunto"
-                                    name="assunto"
-                                    label="Assunto"
-                                ></CustomInput>
+                                <CustomInput v-model="assunto" id="assunto" name="assunto" label="Assunto"></CustomInput>
                             </div>
 
                             <div class="sm:col-span-4">
@@ -135,19 +127,12 @@
         <main>
             <!-- Hero section -->
             <div class="relative isolate overflow-hidden bg-slate-800 min-h-screen pt-32 sm:pt-0">
-                <img
-                    src="../../../storage/app/public/capateste1.png"
-                    alt=""
-                    class="absolute inset-0 -z-10 size-full object-cover"
-                />
+                <img src="../../../storage/app/public/capateste1.png" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
 
                 <div class="absolute inset-0 bg-black/50-z-10"></div>
                 <!-- <div class="absolute inset-0 bg-black/50 -z-10"></div> -->
 
-                <div
-                    class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
-                >
+                <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
                     <div
                         class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-288.75"
                         style="
@@ -183,9 +168,7 @@
                             </div>
                         </div>
                         <div class="text-center hidden md:block">
-                            <h1
-                                class="text-lg pt-3 font-semibold tracking-tight text-balance text-yellow-400 sm:text-6xl"
-                            >
+                            <h1 class="text-lg pt-3 font-semibold tracking-tight text-balance text-yellow-400 sm:text-6xl">
                                 Bem-vindo à Aminia Produções
                             </h1>
                         </div>
@@ -337,11 +320,7 @@
                 <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div class="m-2 flex justify-center space-x-6 xl:col-span-3">
                         <!-- Instagram -->
-                        <a
-                            href="https://www.instagram.com/aminiaprod/"
-                            target="_blank"
-                            class="text-slate-400 hover:text-yellow-400"
-                        >
+                        <a href="https://www.instagram.com/aminiaprod/" target="_blank" class="text-slate-400 hover:text-yellow-400">
                             <span class="sr-only">Instagram</span>
                             <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -351,11 +330,7 @@
                         </a>
 
                         <!-- Facebook -->
-                        <a
-                            href="https://www.facebook.com/AminiaProd"
-                            target="_blank"
-                            class="text-slate-400 hover:text-yellow-400"
-                        >
+                        <a href="https://www.facebook.com/AminiaProd" target="_blank" class="text-slate-400 hover:text-yellow-400">
                             <span class="sr-only">Facebook</span>
                             <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -365,11 +340,7 @@
                         </a>
 
                         <!-- YouTube -->
-                        <a
-                            href="https://www.youtube.com/@aminiaprod"
-                            target="_blank"
-                            class="text-slate-400 hover:text-yellow-400"
-                        >
+                        <a href="https://www.youtube.com/@aminiaprod" target="_blank" class="text-slate-400 hover:text-yellow-400">
                             <span class="sr-only">YouTube</span>
                             <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 576 512" aria-hidden="true">
                                 <path
@@ -379,11 +350,7 @@
                         </a>
 
                         <!-- TikTok -->
-                        <a
-                            href="https://www.tiktok.com/@aminiaprod"
-                            target="_blank"
-                            class="text-slate-400 hover:text-yellow-400"
-                        >
+                        <a href="https://www.tiktok.com/@aminiaprod" target="_blank" class="text-slate-400 hover:text-yellow-400">
                             <span class="sr-only">TikTok</span>
                             <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
                                 <path
@@ -443,15 +410,15 @@
 .red {
     /* Usaremos o box-shadow para criar a "borda" e o brilho */
     box-shadow:
-    /* 0 0 20px 5px rgba(255, 0, 0, 0.9); */ 0 0 5px 2px rgba(255, 0, 0, 0.9),
-        0 0 10px 3px rgba(255, 0, 0, 0.7), 0 0 15px 4px rgba(255, 0, 0, 0.4), 0 0 20px 5px rgba(255, 0, 0, 0.2);
+    /* 0 0 20px 5px rgba(255, 0, 0, 0.9); */ 0 0 5px 2px rgba(255, 0, 0, 0.9), 0 0 10px 3px rgba(255, 0, 0, 0.7),
+        0 0 15px 4px rgba(255, 0, 0, 0.4), 0 0 20px 5px rgba(255, 0, 0, 0.2);
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
 }
 
 .blue {
     /* Amarelo no exemplo */
-    box-shadow: 0 0 5px 2px rgba(255, 230, 0, 0.9), 0 0 10px 3px rgba(255, 230, 0, 0.7),
-        0 0 15px 4px rgba(255, 230, 0, 0.4), 0 0 20px 4px rgba(255, 230, 0, 0.2);
+    box-shadow: 0 0 5px 2px rgba(255, 230, 0, 0.9), 0 0 10px 3px rgba(255, 230, 0, 0.7), 0 0 15px 4px rgba(255, 230, 0, 0.4),
+        0 0 20px 4px rgba(255, 230, 0, 0.2);
     clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
 }
 

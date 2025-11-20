@@ -1,7 +1,6 @@
 <template>
     <Head title="Calculadora juros compostos" />
     <div class="bg-slate-100 dark:bg-slate-900">
-        <GlobalMsg></GlobalMsg>
         <main>
             <div
                 class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y"
@@ -11,7 +10,7 @@
                         <div class="sm:col-span-4 text-center text-2xl">
                             <legend class="text-slate-900 dark:text-white">Calculadora juros compostos</legend>
                         </div>
-                        <div class="sm:col-span-4 justify-items-center" v-if="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
+                        <div class="sm:col-span-4 justify-items-center" v-show="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
                             <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
                                     <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Valor investido</dt>
@@ -35,6 +34,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
+                                @change="calculaJurosCompostos()"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -42,7 +42,6 @@
                                 label="Valor inicial"
                                 id="valorInicial"
                                 name="valorInicial"
-                                @keydown.enter="$refs.botaoIncluirItem.focus()"
                             >
                                 <template #prepend>
                                     <span class="text-base">R$</span>
@@ -51,6 +50,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
+                                @change="calculaJurosCompostos()"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -58,7 +58,6 @@
                                 label="Valor mensal"
                                 id="valorMensal"
                                 name="valorMensal"
-                                @keydown.enter="$refs.botaoIncluirItem.focus()"
                             >
                                 <template #prepend>
                                     <span class="text-base">R$</span>
@@ -67,6 +66,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
+                                @change="calculaJurosCompostos()"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -75,7 +75,6 @@
                                 label="Taxa de juros"
                                 id="taxaJuros"
                                 name="taxaJuros"
-                                @keydown.enter="$refs.botaoIncluirItem.focus()"
                             >
                                 <template #append>
                                     <CustomSelect
@@ -92,14 +91,15 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
+                                @change="calculaJurosCompostos()"
                                 inputmode="numeric"
-                                placeholder="0,00"
+                                placeholder="0"
+                                :formata="true"
                                 :propLargeAppend="true"
                                 v-model="periodo"
                                 label="Período"
                                 id="periodo"
                                 name="periodo"
-                                @keydown.enter="$refs.botaoIncluirItem.focus()"
                             >
                                 <template #append>
                                     <CustomSelect
@@ -135,8 +135,8 @@
 export default {
     data() {
         return {
-            valorInicial: null,
-            valorMensal: null,
+            valorInicial: 0,
+            valorMensal: 0,
             taxaJuros: null,
             taxaJurosSelect: 'Mensal',
             periodo: null,
@@ -149,28 +149,31 @@ export default {
 
     methods: {
         calculaJurosCompostos() {
-            let self = this;
-
-            const C = parseFloat(self.valorInicial);
-            const A = parseFloat(self.valorMensal);
+            const C = parseFloat(this.valorInicial);
+            if (!this.valorMensal) {
+                this.valorMensal = 0;
+            }
+            const A = parseFloat(this.valorMensal);
 
             const i =
-                self.taxaJurosSelect == 'Mensal'
-                    ? parseFloat(self.taxaJuros) / 100
-                    : Math.pow(1 + parseFloat(self.taxaJuros) / 100, 1 / 12) - 1;
-            const t = self.periodoSelect == 'Anos' ? parseFloat(self.periodo) * 12 : parseFloat(self.periodo);
+                this.taxaJurosSelect == 'Mensal'
+                    ? parseFloat(this.taxaJuros) / 100
+                    : Math.pow(1 + parseFloat(this.taxaJuros) / 100, 1 / 12) - 1;
+            const t = this.periodoSelect == 'Anos' ? parseFloat(this.periodo) * 12 : parseFloat(this.periodo);
 
             const M = C * (1 + i) ** t + (A / i) * ((1 + i) ** t - 1);
             const valorTotalInvestido = C + A * t;
             const totalEmJuros = M - valorTotalInvestido;
 
-            self.montanteFinal = isNaN(parseFloat(M)) ? 'R$ 0,00' : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            self.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', {
+            this.montanteFinal = isNaN(parseFloat(M)) ? 'R$ 0,00' : M.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            this.valorTotalInvestido = valorTotalInvestido.toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
             });
-            self.totalEmJuros = totalEmJuros.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('montanteDiv').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            this.totalEmJuros = totalEmJuros.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            this.$nextTick(() => {
+                document.getElementById('montanteDiv').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
         },
     },
 };

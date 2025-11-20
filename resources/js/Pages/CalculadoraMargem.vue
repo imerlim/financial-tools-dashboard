@@ -1,7 +1,6 @@
 <template>
     <Head title="Calculadora margem" />
     <div class="bg-slate-100 dark:bg-slate-900">
-        <GlobalMsg></GlobalMsg>
         <main>
             <div
                 class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-900 min-h-screen py-5 sm:px-5 sm:py-2 divide-y"
@@ -155,162 +154,152 @@ export default {
 
     methods: {
         mudaTipoMargem() {
-            let self = this;
-
-            self.custo = null;
-            self.margem = null;
-            self.margemLiquida = null;
-            self.precoVenda = null;
-            self.lucro = null;
-            self.taxaDesconto = null;
-            if (self.selectTipoMargem == 'mlc') {
-                self.tituloMargem = 'Margem sobre o preço de custo';
+            this.custo = null;
+            this.margem = null;
+            this.margemLiquida = null;
+            this.precoVenda = null;
+            this.lucro = null;
+            this.taxaDesconto = null;
+            if (this.selectTipoMargem == 'mlc') {
+                this.tituloMargem = 'Margem sobre o preço de custo';
             } else {
-                self.tituloMargem = 'Margem sobre o preço de venda';
+                this.tituloMargem = 'Margem sobre o preço de venda';
             }
         },
 
         calculaPrecoVenda() {
-            let self = this;
+            if (this.selectTipoMargem == 'mlv') {
+                const custo = parseFloat(this.custo);
 
-            console.log(self.custo, self.margem);
-            if (self.selectTipoMargem == 'mlv') {
-                const custo = parseFloat(self.custo);
-
-                const margem = parseFloat(self.margem);
-                console.log(custo, margem);
+                const margem = parseFloat(this.margem);
 
                 if (custo <= 0) {
-                    self.custo = null;
-                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                    this.custo = null;
+                    return this.$msg.warning('Custo precisa ser maior do que 0.');
                 }
                 if (margem <= 0) {
-                    self.margem = null;
-                    self.margemLiquida = null;
-                    return self.$msg.warning('Margem venda precisa ser maior do que 0.');
+                    this.margem = null;
+                    this.margemLiquida = null;
+                    return this.$msg.warning('Margem venda precisa ser maior do que 0.');
                 }
                 if (margem >= 100) {
-                    self.margem = null;
-                    self.margemLiquida = null;
-                    return self.$msg.warning('Margem venda precisa ser menor do que 100.');
+                    this.margem = null;
+                    this.margemLiquida = null;
+                    return this.$msg.warning('Margem venda precisa ser menor do que 100.');
                 }
 
                 if (custo > 0 && margem > 0 && margem < 100) {
                     const mlv_decimal = margem / 100;
                     // Fórmula: P.V. = Custo / (1 - MLV)
                     const precoCalculado = custo / (1 - mlv_decimal);
-                    self.precoVenda = precoCalculado;
-                    self.precoVenda = precoCalculado;
+                    this.precoVenda = precoCalculado;
+                    this.precoVenda = precoCalculado;
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = lucroCalculado;
-                    self.lucro = lucroCalculado;
+                    this.lucro = lucroCalculado;
+                    this.lucro = lucroCalculado;
 
-                    self.descontoIfood();
+                    this.descontoIfood();
                 } else {
-                    self.precoVenda = null;
-                    self.lucro = null;
+                    this.precoVenda = null;
+                    this.lucro = null;
                 }
             } else {
-                const custo = parseFloat(self.custo);
-                const margem = parseFloat(self.margem); // margemCusto
+                const custo = parseFloat(this.custo);
+                const margem = parseFloat(this.margem); // margemCusto
 
                 if (custo <= 0) {
-                    self.custo = null;
-                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                    this.custo = null;
+                    return this.$msg.warning('Custo precisa ser maior do que 0.');
                 }
                 if (margem <= 0) {
-                    self.margem = null;
-                    self.margemLiquida = null;
-                    return self.$msg.warning('Margem venda precisa ser maior do que 0.');
+                    this.margem = null;
+                    this.margemLiquida = null;
+                    return this.$msg.warning('Margem venda precisa ser maior do que 0.');
                 }
 
                 if (custo > 0 && margem > 0) {
                     const mlc_decimal = margem / 100;
                     // Fórmula do Markup: P.V. = Custo * (1 + MLC)
                     const precoCalculado = custo * (1 + mlc_decimal);
-                    self.precoVenda = precoCalculado;
+                    this.precoVenda = precoCalculado;
 
                     const lucroCalculado = precoCalculado - custo;
-                    self.lucro = lucroCalculado;
-                    self.descontoIfood();
+                    this.lucro = lucroCalculado;
+                    this.descontoIfood();
                 } else {
-                    self.precoVenda = null;
-                    self.lucro = null;
+                    this.precoVenda = null;
+                    this.lucro = null;
                 }
             }
         },
 
         calculaMargens() {
-            let self = this;
-
-            if (self.selectTipoMargem == 'mlv') {
-                const custo = parseFloat(self.custo);
-                const precoVenda = parseFloat(self.precoVenda);
+            if (this.selectTipoMargem == 'mlv') {
+                const custo = parseFloat(this.custo);
+                const precoVenda = parseFloat(this.precoVenda);
 
                 if (custo <= 0) {
-                    self.precoVenda = null;
-                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                    this.precoVenda = null;
+                    return this.$msg.warning('Custo precisa ser maior do que 0.');
                 }
                 if (custo > precoVenda) {
-                    self.precoVenda = null;
-                    return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                    this.precoVenda = null;
+                    return this.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = lucroBruto;
+                    this.lucro = lucroBruto;
 
                     // MLV = (Lucro / Preço de Venda) * 100
                     const mlv_calculada = (lucroBruto / precoVenda) * 100;
-                    self.margem = mlv_calculada;
-                    self.margemLiquida = self.margem;
-                    self.descontoIfood();
+                    this.margem = mlv_calculada;
+                    this.margemLiquida = this.margem;
+                    this.descontoIfood();
                 } else {
-                    self.margem = null;
-                    self.margemLiquida = null;
+                    this.margem = null;
+                    this.margemLiquida = null;
                 }
             } else {
-                const custo = parseFloat(self.custo);
-                const precoVenda = parseFloat(self.precoVenda);
+                const custo = parseFloat(this.custo);
+                const precoVenda = parseFloat(this.precoVenda);
 
                 if (custo <= 0) {
-                    self.precoVenda = null;
-                    return self.$msg.warning('Custo precisa ser maior do que 0.');
+                    this.precoVenda = null;
+                    return this.$msg.warning('Custo precisa ser maior do que 0.');
                 }
                 if (custo > precoVenda) {
-                    self.precoVenda = null;
-                    return self.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                    this.precoVenda = null;
+                    return this.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
-                    self.lucro = lucroBruto;
+                    this.lucro = lucroBruto;
 
                     // MLC = (Lucro / Custo) * 100
                     const mlc_calculada = (lucroBruto / custo) * 100;
-                    self.margem = mlc_calculada;
-                    self.margemLiquida = self.margem;
-                    self.descontoIfood();
+                    this.margem = mlc_calculada;
+                    this.margemLiquida = this.margem;
+                    this.descontoIfood();
                 } else {
-                    self.margem = null;
-                    self.margemLiquida = null;
+                    this.margem = null;
+                    this.margemLiquida = null;
                 }
             }
         },
 
         descontoIfood() {
-            let self = this;
-
-            const taxa = isNaN(parseFloat(self.taxaDesconto) / 100) ? 0 : parseFloat(self.taxaDesconto) / 100;
-            const preco = parseFloat(self.precoVenda);
-            const custo = parseFloat(self.custo);
+            const taxa = isNaN(parseFloat(this.taxaDesconto) / 100) ? 0 : parseFloat(this.taxaDesconto) / 100;
+            const preco = parseFloat(this.precoVenda);
+            const custo = parseFloat(this.custo);
 
             if (taxa >= 1) {
-                self.taxaDesconto = null;
-                return self.$msg.warning('Taxa do ifood precisa ser menor do que o 100%.');
+                this.taxaDesconto = null;
+                return this.$msg.warning('Taxa do ifood precisa ser menor do que o 100%.');
             }
 
             if (isNaN(preco) || preco <= 0 || isNaN(custo) || custo < 0 || isNaN(taxa) || taxa >= 100) {
-                self.lucro = 0;
+                this.lucro = 0;
                 return;
             }
 
@@ -320,8 +309,8 @@ export default {
 
             const margemLiq = this.selectTipoMargem == 'mlv' ? (lucroBruto / preco) * 100 : (lucroBruto / custo) * 100;
 
-            self.margemLiquida = margemLiq;
-            self.lucro = lucroBruto;
+            this.margemLiquida = margemLiq;
+            this.lucro = lucroBruto;
         },
     },
 };

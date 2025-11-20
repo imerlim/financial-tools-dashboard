@@ -2,7 +2,7 @@
     <transition name="fade">
         <div
             v-if="visible"
-            class="fixed top-5 right-5 px-4 py-3 rounded-lg shadow-lg text-white text-sm z-[9999]"
+            class="fixed top-6 left-1/2 -translate-x-1/2 px-4 py-3 rounded-lg shadow-2xl text-white text-sm z-[9999] w-fit max-w-md"
             :class="{
                 'bg-amber-600': type === 'warning',
                 'bg-red-600': type === 'error',

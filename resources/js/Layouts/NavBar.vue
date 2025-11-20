@@ -71,6 +71,7 @@ const callsToAction = [
 
 <template>
     <header class="bg-white dark:bg-slate-950 fixed top-0 z-50 w-full p-2">
+        <GlobalMsg></GlobalMsg>
         <div class="container mx-auto sm:px-16">
             <nav class="mx-auto flex items-center justify-between py-2 sm:py-5" aria-label="Global">
                 <div class="flex lg:flex-1 sm:ml-5">
