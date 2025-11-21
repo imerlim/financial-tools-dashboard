@@ -40,10 +40,10 @@ class ControleFinanceiroController extends Controller
         }
     }
 
-    public function allCategoria()
+    public function buscaControleFinanceiro(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->allCategoria();
+            $result = $this->controleFinanceiroService->buscaControleFinanceiro($request->idControle, $request->tipo, $request->categoria, $request->dataInicio, $request->dataFim, $request->valor);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
@@ -52,10 +52,11 @@ class ControleFinanceiroController extends Controller
         }
     }
 
-    public function allControleFinanceiro()
+
+    public function allCategoria()
     {
         try {
-            $result = $this->controleFinanceiroService->allControleFinanceiro();
+            $result = $this->controleFinanceiroService->allCategoria();
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

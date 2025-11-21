@@ -49,23 +49,23 @@ class ControleFinanceiroService
         return $query;
     }
 
-    public function allCategoria()
+    public function buscaControleFinanceiro($idControle, $tipo, $categoria, $dataInicio, $dataFim, $valor)
     {
         $user = Auth::user();
-        $query = Categoria::where('idUsuario', '=', $user->id)->orderBy('categoria', 'asc')->get();
+        $idUsuario = $user->id;
+        $filters = array_filter([
+            'idControle' => $idControle,
+            'idUsuario' => $idUsuario,
+            'tipo' => $tipo,
+            'categoria' => $categoria,
+            'dataInicio' => $dataInicio,
+            'dataFim' => $dataFim,
+            'valor' => $valor,
+        ], fn($v) => $v !== null && $v !== '');
 
-        if ($query->isEmpty()) {
-            return ['error' => 1, 'msg' => "Não foi possível encontrar o registro."];
-        }
+        $query = ControleFinanceiro::filter($filters)->get();
 
-        return $query;
-    }
-
-    public function allControleFinanceiro()
-    {
-        $user = Auth::user();
-        $query = ControleFinanceiro::where('idUsuario', '=', $user->id)->orderBy('categoria', 'asc')->get();
-        $somaCategoria = ControleFinanceiro::where('idUsuario', '=', $user->id)
+        $somaCategoria = ControleFinanceiro::filter($filters)
             ->select('categoria')
             ->selectRaw('SUM(valor) as valor')
             ->groupBy('categoria')
@@ -80,6 +80,18 @@ class ControleFinanceiroService
             'query' => $query,
             'somaCategoria' => $somaCategoria
         ];
+    }
+
+    public function allCategoria()
+    {
+        $user = Auth::user();
+        $query = Categoria::where('idUsuario', '=', $user->id)->orderBy('categoria', 'asc')->get();
+
+        if ($query->isEmpty()) {
+            return ['error' => 1, 'msg' => "Não foi possível encontrar o registro."];
+        }
+
+        return $query;
     }
 
     public function deleteCategoria($idCategoria)

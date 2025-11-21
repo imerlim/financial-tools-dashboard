@@ -9,6 +9,7 @@
                     <form @submit.prevent="createDados" class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
                         <div class="sm:col-span-1">
                             <CustomSelect
+                                :disabled="!this.user"
                                 required
                                 v-model="selectTipo"
                                 id="selectTipo"
@@ -23,6 +24,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
+                                :disabled="!this.user"
                                 required
                                 maxlength="10"
                                 inputmode="numeric"
@@ -40,6 +42,7 @@
                         </div>
                         <div class="sm:col-span-2">
                             <CustomSelect
+                                :disabled="!this.user"
                                 required
                                 v-model="categoria"
                                 label="Categoria"
@@ -100,66 +103,70 @@
                             </ModalMedium>
                         </div>
                         <div class="sm:col-span-1">
-                            <CustomInput required type="date" v-model="data" label="Data" id="data" name="data"></CustomInput>
+                            <CustomInput
+                                :disabled="!this.user"
+                                required
+                                type="date"
+                                v-model="data"
+                                label="Data"
+                                id="data"
+                                name="data"
+                            ></CustomInput>
                         </div>
 
                         <div class="sm:col-span-1 flex justify-end self-end">
-                            <PrimaryButton type="submit" :disabled="disableCreate"> Salvar </PrimaryButton>
+                            <PrimaryButton type="submit" :disabled="disableCreateuser"> Salvar </PrimaryButton>
                         </div>
 
                         <div ref="dropdownContainer" class="relative sm:col-span-1 sm:col-start-6 flex justify-end">
                             <FunnelIcon
-                                @click="openFiltro = !openFiltro"
+                                @click="
+                                    openFiltro = !openFiltro;
+                                    dataInicio = this.dtHoje;
+                                    dataFim = this.dtHoje;
+                                "
                                 class="w-12 h-12 cursor-pointer text-sky-800 shadow-xs hover:text-sky-600"
                             ></FunnelIcon>
 
                             <div
                                 v-if="openFiltro"
-                                class="absolute top-full mt-2 min-w-[18rem] max-w-[90vw] w-max left-0 md:left-auto md:right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-40"
+                                class="absolute top-full mt-2 min-w-[18rem] max-w-[90vw] w-max left-0 md:left-auto md:right-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-40"
                             >
                                 <div class="p-4 space-y-4" @submit.prevent="submit">
-                                    <div class="sm:col-span-2">
-                                        <CustomSelect
-                                            id="inativoFiltro"
-                                            v-model="inativoFiltro"
-                                            label="Status"
-                                            name="inativoFiltro"
-                                            :options="[
-                                                { value: 'N', label: 'Ativo' },
-                                                { value: 'S', label: 'Inativo' },
-                                            ]"
-                                        />
+                                    <div>
+                                        <CustomInput
+                                            :disabled="!this.user"
+                                            required
+                                            type="date"
+                                            v-model="dataInicio"
+                                            label="Data início"
+                                            id="dataInicio"
+                                            name="dataInicio"
+                                        ></CustomInput>
                                     </div>
-
-                                    <div class="sm:col-span-2">
-                                        <CustomSelect
-                                            id="inadimplenteFiltro"
-                                            v-model="inadimplenteFiltro"
-                                            label="Situação"
-                                            name="inadimplenteFiltro"
-                                            :options="[
-                                                { value: 'N', label: 'Adimplente' },
-                                                { value: 'S', label: 'Inadimplente' },
-                                            ]"
-                                        />
-                                    </div>
+                                    <CustomInput
+                                        :disabled="!this.user"
+                                        required
+                                        type="date"
+                                        v-model="dataFim"
+                                        label="Data fim"
+                                        id="dataFim"
+                                        name="dataFim"
+                                    ></CustomInput>
+                                    <div></div>
 
                                     <div class="flex justify-end gap-x-2">
-                                        <button
-                                            type="button"
-                                            class="inline-flex items-center rounded-md bg-white px-3 py-2 text-base font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
-                                            @click="limparFiltros()"
-                                        >
+                                        <PrimaryButton type="button" @click="limparFiltros()" :disabled="!this.user">
                                             Limpar
-                                        </button>
+                                        </PrimaryButton>
 
-                                        <button
+                                        <PrimaryButton
                                             type="button"
-                                            class="rounded-md bg-indigo-600 px-3 py-2 text-base font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex"
                                             @click="buscaFiltros()"
+                                            :disabled="!this.user || loadControleFinanceiro"
                                         >
                                             Buscar
-                                        </button>
+                                        </PrimaryButton>
                                     </div>
                                 </div>
                             </div>
@@ -200,14 +207,25 @@
                             </Table>
                         </div>
 
-                        <div class="sm:col-span-2">
+                        <div class="sm:col-span-3">
                             <PieChart
-                                v-if="Array.isArray(arraySomaValoresCategorias) && arraySomaValoresCategorias.length > 0"
+                                v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
                                 :show-currency="true"
                                 :desabilitaDisplay="true"
-                                :labels="arrayLabelCategorias"
-                                :series="arraySomaValoresCategorias"
-                                title="Top 5 categorias mais vendidas"
+                                :labels="arrayLabelCategoriasTop5"
+                                :series="arraySomaValoresCategoriasTop5"
+                                title="Top 10 categorias mais vendidas"
+                            />
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <PieChart
+                                v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
+                                :show-currency="true"
+                                :desabilitaDisplay="true"
+                                :labels="arrayLabelCategoriasTop5Reverse"
+                                :series="arraySomaValoresCategoriasTop5Reverse"
+                                title="Top 10 categorias menos vendidas"
                             />
                         </div>
                     </form>
@@ -246,14 +264,18 @@ export default {
             dtHoje: null,
             user: null,
             userId: null,
+            dataInicio: null,
+            dataFim: null,
             selectTipo: null,
             valor: null,
             categoria: null,
             novaCategoria: null,
             data: null,
             optionsCategoria: [],
-            arrayLabelCategorias: [],
-            arraySomaValoresCategorias: [],
+            arrayLabelCategoriasTop5: [],
+            arraySomaValoresCategoriasTop5: [],
+            arrayLabelCategoriasTop5Reverse: [],
+            arraySomaValoresCategoriasTop5Reverse: [],
         };
     },
 
@@ -288,8 +310,11 @@ export default {
 
     methods: {
         async inicia() {
+            if (!this.user) {
+                return this.$msg.warning('Realize login antes de processeguir.');
+            }
             await this.allCategorias();
-            await this.allControleFinanceiro();
+            await this.buscaFiltros();
         },
 
         handleClickOutside(event) {
@@ -346,12 +371,18 @@ export default {
             }
         },
 
-        async allControleFinanceiro() {
+        async buscaFiltros() {
             this.loadControleFinanceiro = true;
+            this.itemsControleFinanceiro = [];
+            this.arrayLabelCategoriasTop5 = [];
+            this.arraySomaValoresCategoriasTop5 = [];
+            this.arrayLabelCategoriasTop5Reverse = [];
+            this.arraySomaValoresCategoriasTop5Reverse = [];
             try {
-                const response = await axios.get('/all-controle-financeiro');
-                console.log(response.data);
+                const response = await axios.post('/busca-controle-financeiro', { dataInicio: this.dataInicio, dataFim: this.dataFim });
+
                 if (Array.isArray(response.data.query) && response.data.query.length > 0) {
+                    this.itemsControleFinanceiro = [];
                     this.itemsControleFinanceiro = response.data.query.map(w => ({
                         categoria: w.categoria,
                         valorFormatado: isNaN(parseFloat(w.valor))
@@ -361,18 +392,31 @@ export default {
                         tipo: w.tipo,
                     }));
 
-                    for (var w = 0; w < 5; w++) {
-                        this.arrayLabelCategorias.push(response.data.somaCategoria[w].categoria);
-                        this.arraySomaValoresCategorias.push(response.data.somaCategoria[w].valor);
-                    }
+                    const somaCategorias = response.data.somaCategoria || [];
+
+                    this.arrayLabelCategoriasTop5 = [];
+                    this.arraySomaValoresCategoriasTop5 = [];
+                    this.arrayLabelCategoriasTop5Reverse = [];
+                    this.arraySomaValoresCategoriasTop5Reverse = [];
+
+                    somaCategorias.slice(0, 10).forEach(item => {
+                        this.arrayLabelCategoriasTop5.push(item.categoria);
+                        this.arraySomaValoresCategoriasTop5.push(item.valor);
+                    });
+
+                    somaCategorias.slice(-10).forEach(item => {
+                        this.arrayLabelCategoriasTop5Reverse.push(item.categoria);
+                        this.arraySomaValoresCategoriasTop5Reverse.push(item.valor);
+                    });
                 }
+            } catch {
+                this.$msg.warning('Erro ao buscar registro.');
             } finally {
                 this.loadControleFinanceiro = false;
             }
         },
 
         async handleDeleteCategoria(item) {
-            console.log(item);
             this.loadCategoria = true;
             try {
                 await axios.delete('/delete-categoria', {
@@ -385,6 +429,12 @@ export default {
                 this.$msg.warning('Erro ao deletar registro.');
                 this.loadCategoria = false;
             }
+        },
+
+        limparFiltros() {
+            this.dataInicio = null;
+            this.dataFim = null;
+            this.buscaFiltros();
         },
     },
 };

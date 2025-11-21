@@ -1,26 +1,22 @@
 <template>
-    <div class="w-full h-96 relative">
-        <Pie ref="pieChart" :key="chartKey" :data="chartData" :options="chartOptions" />
+    <Pie ref="pieChart" :key="chartKey" :data="chartData" :options="chartOptions" />
 
-        <div v-if="showModal && modalOnClick" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full shadow-lg">
-                <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-white">{{ modalTitle }}</h2>
+    <div v-if="showModal && modalOnClick" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full shadow-lg">
+            <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-white">{{ modalTitle }}</h2>
 
-                <p class="text-gray-800 dark:text-gray-100">
-                    <span class="font-semibold">{{ modalLabelName }}:</span>
-                    {{ modalData.fullLabel }}
-                </p>
+            <p class="text-gray-800 dark:text-gray-100">
+                <span class="font-semibold">{{ modalLabelName }}:</span>
+                {{ modalData.fullLabel }}
+            </p>
 
-                <p class="text-gray-800 dark:text-gray-100">
-                    <span class="font-semibold">{{ modalValueName }}:</span>
-                    {{ formattedModalValue }}
-                </p>
+            <p class="text-gray-800 dark:text-gray-100">
+                <span class="font-semibold">{{ modalValueName }}:</span>
+                {{ formattedModalValue }}
+            </p>
 
-                <div class="mt-4 text-right">
-                    <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" @click="showModal = false">
-                        Fechar
-                    </button>
-                </div>
+            <div class="mt-4 text-right">
+                <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" @click="showModal = false">Fechar</button>
             </div>
         </div>
     </div>
@@ -85,7 +81,18 @@ export default {
                 fullLabel: '',
             },
             generatedColors: [],
-            fixedColors: ['#024400', '#10B981', '#F59E0B', '#EF4444', '#6366F1'],
+            fixedColors: [
+                '#4CAF50', // 1. Verde Esmeralda
+                '#2196F3', // 2. Azul Royal
+                '#FF9800', // 3. Laranja Vibrante
+                '#E91E63', // 4. Rosa Choque
+                '#9C27B0', // 5. Roxo Profundo
+                '#00BCD4', // 6. Ciano Claro
+                '#FFEB3B', // 7. Amarelo Sol
+                '#795548', // 8. Marrom Terra
+                '#F44336', // 9. Vermelho Carmin
+                '#607D8B', // 10. Azul Ardósia
+            ],
         };
     },
 
@@ -272,6 +279,6 @@ export default {
 
 <style>
 .tes {
-    background-color: #024400;
+    background-color: #4caf50;
 }
 </style>
