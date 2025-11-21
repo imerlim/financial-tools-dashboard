@@ -43,7 +43,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head title="Cadastro" />
 
         <form @submit.prevent="submit">
             <div>

@@ -2,17 +2,26 @@ import './bootstrap';
 import '../css/app.css';
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, Head, Link, useForm } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
 import { Ziggy } from './ziggy';
-import { Head, Link } from '@inertiajs/vue3';
 
 import ModalMedium from './Components/ModalMedium.vue';
 import Modal from './Components/Modal.vue';
+
 import CustomInput from './Components/CustomInput.vue';
 import CustomSelect from './Components/CustomSelect.vue';
 import CustomTextArea from './Components/CustomTextArea.vue';
 import CustomCheckbox from './Components/CustomCheckbox.vue';
+
+import BarChart from './Components/Graph/BarChart.vue';
+import BarChartHorizontal from './Components/Graph/BarChartHorizontal.vue';
+import MultipleBarChart from './Components/Graph/MultipleBarChart.vue';
+import DonutChart from './Components/Graph/DonutChart.vue';
+import Indicadores from './Components/Graph/Indicadores.vue';
+import LineChart from './Components/Graph/LineChart.vue';
+import PieChart from './Components/Graph/PieChart.vue';
+
 import msg from './Plugins/msg';
 import GlobalMsg from './Components/GlobalMsg.vue';
 import Table from './Components/Table.vue';
@@ -47,14 +56,24 @@ createInertiaApp({
         // 2. Componentes Individuais
         vueApp.component('Head', Head);
         vueApp.component('Link', Link);
-        // vueApp.component('UsersIcon', UsersIcon); // Removidos, pois serão registrados abaixo
-        // vueApp.component('XMarkIcon', XMarkIcon);
+        vueApp.component('useForm', useForm);
+
         vueApp.component('ModalMedium', ModalMedium);
         vueApp.component('Modal', Modal);
+
         vueApp.component('CustomInput', CustomInput);
         vueApp.component('CustomSelect', CustomSelect);
         vueApp.component('CustomTextArea', CustomTextArea);
         vueApp.component('CustomCheckbox', CustomCheckbox);
+
+        vueApp.component('BarChart', BarChart);
+        vueApp.component('BarChartHorizontal', BarChartHorizontal);
+        vueApp.component('MultipleBarChart', MultipleBarChart);
+        vueApp.component('DonutChart', DonutChart);
+        vueApp.component('Indicadores', Indicadores);
+        vueApp.component('LineChart', LineChart);
+        vueApp.component('PieChart', PieChart);
+
         vueApp.component('GlobalMsg', GlobalMsg);
         vueApp.component('Table', Table);
         vueApp.component('PrimaryButton', PrimaryButton);

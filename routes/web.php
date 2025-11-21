@@ -16,7 +16,9 @@ Route::inertia('/controle-financeiro', 'ControleFinanceiro')->name('controle.fin
 
 Route::controller(ControleFinanceiroController::class)->group(function () {
     Route::post('create-categoria', 'createCategoria')->name('create.categoria');
+    Route::post('create-controle-financeiro', 'createControleFinanceiro')->name('create.controle.financeiro');
     Route::get('all-categoria', 'allCategoria')->name('all.categoria');
+    Route::get('all-controle-financeiro', 'allControleFinanceiro')->name('all.controle.financeiro');
     Route::delete('delete-categoria', 'deleteCategoria')->name('delete.categoria');
 });
 

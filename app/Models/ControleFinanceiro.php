@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class ControleFinanceiro extends Model
 {
-    protected $table = 'categoria';
+    protected $table = 'controle_financeiro';
 
     public $incrementing = true;
 
@@ -18,8 +18,10 @@ class Categoria extends Model
      * @var array
      */
     protected $fillable = [
-        'idCategoria',
-        'idUsuario',
+        'idControle',
+        'tipo',
         'categoria',
+        'data',
+        'valor',
     ];
 }
