@@ -205,40 +205,19 @@
             </div>
 
             <!-- NOVA CAMADA -->
-            <div class="relative z-10 bg-slate-800 w-screen h-screen">
+            <div class="relative z-10 bg-slate-800 min-h-screen flex justify-center pt-32 pb-20 sm:pt-24 sm:pb-24">
                 <div class="absolute inset-0 bg-slate-800" aria-hidden="true"></div>
 
-                <div class="relative z-20 flex flex-col justify-center items-center w-full h-full">
-                    <div class="px-6 text-center">
-                        <div class="neon-sign-container">
-                            <div class="neon-border">
-                                <h1 class="neon-text">
-                                    THE HOME OF <br />
-                                    BRAZILIAN <br />
-                                    BLACK MUSIC
-                                </h1>
-                                <div class="light-rays"></div>
-                                <div class="particles"></div>
-                            </div>
+                <div class="relative z-20 flex justify-center items-center">
+                    <div class="px-6">
+                        <div class="neon-sign">
+                            A CASA DA <br />
+                            BLACK MUSIC <br />
+                            BRASILEIRA
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- NOVA CAMADA -->
-            <!-- <div class="relative z-10 bg-slate-800 pt-32 pb-20 sm:pt-24 sm:pb-24">
-        <div class="absolute inset-0 bg-slate-800" aria-hidden="true"></div>
-
-        <div class="relative z-20 flex justify-center items-center">
-          <div class="px-6">
-            <div class="neon-sign">
-              A CASA DA <br>
-              BLACK MUSIC <br>
-              BRASILEIRA
-            </div>
-          </div>
-        </div>
-      </div> -->
 
             <!-- Testimonial section -->
             <div class="relative z-10 bg-slate-800 pt-32 pb-20 sm:pt-56 sm:pb-24 xl:pb-0">
@@ -474,24 +453,25 @@ body {
 /* letreiro neon versão 2 */
 
 .neon-sign {
-    border: 3px solid;
-    border-radius: 15px;
-    padding: 2rem 3rem;
+    border: 8px solid;
+    border-radius: 30px;
+    padding: 5rem 8rem;
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     text-align: center;
 
     /* Gradiente arco-íris */
-    background: linear-gradient(90deg, #ff0040, #ff00ff, #8000ff, #00ffff, #00ff00, #ffff00, #ff0040);
-    background-size: 400% 400%;
+    background: linear-gradient(90deg, #ff0040, #ffff00, #ff0040);
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
 
     /* Glow neon */
-    text-shadow: 0 0 10px rgba(255, 0, 64, 0.8), 0 0 20px rgba(255, 0, 255, 0.6);
-    box-shadow: 0 0 20px rgba(255, 0, 64, 0.5), 0 0 40px rgba(255, 0, 255, 0.4), 0 0 60px rgba(128, 0, 255, 0.3);
+    text-shadow: 0 0 30px rgba(255, 0, 64, 0.5), 0 0 40px rgba(255, 0, 255, 0.4), 0 0 50px rgba(128, 0, 255, 0.3);
+    box-shadow: 0 0 100px rgba(255, 0, 64, 0.5), 0 0 100px rgba(255, 0, 255, 0.4), 0 0 100px rgba(128, 0, 255, 0.3);
 
     /* Nova animação RGB */
     animation: rgb-spin 10s linear infinite;
