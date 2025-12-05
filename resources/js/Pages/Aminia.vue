@@ -40,13 +40,13 @@
                                     @click="openModalDescricao = true"
                                     class="cursor-pointer rounded-md text-sm font-semibold text-slate-200 shadow-xs hover:text-yellow-400 focus:outline-none"
                                 >
-                                    O que é Aminia Produções
+                                    What is Aminia Productions
                                 </button>
                                 <button
                                     @click="openModalContato = true"
                                     class="cursor-pointer rounded-md text-sm font-semibold text-slate-200 shadow-xs hover:text-yellow-400 focus:outline-none"
                                 >
-                                    Contato
+                                    Contact
                                 </button>
                             </div>
                         </div>
@@ -57,37 +57,37 @@
                             class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                         >
                             <div class="sm:col-span-6" style="text-align: left">
-                                <h1 class="text-xl font-bold text-center">O que é a Aminia Produções</h1>
+                                <h1 class="text-xl font-bold text-center">What is Aminia Productions</h1>
                                 <h3>
                                     <br /><br />
-                                    A Aminia Produções é uma produtora audiovisual independente criada por Lucas Madeira (<a
+                                    Aminia Productions is an independent audiovisual production company created by Lucas Madeira (<a
                                         href="https://www.instagram.com/diretor_blackwood?igsh=MXRxdnoyZ3FsN2tyMQ=="
                                         target="_blank"
                                         class="text-yellow-400"
                                         >@diretor_blackwood</a
-                                    >), dedicada a celebrar e divulgar a Black Music no Brasil.<br /><br />
+                                    >), dedicated to celebrating and promoting Black Music in Brazil.<br /><br />
 
-                                    Mais do que uma produtora, a Aminia é um movimento que une arte, som e imagem para valorizar a cultura
-                                    Black em todas as suas expressões. Encontramos no YouTube o espaço perfeito para compartilhar essa visão
-                                    — produzindo tributos audiovisuais a grandes nomes da Black Music mundial, como Stevie Wonder, Michael
-                                    Jackson, Blackstreet, TLC, SWV, Marvin Gaye e muitos outros.<br /><br />
+                                    More than just a production company, Aminia is a movement that brings together art, sound, and image to
+                                    highlight Black culture in all its expressions. We found in YouTube the perfect space to share this
+                                    vision — producing audiovisual tributes to great icons of global Black Music, such as Stevie Wonder,
+                                    Michael Jackson, Blackstreet, TLC, SWV, Marvin Gaye, and many others.<br /><br />
 
-                                    Cada produção é pensada como uma homenagem autêntica e respeitosa, recriando com qualidade e emoção os
-                                    sons e visuais que marcaram gerações.<br /><br />
+                                    Each production is crafted as an authentic and respectful homage, recreating with quality and emotion
+                                    the sounds and visuals that marked generations.<br /><br />
 
-                                    Nosso propósito é claro: preservar o legado da Black Music, inspirar novas gerações e consolidar o
-                                    espaço dessa cultura no audiovisual brasileiro.
+                                    Our purpose is clear: to preserve the legacy of Black Music, inspire new generations, and strengthen the
+                                    presence of this culture within Brazilian audiovisual production.
                                 </h3>
                             </div>
                         </div>
                     </ModalMedium>
 
-                    <ModalMedium v-model="openModalContato" title="Contato">
+                    <ModalMedium v-model="openModalContato" title="Contact">
                         <div
                             class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                         >
                             <div class="sm:col-span-4">
-                                <CustomInput v-model="nome" id="nome" name="nome" label="Nome"></CustomInput>
+                                <CustomInput v-model="nome" id="nome" name="nome" label="Name"></CustomInput>
                             </div>
 
                             <div class="sm:col-span-4">
@@ -95,7 +95,7 @@
                             </div>
 
                             <div class="sm:col-span-4">
-                                <CustomInput v-model="assunto" id="assunto" name="assunto" label="Assunto"></CustomInput>
+                                <CustomInput v-model="assunto" id="assunto" name="assunto" label="Subject"></CustomInput>
                             </div>
 
                             <div class="sm:col-span-4">
@@ -103,7 +103,7 @@
                                     v-model="mensagem"
                                     id="mensagem"
                                     name="mensagem"
-                                    label="Mensagem"
+                                    label="Message"
                                     placeholder="Digite sua mensagem aqui..."
                                     :rows="5"
                                 />
@@ -169,7 +169,7 @@
                         </div>
                         <div class="text-center hidden md:block">
                             <h1 class="text-lg pt-3 font-semibold tracking-tight text-balance text-yellow-400 sm:text-6xl">
-                                Bem-vindo à Aminia Produções
+                                Welcome to Aminia Productions
                             </h1>
                         </div>
                     </div>
@@ -208,12 +208,18 @@
             <div class="relative z-10 bg-slate-800 w-screen h-screen">
                 <div class="absolute inset-0 bg-slate-800" aria-hidden="true"></div>
 
-                <div class="relative z-20 flex justify-center items-center w-full h-full">
+                <div class="relative z-20 flex flex-col justify-center items-center w-full h-full">
                     <div class="px-6 text-center">
-                        <div class="neon-sign">
-                            A CASA DA <br />
-                            BLACK MUSIC <br />
-                            BRASILEIRA
+                        <div class="neon-sign-container">
+                            <div class="neon-border">
+                                <h1 class="neon-text">
+                                    THE HOME OF <br />
+                                    BRAZILIAN <br />
+                                    BLACK MUSIC
+                                </h1>
+                                <div class="light-rays"></div>
+                                <div class="particles"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -272,7 +278,7 @@
                                 <img
                                     class="w-full h-full rounded-2xl bg-slate-800 object-contain shadow-2xl"
                                     src="/storage/Ceo_Aminia.jpeg"
-                                    alt="Diretor Blackwood"
+                                    alt="Blackwood Director"
                                 />
                             </div>
                         </div>
@@ -306,7 +312,7 @@
                             </blockquote>
                             <figcaption class="mt-8 text-base">
                                 <div class="font-semibold text-white">Lucas Madeira</div>
-                                <div class="mt-1 text-slate-400">Diretor Blackwood</div>
+                                <div class="mt-1 text-slate-400">Blackwood Director</div>
                             </figcaption>
                         </figure>
                     </div>
@@ -352,9 +358,10 @@
                         <!-- TikTok -->
                         <a href="https://www.tiktok.com/@aminiaprod" target="_blank" class="text-slate-400 hover:text-yellow-400">
                             <span class="sr-only">TikTok</span>
-                            <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-10 w-10" viewBox="0 0 448 512">
+                                <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
                                 <path
-                                    d="M448 209.91v102.52c-19.69 9.14-41.29 15.27-64 17.71v-61.65c-18.39-2.66-35.88-8.98-51.59-18.48v95.74c0 88.37-71.63 160-160 160S12 434.12 12 345.74s71.63-160 160-160c5.55 0 11.01.28 16.4.83v71.52c-5.34-1.36-10.9-2.08-16.4-2.08-48.6 0-88 39.4-88 88s39.4 88 88 88c48.6 0 88-39.4 88-88V0h76.8c7.15 67.2 56.51 120.83 123.2 128v81.91z"
+                                    d="M448.5 209.9c-44 .1-87-13.6-122.8-39.2l0 178.7c0 33.1-10.1 65.4-29 92.6s-45.6 48-76.6 59.6-64.8 13.5-96.9 5.3-60.9-25.9-82.7-50.8-35.3-56-39-88.9 2.9-66.1 18.6-95.2 40-52.7 69.6-67.7 62.9-20.5 95.7-16l0 89.9c-15-4.7-31.1-4.6-46 .4s-27.9 14.6-37 27.3-14 28.1-13.9 43.9 5.2 31 14.5 43.7 22.4 22.1 37.4 26.9 31.1 4.8 46-.1 28-14.4 37.2-27.1 14.2-28.1 14.2-43.8l0-349.4 88 0c-.1 7.4 .6 14.9 1.9 22.2 3.1 16.3 9.4 31.9 18.7 45.7s21.3 25.6 35.2 34.6c19.9 13.1 43.2 20.1 67 20.1l0 87.4z"
                                 />
                             </svg>
                         </a>
@@ -498,9 +505,135 @@ body {
         background-position: 400% 50%;
     }
 }
+
+/* TESTE ANIMACAO LETREIRO*/
+/* Estilo para as partículas criadas por JS */
+.js-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    pointer-events: none; /* Garante que não interfiram com cliques */
+    transform: translate(-50%, -50%); /* Centraliza a partícula */
+}
+
+body {
+    background-color: #1a1a2e; /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Use uma fonte que combine */
+    overflow: hidden; /* Para as partículas */
+}
+
+.neon-sign-container {
+    position: relative;
+    padding: 20px;
+    perspective: 1000px; /* Para simular profundidade se quiser inclinar */
+}
+
+.neon-border {
+    border: 4px solid #fff; /* Borda branca para o efeito neon */
+    border-radius: 8px;
+    padding: 30px 50px;
+    position: relative;
+    /* O "glow" real virá de box-shadow e text-shadow */
+    box-shadow: 0 0 10px #fff, 0 0 20px #8a2be2, /* Roxo */ 0 0 40px #ff69b4, /* Rosa */ 0 0 80px #8a2be2; /* Mais roxo para o brilho exterior */
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo um pouco transparente escuro */
+    transform-style: preserve-3d; /* Para efeitos 3D futuros */
+}
+
+.neon-text {
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    color: #fff; /* Cor base do texto */
+    line-height: 1.2;
+    text-shadow: 0 0 7px #fff, 0 0 10px #ff69b4, /* Rosa */ 0 0 21px #8a2be2, /* Roxo */ 0 0 42px #ff69b4, /* Mais rosa */ 0 0 82px #8a2be2; /* Mais roxo para o brilho forte */
+    mix-blend-mode: screen; /* Pode ajudar com as cores sobrepostas */
+    /* Cores variadas para cada linha, se desejar */
+    /* Exemplo:
+    .neon-text br:nth-child(1) { color: #ff69b4; }
+    .neon-text br:nth-child(2) { color: #8a2be2; }
+    */
+}
+
+/* Efeito de Flicker Básico com CSS Animation */
+@keyframes flicker {
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        text-shadow: 0 0 7px #fff, 0 0 10px #ff69b4, 0 0 21px #8a2be2, 0 0 42px #ff69b4, 0 0 82px #8a2be2;
+        box-shadow: 0 0 10px #fff, 0 0 20px #8a2be2, 0 0 40px #ff69b4, 0 0 80px #8a2be2;
+        opacity: 1;
+    }
+    20%,
+    24%,
+    55% {
+        text-shadow: none;
+        box-shadow: none;
+        opacity: 0.8;
+    }
+}
+.neon-text,
+.neon-border {
+    animation: flicker 4s infinite alternate; /* Aplica o flicker */
+}
+
+/* --- Para os Raios de Luz (Abordagem com CSS Gradiente/SVG) --- */
+/* Isso é um exemplo, pode ser bem complexo para CSS puro */
+.light-rays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Fica atrás do texto */
+    background: radial-gradient(circle at center, rgba(255, 105, 180, 0.5) 0%, rgba(138, 43, 226, 0.3) 20%, transparent 70%);
+    opacity: 0.5;
+    /* Pode-se animar a opacidade ou o tamanho com JS */
+}
+
+/* --- Para as Partículas (Abordagem Simples com CSS) --- */
+/* Para partículas mais complexas, Canvas ou JS são melhores */
+/* Exemplo de uma única partícula */
+.particles::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    animation: particle-move 10s infinite linear;
+    /* Para múltiplas partículas, use JS ou crie vários elementos */
+}
+@keyframes particle-move {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(200px, 150px);
+        opacity: 0;
+    }
+}
 </style>
 
 <script>
+import { gsap } from 'gsap';
 export default {
     layout: null,
 
@@ -523,6 +656,41 @@ export default {
 
     mounted() {
         document.addEventListener('click', this.handleClickOutside);
+
+        // --- GSAP ANIMATION IMPLEMENTATION ---
+
+        // 1. Target the element you want to animate.
+        // We'll target the main welcome header using its class or tag.
+        // It has the class 'text-lg pt-3 font-semibold tracking-tight text-balance text-yellow-400 sm:text-6xl'
+        // Let's use a class selector for better targeting:
+        const welcomeHeader = document.querySelector('.text-center.hidden.md\\:block h1');
+
+        if (welcomeHeader) {
+            // Use gsap.from() to animate *from* a specific state *to* the current state (like a reveal)
+            gsap.from(welcomeHeader, {
+                duration: 1.5, // Animation duration in seconds
+                y: 50, // Start 50 pixels down (animate up)
+                opacity: 0, // Start invisible (animate to full opacity)
+                ease: 'power3.out', // A smooth, pleasing easing function
+                delay: 0.5, // Wait half a second before starting
+            });
+        }
+
+        // Example for the Neon Sign (requires a selector for the h1 inside .neon-sign-container)
+        const neonText = document.querySelector('.neon-sign-container .neon-text');
+
+        if (neonText) {
+            // Use gsap.to() to apply an animation after a brief delay, maybe to emphasize the flicker/glow.
+            gsap.to(neonText, {
+                duration: 0.8,
+                scale: 1.05, // Slightly pop the scale
+                repeat: -1, // Repeat indefinitely
+                yoyo: true, // Go back and forth
+                ease: 'sine.inOut',
+                filter: 'brightness(1.5)', // Increase brightness slightly
+                delay: 4, // Start the gentle pulse after the initial animation
+            });
+        }
     },
 
     beforeUnmount() {
