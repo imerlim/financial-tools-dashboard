@@ -42,20 +42,20 @@ const products = [
         icon: MusicalNoteIcon,
     },
     {
-        name: 'Calculadora de margem',
-        description: 'Calcula margem de lucro de produtos',
+        name: 'Profit Margin Calculator',
+        description: 'Calculates product profit margin',
         href: '/calculadora-margem',
         icon: CalculatorIcon,
     },
     {
-        name: 'Calculadora de juros',
-        description: 'Planeje sua aposentadoria com investimentos',
+        name: 'Interest Calculator',
+        description: 'Plan your retirement with investments',
         href: '/calculadora-juros-compostos',
         icon: PresentationChartLineIcon,
     },
     {
-        name: 'Controle financeiro',
-        description: 'Visualização de dados financeiros',
+        name: 'Financial Control',
+        description: 'Financial data visualization',
         href: '/controle-financeiro',
         icon: ChartPieIcon,
     },
@@ -97,7 +97,7 @@ const callsToAction = [
                 <PopoverGroup class="hidden lg:flex lg:gap-x-12">
                     <Popover class="relative">
                         <PopoverButton class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900 dark:text-white">
-                            Projetos
+                            Projects
                             <ChevronDownIcon class="size-5 flex-none text-gray-400 dark:text-gray-500" aria-hidden="true" />
                         </PopoverButton>
 
@@ -168,7 +168,7 @@ const callsToAction = [
                             Log in <span aria-hidden="true">&rarr;</span>
                         </a>
                         <a href="/register" class="text-sm/6 m-2 font-semibold text-gray-900 dark:text-white">
-                            Cadastre-se <span aria-hidden="true"></span>
+                            Sign up <span aria-hidden="true"></span>
                         </a>
                     </template>
 
@@ -207,7 +207,7 @@ const callsToAction = [
                                     <DisclosureButton
                                         class="flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
                                     >
-                                        Projetos
+                                        Projects
                                         <ChevronDownIcon :class="[open ? 'rotate-180' : '', 'size-5 flex-none']" aria-hidden="true" />
                                     </DisclosureButton>
                                     <DisclosurePanel class="mt-2 space-y-2">

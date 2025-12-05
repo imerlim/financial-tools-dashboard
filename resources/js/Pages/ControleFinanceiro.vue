@@ -16,8 +16,8 @@
                                 name="selectTipo"
                                 label="Tipo"
                                 :options="[
-                                    { label: 'Entrada', value: 'E' },
-                                    { label: 'Saída', value: 'S' },
+                                    { label: 'Income', value: 'E' },
+                                    { label: 'Expense', value: 'S' },
                                 ]"
                             >
                             </CustomSelect>
@@ -31,7 +31,7 @@
                                 placeholder="0,00"
                                 :formata="true"
                                 v-model="valor"
-                                label="Valor"
+                                label="Amount"
                                 id="valor"
                                 name="valor"
                             >
@@ -45,7 +45,7 @@
                                 :disabled="!this.user"
                                 required
                                 v-model="categoria"
-                                label="Categoria"
+                                label="Category"
                                 id="categoria"
                                 name="categoria"
                                 :options="optionsCategoria"
@@ -64,7 +64,7 @@
                                             maxlength="45"
                                             id="novaCategoria"
                                             v-model="novaCategoria"
-                                            label="Nova categoria"
+                                            label="New Category"
                                             name="novaCategoria"
                                         />
                                     </div>
@@ -108,7 +108,7 @@
                                 required
                                 type="date"
                                 v-model="data"
-                                label="Data"
+                                label="Date"
                                 id="data"
                                 name="data"
                             ></CustomInput>
@@ -139,7 +139,7 @@
                                             required
                                             type="date"
                                             v-model="dataInicio"
-                                            label="Data início"
+                                            label="Start Date"
                                             id="dataInicio"
                                             name="dataInicio"
                                         ></CustomInput>
@@ -149,7 +149,7 @@
                                         required
                                         type="date"
                                         v-model="dataFim"
-                                        label="Data fim"
+                                        label="End Date"
                                         id="dataFim"
                                         name="dataFim"
                                     ></CustomInput>
@@ -246,16 +246,16 @@ export default {
             openModalCategoria: false,
 
             headersCategoria: [
-                { label: 'Categoria', key: 'categoria' },
+                { label: 'Category', key: 'categoria' },
                 { label: '', key: 'acoes', customRender: 'acoes' },
             ],
             itemsCategoria: [],
             loadCategoria: true,
 
             headersDadosFinanceiro: [
-                { label: 'Categoria', key: 'categoria' },
-                { label: 'Valor', key: 'valorFormatado' },
-                { label: 'Data', key: 'dataFormatada' },
+                { label: 'Category', key: 'categoria' },
+                { label: 'Amount', key: 'valorFormatado' },
+                { label: 'Date', key: 'dataFormatada' },
                 { label: 'Tipo', key: 'tipo' },
             ],
             itemsControleFinanceiro: [],
@@ -311,7 +311,7 @@ export default {
     methods: {
         async inicia() {
             if (!this.user) {
-                return this.$msg.warning('Realize login antes de processeguir.');
+                return this.$msg.warning('Please log in before proceeding.');
             }
             await this.allCategorias();
             await this.buscaFiltros();
@@ -328,7 +328,7 @@ export default {
             this.disableCreate = true;
             try {
                 if (!this.user) {
-                    return this.$msg.warning('Realize login antes de processeguir.');
+                    return this.$msg.warning('Please log in before proceeding.');
                 }
                 await axios.post('/create-controle-financeiro', {
                     selectTipo: this.selectTipo,
@@ -337,7 +337,7 @@ export default {
                     data: this.data,
                 });
             } catch (error) {
-                this.$msg.warning('Erro ao criar registro.');
+                this.$msg.warning('Error creating record.');
             } finally {
                 this.disableCreate = true;
             }
@@ -350,7 +350,7 @@ export default {
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
-                this.$msg.warning('Erro ao criar registro.');
+                this.$msg.warning('Error creating record.');
                 this.loadCategoria = false;
             }
         },
@@ -388,7 +388,8 @@ export default {
                         valorFormatado: isNaN(parseFloat(w.valor))
                             ? 'R$ 0,00'
                             : parseFloat(w.valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-                        dataFormatada: w.data.split('-').reverse().join('/'),
+                        dataFormatada: w.data,
+                        // dataFormatada: w.data.split('-').reverse().join('/'),
                         tipo: w.tipo,
                     }));
 
@@ -410,7 +411,7 @@ export default {
                     });
                 }
             } catch {
-                this.$msg.warning('Erro ao buscar registro.');
+                this.$msg.warning('Error fetching record.');
             } finally {
                 this.loadControleFinanceiro = false;
             }
@@ -426,7 +427,7 @@ export default {
                 });
                 this.allCategorias();
             } catch {
-                this.$msg.warning('Erro ao deletar registro.');
+                this.$msg.warning('Error deleting record.');
                 this.loadCategoria = false;
             }
         },

@@ -18,8 +18,8 @@
                                 id="selectTipoMargem"
                                 name="selectTipoMargem"
                                 :options="[
-                                    { label: 'Margem venda', value: 'mlv' },
-                                    { label: 'Margem custo', value: 'mlc' },
+                                    { label: 'Sale Margin', value: 'mlv' },
+                                    { label: 'Cost Margin', value: 'mlc' },
                                 ]"
                             >
                             </CustomSelect>
@@ -33,7 +33,7 @@
                                 @change="calculaPrecoVenda()"
                                 :formata="true"
                                 v-model="custo"
-                                label="Preço de custo"
+                                label="Cost Price"
                                 id="custo"
                                 name="custo"
                                 maxlength="10"
@@ -51,7 +51,7 @@
                                 @change="calculaPrecoVenda()"
                                 :formata="true"
                                 v-model="margem"
-                                label="Margem"
+                                label="Margin"
                                 id="margem"
                                 name="margem"
                             >
@@ -67,7 +67,7 @@
                                 @change="calculaMargens()"
                                 :formata="true"
                                 v-model="precoVenda"
-                                label="Preço de venda"
+                                label="Sale Price"
                                 id="precoVenda"
                                 name="precoVenda"
                             >
@@ -83,7 +83,7 @@
                                 @change="descontoIfood()"
                                 :formata="true"
                                 v-model="taxaDesconto"
-                                label="Desconto"
+                                label="Discount"
                                 id="taxaDesconto"
                                 name="taxaDesconto"
                                 title="Taxa sobre preço de venda"
@@ -100,7 +100,7 @@
                                 disabled
                                 v-model="lucro"
                                 :formata="true"
-                                label="Lucro"
+                                label="Profit"
                                 id="lucro"
                                 name="lucro"
                             >
@@ -116,10 +116,9 @@
                                 disabled
                                 v-model="margemLiquida"
                                 :formata="true"
-                                label="Margem líquida"
+                                label="Net Margin"
                                 id="margemLiquida"
                                 name="margemLiquida"
-                                title="Margem após desconto da taxa ifood"
                             >
                                 <template #append>
                                     <span class="text-base">%</span>
@@ -137,7 +136,7 @@
 export default {
     data() {
         return {
-            tituloMargem: 'Margem sobre o preço de venda',
+            tituloMargem: 'Margin over sale price',
             selectTipoMargem: 'mlv',
             custo: null,
             margem: null,
@@ -148,7 +147,7 @@ export default {
 
             /* ---------------------- */
             checkQtd: false,
-            labelQtd: 'Qtd em gramas',
+            labelQtd: 'Qty in grams',
         };
     },
 
@@ -161,9 +160,9 @@ export default {
             this.lucro = null;
             this.taxaDesconto = null;
             if (this.selectTipoMargem == 'mlc') {
-                this.tituloMargem = 'Margem sobre o preço de custo';
+                this.tituloMargem = 'Margin over cost price';
             } else {
-                this.tituloMargem = 'Margem sobre o preço de venda';
+                this.tituloMargem = 'Margin over sale price';
             }
         },
 
@@ -175,17 +174,17 @@ export default {
 
                 if (custo <= 0) {
                     this.custo = null;
-                    return this.$msg.warning('Custo precisa ser maior do que 0.');
+                    return this.$msg.warning('Cost must be greater than 0.');
                 }
                 if (margem <= 0) {
                     this.margem = null;
                     this.margemLiquida = null;
-                    return this.$msg.warning('Margem venda precisa ser maior do que 0.');
+                    return this.$msg.warning('Sale margin must be greater than 0.');
                 }
                 if (margem >= 100) {
                     this.margem = null;
                     this.margemLiquida = null;
-                    return this.$msg.warning('Margem venda precisa ser menor do que 100.');
+                    return this.$msg.warning('Sale margin must be less than 100.');
                 }
 
                 if (custo > 0 && margem > 0 && margem < 100) {
@@ -210,12 +209,12 @@ export default {
 
                 if (custo <= 0) {
                     this.custo = null;
-                    return this.$msg.warning('Custo precisa ser maior do que 0.');
+                    return this.$msg.warning('Cost must be greater than 0.');
                 }
                 if (margem <= 0) {
                     this.margem = null;
                     this.margemLiquida = null;
-                    return this.$msg.warning('Margem venda precisa ser maior do que 0.');
+                    return this.$msg.warning('Sale margin must be greater than 0.');
                 }
 
                 if (custo > 0 && margem > 0) {
@@ -241,11 +240,11 @@ export default {
 
                 if (custo <= 0) {
                     this.precoVenda = null;
-                    return this.$msg.warning('Custo precisa ser maior do que 0.');
+                    return this.$msg.warning('Cost must be greater than 0.');
                 }
                 if (custo > precoVenda) {
                     this.precoVenda = null;
-                    return this.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                    return this.$msg.warning('Sale price must be greater than cost price.');
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
@@ -266,11 +265,11 @@ export default {
 
                 if (custo <= 0) {
                     this.precoVenda = null;
-                    return this.$msg.warning('Custo precisa ser maior do que 0.');
+                    return this.$msg.warning('Cost must be greater than 0.');
                 }
                 if (custo > precoVenda) {
                     this.precoVenda = null;
-                    return this.$msg.warning('Preço de venda precisa ser maior do que o preço de custo.');
+                    return this.$msg.warning('Sale price must be greater than cost price.');
                 }
                 if (custo > 0 && precoVenda > custo) {
                     const lucroBruto = precoVenda - custo;
@@ -295,7 +294,7 @@ export default {
 
             if (taxa >= 1) {
                 this.taxaDesconto = null;
-                return this.$msg.warning('Taxa do ifood precisa ser menor do que o 100%.');
+                return this.$msg.warning('iFood fee must be lower than 100%.');
             }
 
             if (isNaN(preco) || preco <= 0 || isNaN(custo) || custo < 0 || isNaN(taxa) || taxa >= 100) {

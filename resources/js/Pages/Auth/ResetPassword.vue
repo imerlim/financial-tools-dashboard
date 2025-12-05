@@ -38,7 +38,7 @@ const submit = () => {
                 <CustomInput
                     v-model="form.email"
                     type="email"
-                    label="Usuário"
+                    label="Username"
                     id="email"
                     name="email"
                     :autofocus="true"
@@ -52,7 +52,7 @@ const submit = () => {
                 <CustomInput
                     v-model="form.password"
                     type="password"
-                    label="Senha"
+                    label="Password"
                     id="password"
                     name="password"
                     autocomplete="new-password"
@@ -65,7 +65,7 @@ const submit = () => {
                 <CustomInput
                     v-model="form.password_confirmation"
                     type="password"
-                    label="Confirmar senha"
+                    label="Confirm Password"
                     id="password_confirmation"
                     name="password_confirmation"
                     autocomplete="new-password"
@@ -76,7 +76,7 @@ const submit = () => {
 
             <div class="mt-4 flex items-center justify-end">
                 <PrimaryButton type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resetar senha
+                    Reset password
                 </PrimaryButton>
             </div>
         </form>

@@ -1,5 +1,5 @@
 <template>
-    <Head title="Calculadora juros compostos" />
+    <Head title="Compound Interest Calculator" />
     <div class="bg-slate-100 dark:bg-slate-900">
         <main>
             <div
@@ -8,24 +8,24 @@
                 <div class="container mx-auto sm:px-16">
                     <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
                         <div class="sm:col-span-4 text-center text-2xl">
-                            <legend class="text-slate-900 dark:text-white">Calculadora juros compostos</legend>
+                            <legend class="text-slate-900 dark:text-white">Compound Interest Calculator</legend>
                         </div>
                         <div class="sm:col-span-4 justify-items-center" v-show="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
                             <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Valor investido</dt>
+                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Invested Amount</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                         {{ valorTotalInvestido }}
                                     </dd>
                                 </div>
                                 <div id="montanteDiv" class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                    <dt class="text-2xl font-semibold text-sky-500">Montante final</dt>
+                                    <dt class="text-2xl font-semibold text-sky-500">Final Amount</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-sky-500">
                                         {{ montanteFinal }}
                                     </dd>
                                 </div>
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
-                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Total em juros</dt>
+                                    <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Total Interest</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
                                         {{ totalEmJuros }}
                                     </dd>
@@ -39,7 +39,7 @@
                                 placeholder="0,00"
                                 :formata="true"
                                 v-model="valorInicial"
-                                label="Valor inicial"
+                                label="Initial Amount"
                                 id="valorInicial"
                                 name="valorInicial"
                             >
@@ -55,7 +55,7 @@
                                 placeholder="0,00"
                                 :formata="true"
                                 v-model="valorMensal"
-                                label="Valor mensal"
+                                label="Monthly Amount"
                                 id="valorMensal"
                                 name="valorMensal"
                             >
@@ -72,15 +72,15 @@
                                 :formata="true"
                                 :propLargeAppend="true"
                                 v-model="taxaJuros"
-                                label="Taxa de juros"
+                                label="Interest Rate"
                                 id="taxaJuros"
                                 name="taxaJuros"
                             >
                                 <template #append>
                                     <CustomSelect
                                         :options="[
-                                            { label: 'Mensal', value: 'Mensal' },
-                                            { label: 'Anual', value: 'Anual' },
+                                            { label: 'Monthly', value: 'Mensal' },
+                                            { label: 'Annual', value: 'Anual' },
                                         ]"
                                         v-model="taxaJurosSelect"
                                         id="taxaJurosSelect"
@@ -97,15 +97,15 @@
                                 :formata="true"
                                 :propLargeAppend="true"
                                 v-model="periodo"
-                                label="Período"
+                                label="Period"
                                 id="periodo"
                                 name="periodo"
                             >
                                 <template #append>
                                     <CustomSelect
                                         :options="[
-                                            { label: 'Anos', value: 'Anos' },
-                                            { label: 'Meses', value: 'Meses' },
+                                            { label: 'Years', value: 'Anos' },
+                                            { label: 'Months', value: 'Meses' },
                                         ]"
                                         v-model="periodoSelect"
                                         id="periodoSelect"

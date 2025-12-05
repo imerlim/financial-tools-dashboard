@@ -49,7 +49,7 @@ const submit = () => {
             <div>
                 <CustomInput
                     v-model="form.name"
-                    label="Usuário"
+                    label="Username"
                     id="name"
                     name="name"
                     :autofocus="true"
@@ -68,7 +68,7 @@ const submit = () => {
                 <CustomInput
                     v-model="form.password"
                     type="password"
-                    label="Senha"
+                    label="Password"
                     id="password"
                     name="password"
                     autocomplete="new-password"
@@ -81,7 +81,7 @@ const submit = () => {
                 <CustomInput
                     v-model="form.password_confirmation"
                     type="password"
-                    label="Confirmar senha"
+                    label="Confirm Password"
                     id="password_confirmation"
                     name="password_confirmation"
                     autocomplete="new-password"
@@ -95,11 +95,11 @@ const submit = () => {
                     href="/login"
                     class="rounded-md text-base text-slate-900 dark:text-white underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                    já cadastrado?
+                    already registered?
                 </Link>
 
                 <PrimaryButton type="submit" class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Cadastrar
+                    Register
                 </PrimaryButton>
             </div>
         </form>

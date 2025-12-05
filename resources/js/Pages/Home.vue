@@ -72,7 +72,7 @@ onMounted(() => {
                     </g>
                 </svg>
                 <p class="js-subtitle text-lg mt-4 text-white">
-                    Desenvolvedor Full-Stack. Construindo soluções escaláveis e arquitetura moderna.
+                    Full-Stack Developer. Building scalable solutions and modern architecture.
                 </p>
             </div>
         </div>
@@ -82,7 +82,7 @@ onMounted(() => {
                 <p
                     class="mx-auto mt-2 text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl dark:text-white"
                 >
-                    Experiências profissionais
+                    Professional Experience
                 </p>
                 <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
                     <div class="relative lg:row-span-2">
@@ -92,14 +92,18 @@ onMounted(() => {
                         >
                             <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                                 <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Módulos gestão de empresa
+                                    Business management modules
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Desenvolvimento de módulos de cadastro para controle de funcionários, clientes e fornecedores.
+                                        Development of registration modules for managing employees, clients, and suppliers.
                                     </li>
                                     <li class="list-disc mx-auto mt-8">
-                                        Criação de módulos de estoque, incluindo cadastro de produtos e entrada de mercadorias via XML.
+                                        Creation of inventory modules, including product registration and goods entry via XML.
+                                    </li>
+                                    <li class="list-disc mx-auto mt-8">
+                                        Development of access control modules, including role-based permissions and security policies for
+                                        different departments.
                                     </li>
                                 </ul>
                             </div>
@@ -115,11 +119,11 @@ onMounted(() => {
                         >
                             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                                 <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Integrações
+                                    Integrations
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Integração de sistemas com plataformas de e-commerce como Nuvemshop e WooCommerce.
+                                        System integration with e-commerce platforms such as Nuvemshop, WooCommerce, and Mercado Livre.
                                     </li>
                                 </ul>
                             </div>
@@ -133,12 +137,12 @@ onMounted(() => {
                         <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                                 <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Análise financeiro
+                                    Financial analysis
                                 </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        desenvolvimento de telas de relatórios personalizados e dashboards interativos com gráficos de
-                                        vendas mensais e anuais.
+                                        Development of custom report screens and interactive dashboards with monthly and annual sales
+                                        charts.
                                     </li>
                                 </ul>
                             </div>
@@ -155,10 +159,19 @@ onMounted(() => {
                             class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]"
                         >
                             <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
-                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">CRM</p>
+                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
+                                    Customer Relationship Management (CRM)
+                                </p>
                                 <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
                                     <li class="list-disc mx-auto mt-8">
-                                        Implementação de módulos de CRM para acompanhamento de clientes e oportunidades de venda
+                                        Implementation of CRM modules for tracking clients and sales opportunities
+                                    </li>
+                                    <li class="list-disc mx-auto mt-8">
+                                        Tracking client interactions across the sales cycle, including calls, messages, and follow-ups.
+                                    </li>
+                                    <li class="list-disc mx-auto mt-8">
+                                        Implementation of automated reminders and workflow triggers to improve customer engagement and
+                                        follow-up efficiency.
                                     </li>
                                 </ul>
                             </div>

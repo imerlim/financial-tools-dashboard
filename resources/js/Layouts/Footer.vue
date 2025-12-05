@@ -55,8 +55,7 @@ const props = defineProps({
 
             <div class="sm:col-span-6 flex flex-col items-center">
                 <div class="sm:ml-auto">
-                    <p class="text-xl text-slate-900 dark:text-white text-center sm:text-left">Emails para contato</p>
-                    <p class="text-lg text-slate-900 dark:text-white text-center sm:text-left">i.merlim@totalcontrol.com.br</p>
+                    <p class="text-xl text-slate-900 dark:text-white text-center sm:text-left">Contact emails</p>
                     <p class="text-lg text-slate-900 dark:text-white text-center sm:text-left">imerlimdev@gmail.com</p>
                 </div>
             </div>

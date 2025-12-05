@@ -61,7 +61,7 @@ const submit = () => {
                 <CustomInput
                     type="password"
                     v-model="form.password"
-                    label="Senha"
+                    label="Password"
                     id="password"
                     name="password"
                     :required="true"

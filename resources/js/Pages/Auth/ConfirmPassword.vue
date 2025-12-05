@@ -28,7 +28,7 @@ const submit = () => {
                 <CustomInput
                     type="email"
                     v-model="form.password"
-                    label="Senha"
+                    label="Password"
                     id="password"
                     name="password"
                     :autofocus="true"
@@ -39,12 +39,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex justify-end">
-                <PrimaryButton
-                    type="submit"
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
+                <PrimaryButton type="submit" class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Confirm
                 </PrimaryButton>
             </div>
