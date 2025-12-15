@@ -1,28 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-oGYVTMP-.css",
+    "file": "assets/app-Dx2y8SGZ.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Bh02bHSY.js",
+    "file": "assets/app-C-EjjPjw.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-BcDOeO3I.css"
-    ],
-    "assets": [
-      "assets/logo_aminia-Dem-v2TR.jpg",
-      "assets/capateste1-9yvKAco6.png"
+      "assets/app-Btl2QNQN.css"
     ]
-  },
-  "storage/app/public/capateste1.png": {
-    "file": "assets/capateste1-9yvKAco6.png",
-    "src": "storage/app/public/capateste1.png"
-  },
-  "storage/app/public/logo_aminia.jpg": {
-    "file": "assets/logo_aminia-Dem-v2TR.jpg",
-    "src": "storage/app/public/logo_aminia.jpg"
   }
 }
