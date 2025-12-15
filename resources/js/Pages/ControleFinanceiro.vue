@@ -214,7 +214,7 @@
                                 :desabilitaDisplay="true"
                                 :labels="arrayLabelCategoriasTop5"
                                 :series="arraySomaValoresCategoriasTop5"
-                                title="Top 10 categorias mais vendidas"
+                                title="Top 10 Best-Selling Categories"
                             />
                         </div>
 
@@ -225,7 +225,7 @@
                                 :desabilitaDisplay="true"
                                 :labels="arrayLabelCategoriasTop5Reverse"
                                 :series="arraySomaValoresCategoriasTop5Reverse"
-                                title="Top 10 categorias menos vendidas"
+                                title="Top 10 Least-Selling Categories"
                             />
                         </div>
                     </form>
@@ -311,7 +311,7 @@ export default {
     methods: {
         async inicia() {
             if (!this.user) {
-                return this.$msg.warning('Please log in before proceeding.');
+                return this.$msg.info('Please log in before proceeding.');
             }
             await this.allCategorias();
             await this.buscaFiltros();
@@ -328,7 +328,7 @@ export default {
             this.disableCreate = true;
             try {
                 if (!this.user) {
-                    return this.$msg.warning('Please log in before proceeding.');
+                    return this.$msg.info('Please log in before proceeding.');
                 }
                 await axios.post('/create-controle-financeiro', {
                     selectTipo: this.selectTipo,
@@ -337,7 +337,7 @@ export default {
                     data: this.data,
                 });
             } catch (error) {
-                this.$msg.warning('Error creating record.');
+                this.$msg.info('Error creating record.');
             } finally {
                 this.disableCreate = true;
             }
@@ -350,7 +350,7 @@ export default {
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
-                this.$msg.warning('Error creating record.');
+                this.$msg.info('Error creating record.');
                 this.loadCategoria = false;
             }
         },
@@ -411,7 +411,7 @@ export default {
                     });
                 }
             } catch {
-                this.$msg.warning('Error fetching record.');
+                this.$msg.info('Error fetching record.');
             } finally {
                 this.loadControleFinanceiro = false;
             }
@@ -427,7 +427,7 @@ export default {
                 });
                 this.allCategorias();
             } catch {
-                this.$msg.warning('Error deleting record.');
+                this.$msg.info('Error deleting record.');
                 this.loadCategoria = false;
             }
         },

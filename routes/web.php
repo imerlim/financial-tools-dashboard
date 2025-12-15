@@ -22,8 +22,4 @@ Route::controller(ControleFinanceiroController::class)->group(function () {
     Route::delete('delete-categoria', 'deleteCategoria')->name('delete.categoria');
 });
 
-Route::controller(HomeController::class)->group(function () {
-    Route::post('envia-mensagem', 'enviaMensagem')->name('envia.mensagem');
-});
-
 require __DIR__ . '/auth.php';
