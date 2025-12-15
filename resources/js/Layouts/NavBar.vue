@@ -35,12 +35,12 @@ const navigation = [
 ];
 
 const products = [
-    {
-        name: 'Aminia',
-        description: 'Music website',
-        href: '/aminia',
-        icon: MusicalNoteIcon,
-    },
+    // {
+    //     name: 'Aminia',
+    //     description: 'Music website',
+    //     href: '/aminia',
+    //     icon: MusicalNoteIcon,
+    // },
     {
         name: 'Profit Margin Calculator',
         description: 'Calculates product profit margin',
