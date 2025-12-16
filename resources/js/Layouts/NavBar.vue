@@ -56,7 +56,7 @@ const products = [
     {
         name: 'Financial Control',
         description: 'Financial data visualization',
-        href: '/controle-financeiro',
+        href: '/financial-control',
         icon: ChartPieIcon,
     },
     // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },

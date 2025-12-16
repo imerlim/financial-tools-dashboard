@@ -7,21 +7,18 @@ import { ref } from 'vue';
 import GoldenSpiral from '../Components/Animations/GoldenSpiral.vue';
 import CuboScroll from '../Components/Animations/CuboScroll.vue';
 
-const svgContainer = ref(null); // Seu ref está aqui!
+const svgContainer = ref(null);
 
 onMounted(() => {
-    // CÓDIGO QUE VOCÊ DISSE QUE FUNCIONOU
     const drawable = svg.createDrawable('.animated-svg path');
 
     animate(drawable, {
-        draw: ['0 0', '0 1', '1 1'],
-        // draw: ['0 0', '0 1'],
+        // draw: ['0 0', '0 1', '1 1'],
+        draw: ['0 0', '0 1'],
         ease: 'inOutQuad',
         duration: 8888,
-        loop: true,
+        // loop: true,
     });
-
-    // Código GSAP
 
     const tl = gsap.timeline();
 
@@ -50,7 +47,6 @@ onMounted(() => {
     <div class="w-full">
         <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900">
             <GoldenSpiral class="absolute inset-0 z-10"></GoldenSpiral>
-            <!-- <CuboScroll class="absolute inset-0 z-10"></CuboScroll> -->
 
             <div class="text-center mt-32 relative z-20">
                 <svg
@@ -84,7 +80,18 @@ onMounted(() => {
                 >
                     Professional Experience
                 </p>
-                <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+                <div class="swiper w-full h-32">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="../../../public/storage/capa.jpg" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../../../public/storage/capa.jpg" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
                     <div class="relative lg:row-span-2">
                         <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem] dark:bg-gray-800"></div>
                         <div
@@ -180,7 +187,7 @@ onMounted(() => {
                             class="pointer-events-none absolute inset-px rounded-lg shadow outline outline-1 outline-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem] dark:outline-white/15"
                         ></div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -11,9 +11,9 @@
                             <CustomSelect
                                 :disabled="!this.user"
                                 required
-                                v-model="selectTipo"
-                                id="selectTipo"
-                                name="selectTipo"
+                                v-model="selectType"
+                                id="selectType"
+                                name="selectType"
                                 label="Tipo"
                                 :options="[
                                     { label: 'Income', value: 'E' },
@@ -30,10 +30,10 @@
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
-                                v-model="valor"
+                                v-model="amountValue"
                                 label="Amount"
-                                id="valor"
-                                name="valor"
+                                id="amountValue"
+                                name="amountValue"
                             >
                                 <template #prepend>
                                     <span class="text-base">R$</span>
@@ -44,16 +44,16 @@
                             <CustomSelect
                                 :disabled="!this.user"
                                 required
-                                v-model="categoria"
+                                v-model="category"
                                 label="Category"
-                                id="categoria"
-                                name="categoria"
+                                id="category"
+                                name="category"
                                 :options="optionsCategoria"
                                 :show-add="true"
-                                @on-add="openModalCategoria = true"
+                                @on-add="openCategoryModal = true"
                             ></CustomSelect>
 
-                            <ModalMedium v-model="openModalCategoria" title="Cadastro de categoria">
+                            <ModalMedium v-model="openCategoryModal" title="Category Registration">
                                 <form
                                     @submit.prevent="createCategoria"
                                     class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white p-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
@@ -107,10 +107,10 @@
                                 :disabled="!this.user"
                                 required
                                 type="date"
-                                v-model="data"
+                                v-model="date"
                                 label="Date"
-                                id="data"
-                                name="data"
+                                id="date"
+                                name="date"
                             ></CustomInput>
                         </div>
 
@@ -243,17 +243,17 @@ export default {
         return {
             disableCreate: false,
             openFiltro: false,
-            openModalCategoria: false,
+            openCategoryModal: false,
 
             headersCategoria: [
-                { label: 'Category', key: 'categoria' },
+                { label: 'Category', key: 'category' },
                 { label: '', key: 'acoes', customRender: 'acoes' },
             ],
             itemsCategoria: [],
             loadCategoria: true,
 
             headersDadosFinanceiro: [
-                { label: 'Category', key: 'categoria' },
+                { label: 'Category', key: 'category' },
                 { label: 'Amount', key: 'valorFormatado' },
                 { label: 'Date', key: 'dataFormatada' },
                 { label: 'Tipo', key: 'tipo' },
@@ -266,11 +266,11 @@ export default {
             userId: null,
             dataInicio: null,
             dataFim: null,
-            selectTipo: null,
-            valor: null,
-            categoria: null,
+            selectType: null,
+            amountValue: null,
+            category: null,
             novaCategoria: null,
-            data: null,
+            date: null,
             optionsCategoria: [],
             arrayLabelCategoriasTop5: [],
             arraySomaValoresCategoriasTop5: [],
@@ -299,7 +299,7 @@ export default {
 
         var today = new Date();
         this.dtHoje = formatDate(today);
-        this.data = this.dtHoje;
+        this.date = this.dtHoje;
 
         this.inicia();
     },
@@ -331,10 +331,10 @@ export default {
                     return this.$msg.info('Please log in before proceeding.');
                 }
                 await axios.post('/create-controle-financeiro', {
-                    selectTipo: this.selectTipo,
-                    valor: this.valor,
-                    categoria: this.categoria,
-                    data: this.data,
+                    selectType: this.selectType,
+                    amountValue: this.amountValue,
+                    category: this.category,
+                    date: this.date,
                 });
             } catch (error) {
                 this.$msg.info('Error creating record.');
@@ -346,7 +346,7 @@ export default {
         async createCategoria() {
             this.loadCategoria = true;
             try {
-                await axios.post('/create-categoria', { novaCategoria: this.novaCategoria, userId: this.userId });
+                await axios.post('/create-category', { novaCategoria: this.novaCategoria, userId: this.userId });
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
@@ -358,12 +358,12 @@ export default {
         async allCategorias() {
             this.loadCategoria = true;
             try {
-                const response = await axios.get('/all-categoria');
+                const response = await axios.get('/all-category');
                 if (Array.isArray(response.data) && response.data.length > 0) {
                     this.itemsCategoria = response.data;
                     this.optionsCategoria = response.data.map(item => ({
-                        value: item.categoria,
-                        label: item.categoria,
+                        value: item.category,
+                        label: item.category,
                     }));
                 }
             } finally {
@@ -384,12 +384,12 @@ export default {
                 if (Array.isArray(response.data.query) && response.data.query.length > 0) {
                     this.itemsControleFinanceiro = [];
                     this.itemsControleFinanceiro = response.data.query.map(w => ({
-                        categoria: w.categoria,
-                        valorFormatado: isNaN(parseFloat(w.valor))
+                        category: w.category,
+                        valorFormatado: isNaN(parseFloat(w.amountValue))
                             ? 'R$ 0,00'
-                            : parseFloat(w.valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-                        dataFormatada: w.data,
-                        // dataFormatada: w.data.split('-').reverse().join('/'),
+                            : parseFloat(w.amountValue).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+                        dataFormatada: w.date,
+                        // dataFormatada: w.date.split('-').reverse().join('/'),
                         tipo: w.tipo,
                     }));
 
@@ -401,13 +401,13 @@ export default {
                     this.arraySomaValoresCategoriasTop5Reverse = [];
 
                     somaCategorias.slice(0, 10).forEach(item => {
-                        this.arrayLabelCategoriasTop5.push(item.categoria);
-                        this.arraySomaValoresCategoriasTop5.push(item.valor);
+                        this.arrayLabelCategoriasTop5.push(item.category);
+                        this.arraySomaValoresCategoriasTop5.push(item.amountValue);
                     });
 
                     somaCategorias.slice(-10).forEach(item => {
-                        this.arrayLabelCategoriasTop5Reverse.push(item.categoria);
-                        this.arraySomaValoresCategoriasTop5Reverse.push(item.valor);
+                        this.arrayLabelCategoriasTop5Reverse.push(item.category);
+                        this.arraySomaValoresCategoriasTop5Reverse.push(item.amountValue);
                     });
                 }
             } catch {
@@ -420,7 +420,7 @@ export default {
         async handleDeleteCategoria(item) {
             this.loadCategoria = true;
             try {
-                await axios.delete('/delete-categoria', {
+                await axios.delete('/delete-category', {
                     data: {
                         idCategoria: item.idCategoria,
                     },

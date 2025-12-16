@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ControleFinanceiro extends Model
+class FinancialControl extends Model
 {
-    protected $table = 'controle_financeiro';
+    protected $table = 'financial_control';
 
     public $incrementing = true;
 
@@ -20,10 +20,10 @@ class ControleFinanceiro extends Model
     protected $fillable = [
         'idControle',
         'idUsuario',
-        'tipo',
-        'categoria',
-        'data',
-        'valor',
+        'type',
+        'category',
+        'date',
+        'amountValue',
     ];
 
     public function scopeFilter($query, array $filters)
@@ -32,10 +32,10 @@ class ControleFinanceiro extends Model
 
             ->when($filters['idControle'] ?? null, fn($q, $v) => $q->where('idControle', $v))
             ->when($filters['idUsuario'] ?? null, fn($q, $v) => $q->where('idUsuario', $v))
-            ->when($filters['tipo'] ?? null, fn($q, $v) => $q->where('tipo', $v))
-            ->when($filters['categoria'] ?? null, fn($q, $v) => $q->where('categoria', $v))
+            ->when($filters['type'] ?? null, fn($q, $v) => $q->where('type', $v))
+            ->when($filters['category'] ?? null, fn($q, $v) => $q->where('category', $v))
             ->when(($filters['dataInicio'] ?? null) && ($filters['dataFim'] ?? null), function ($q) use ($filters) {
-                $q->whereBetween('data', [$filters['dataInicio'], $filters['dataFim']]);
+                $q->whereBetween('date', [$filters['dataInicio'], $filters['dataFim']]);
             })
             ->when($filters['valor'] ?? null, fn($q, $v) => $q->where('valor', $v));
     }

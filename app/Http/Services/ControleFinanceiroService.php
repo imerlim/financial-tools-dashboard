@@ -4,52 +4,52 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Categoria;
-use App\Models\ControleFinanceiro;
+use App\Models\FinancialControl;
 
 class ControleFinanceiroService
 {
     protected $user;
 
-    public function createCategoria($novaCategoria, $userId)
+    public function createCategory($novaCategoria, $userId)
     {
-        $existe = Categoria::where('categoria', $novaCategoria)->exists();
+        $existe = Categoria::where('category', $novaCategoria)->exists();
 
         if ($existe) {
-            return ['Error' => 1, 'msg' => 'Categoria já cadastrada.'];
+            return ['Error' => 1, 'msg' => 'Category already registered.'];
         }
 
         $query = new Categoria;
 
-        $query->categoria = $novaCategoria;
+        $query->category = $novaCategoria;
         $query->idUsuario = $userId;
 
         if (!$query->save()) {
-            return ['Error' => 2, 'msg' => 'Erro ao salvar registro.'];
+            return ['Error' => 2, 'msg' => 'Error saving record.'];
         }
 
         return $query;
     }
 
-    public function createControleFinanceiro($selectTipo, $valor, $categoria, $data)
+    public function createFinancialControl($selectType, $amountValue, $category, $date)
     {
         $user = Auth::user();
 
-        $query = new ControleFinanceiro;
+        $query = new FinancialControl;
 
         $query->idUsuario = $user->id;
-        $query->tipo1 = $selectTipo;
-        $query->categoria = $categoria;
-        $query->data = $data;
-        $query->valor = $valor;
+        $query->tipo1 = $selectType;
+        $query->category = $category;
+        $query->date = $date;
+        $query->amountValue = $amountValue;
 
         if (!$query->save()) {
-            return ['Error' => 1, 'msg' => 'Erro ao salvar registro.'];
+            return ['Error' => 1, 'msg' => 'Error saving record.'];
         }
 
         return $query;
     }
 
-    public function buscaControleFinanceiro($idControle, $tipo, $categoria, $dataInicio, $dataFim, $valor)
+    public function buscaControleFinanceiro($idControle, $tipo, $category, $dataInicio, $dataFim, $amountValue)
     {
         $user = Auth::user();
         $idUsuario = $user->id;
@@ -57,23 +57,23 @@ class ControleFinanceiroService
             'idControle' => $idControle,
             'idUsuario' => $idUsuario,
             'tipo' => $tipo,
-            'categoria' => $categoria,
+            'category' => $category,
             'dataInicio' => $dataInicio,
             'dataFim' => $dataFim,
-            'valor' => $valor,
+            'amountValue' => $amountValue,
         ], fn($v) => $v !== null && $v !== '');
 
-        $query = ControleFinanceiro::filter($filters)->get();
+        $query = FinancialControl::filter($filters)->get();
 
-        $somaCategoria = ControleFinanceiro::filter($filters)
-            ->select('categoria')
-            ->selectRaw('SUM(valor) as valor')
-            ->groupBy('categoria')
-            ->orderBy('valor', 'desc')
+        $somaCategoria = FinancialControl::filter($filters)
+            ->select('category')
+            ->selectRaw('SUM(amountValue) as amountValue')
+            ->groupBy('category')
+            ->orderBy('amountValue', 'desc')
             ->get();
 
         if ($query->isEmpty()) {
-            return ['error' => 1, 'msg' => "Não foi possível encontrar o registro."];
+            return ['error' => 1, 'msg' => "Could not find the record."];
         }
 
         return [
@@ -85,10 +85,10 @@ class ControleFinanceiroService
     public function allCategoria()
     {
         $user = Auth::user();
-        $query = Categoria::where('idUsuario', '=', $user->id)->orderBy('categoria', 'asc')->get();
+        $query = Categoria::where('idUsuario', '=', $user->id)->orderBy('category', 'asc')->get();
 
         if ($query->isEmpty()) {
-            return ['error' => 1, 'msg' => "Não foi possível encontrar o registro."];
+            return ['error' => 1, 'msg' => "Could not find the record."];
         }
 
         return $query;
@@ -99,7 +99,7 @@ class ControleFinanceiroService
         $query = Categoria::where('idCategoria', '=', $idCategoria)->delete();
 
         if (!$query) {
-            return ['error' => 1, 'msg' => "Erro ao excluir categoria."];
+            return ['error' => 1, 'msg' => "Error deleting category."];
         }
 
         return $query;

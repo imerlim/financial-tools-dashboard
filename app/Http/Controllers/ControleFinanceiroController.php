@@ -16,10 +16,10 @@ class ControleFinanceiroController extends Controller
         $this->controleFinanceiroService = $controleFinanceiroService;
     }
 
-    public function createCategoria(Request $request)
+    public function createCategory(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->createCategoria($request->novaCategoria, $request->userId);
+            $result = $this->controleFinanceiroService->createCategory($request->novaCategoria, $request->userId);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
@@ -28,10 +28,10 @@ class ControleFinanceiroController extends Controller
         }
     }
 
-    public function createControleFinanceiro(Request $request)
+    public function createFinancialControl(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->createControleFinanceiro($request->selectTipo, $request->valor, $request->categoria, $request->data);
+            $result = $this->controleFinanceiroService->createFinancialControl($request->selectType, $request->amountValue, $request->categoria, $request->date);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
@@ -43,7 +43,7 @@ class ControleFinanceiroController extends Controller
     public function buscaControleFinanceiro(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->buscaControleFinanceiro($request->idControle, $request->tipo, $request->categoria, $request->dataInicio, $request->dataFim, $request->valor);
+            $result = $this->controleFinanceiroService->buscaControleFinanceiro($request->idControle, $request->tipo, $request->categoria, $request->dataInicio, $request->dataFim, $request->amountValue);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
