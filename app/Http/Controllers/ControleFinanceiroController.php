@@ -53,10 +53,10 @@ class ControleFinanceiroController extends Controller
     }
 
 
-    public function allCategoria()
+    public function allCategory()
     {
         try {
-            $result = $this->controleFinanceiroService->allCategoria();
+            $result = $this->controleFinanceiroService->allCategory();
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

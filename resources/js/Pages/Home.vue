@@ -5,9 +5,120 @@ import { animate, svg } from 'https://esm.sh/animejs';
 import { gsap } from 'gsap';
 import { ref } from 'vue';
 import GoldenSpiral from '../Components/Animations/GoldenSpiral.vue';
-import CuboScroll from '../Components/Animations/CuboScroll.vue';
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';
+
+import 'swiper/css/zoom';
+import 'swiper/css/effect-cube';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// import required modules
+import { EffectCube, Pagination, Navigation, Autoplay, Zoom } from 'swiper/modules';
 
 const svgContainer = ref(null);
+const modules = [EffectCube, Pagination, Navigation, Autoplay, Zoom];
+const activeIndex = ref(0);
+const onSlideChange = swiper => {
+    activeIndex.value = swiper.realIndex;
+};
+const slides = [
+    {
+        image: '/storage/consolidated_sales_OLD.jpg',
+        title: 'BI & Interactive Dashboards',
+        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL'],
+        description:
+            'Development of consolidated sales dashboards using Highcharts for real-time data visualization, with a robust backend built on Laravel 7.',
+    },
+    {
+        image: '/storage/sales_agenda_old.jpeg',
+        title: 'Scheduling Management',
+        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'FullCalendar'],
+        description:
+            'Implementation of a complex commercial scheduling system using FullCalendar, enabling dynamic event management and integration with the company’s CRM workflow.',
+    },
+    {
+        image: '/storage/product_registration_old.jpg',
+        title: 'Product Registration UX',
+        tags: ['Laravel 7', 'Vue.js 2', 'PHP 7.4', 'MySQL'],
+        description:
+            'Dense and reactive product registration interface, optimized with Bootstrap-Vue to ensure agility in the entry of technical and tax-related data.',
+    },
+    {
+        image: '/storage/product_registration_new.jpeg',
+        title: 'Redesign Product Registration',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'State Management'],
+        description:
+            'A high-performance SPA redesign of the core product management module. Engineered with Inertia.js to handle complex tax and technical data without page refreshes, featuring a streamlined Tailwind CSS interface optimized for administrative efficiency.',
+    },
+    {
+        image: '/storage/nuvemshop_old.jpeg',
+        title: 'API Nuvemshop Integration',
+        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'Trumbowyg'],
+        description:
+            'Creation of an integration dashboard with NuvemShop, automating the synchronization of orders and inventory between the ERP and the e-commerce platform.',
+    },
+    {
+        image: '/storage/nuvemshop_new.jpeg',
+        title: 'Redesign API Nuvemshop Integration',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Chart.js', 'Real-time Sync'],
+        description:
+            'A high-performance SPA redesign of the NuvemShop integration. Leverages Inertia.js for seamless state management, automating real-time synchronization of orders and inventory between the ERP and e-commerce platforms with a modern Tailwind CSS interface.',
+    },
+    {
+        image: '/storage/mercado_livre_new.jpeg',
+        title: 'Marketplace Integration: Mercado Livre',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'REST API'],
+        description:
+            'A sophisticated marketplace integration allowing users to manage Mercado Livre listings directly from the ERP. Features include real-time order tracking and a specialized module to publish new product announcements, bridging internal inventory with the e-commerce ecosystem.',
+    },
+    {
+        image: '/storage/tree_view_new.png',
+        title: 'Recursive Data Architecture',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Recursive Logic'],
+        description:
+            'Implementation of a dynamic, infinite-level category tree for product grouping. Developed using recursive Vue.js components and optimized Eloquent queries, allowing users to manage complex hierarchical data structures with real-time updates and seamless state management.',
+    },
+    {
+        image: '/storage/stock_adjustment_new.png',
+        title: 'Precision Inventory Control',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Batch Updates'],
+        description:
+            'A high-efficiency stock adjustment module designed for rapid data entry. Features real-time product lookups and batch update capabilities, ensuring inventory synchronization with minimal administrative overhead.',
+    },
+    {
+        image: '/storage/financial_management_new.jpeg',
+        title: 'High-Volume Financial Processing',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Pagination Engine'],
+        description:
+            'A sophisticated financial management component engineered to process massive datasets. Features an optimized server-side pagination engine that fetches records dynamically, allowing seamless navigation through thousands of financial documents with zero browser latency or performance degradation.',
+    },
+    {
+        image: '/storage/margin_calculator_new.png',
+        title: 'Financial Margin Engine',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'Reactive UI'],
+        description:
+            'A specialized pricing tool designed to calculate profit margins based on either cost or selling price. Built with a reactive interface that provides instant updates on Net Margin and Profit, allowing sales teams to make data-driven pricing decisions with precision.',
+    },
+    {
+        image: '/storage/interest_calculator_new.png',
+        title: 'Wealth Projection Engine',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'Financial Modeling'],
+        description:
+            'A sophisticated compound interest tool designed to estimate long-term wealth accumulation. Features a dynamic interface that calculates future value based on initial capital, monthly contributions, and variable interest rates, providing users with precise financial forecasting.',
+    },
+    {
+        image: '/storage/financial_control_new.png',
+        title: 'Secure Financial Analytics',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Breeze/Fortify', 'Chart.js', 'PHP 8.4'],
+        description:
+            'A secure, authenticated financial dashboard for comprehensive data control. This module features protected routes and user-level permissions, integrating real-time transaction tables with Chart.js visualizations to identify best and least-selling categories for strategic business planning.',
+    },
+];
 
 onMounted(() => {
     const drawable = svg.createDrawable('.animated-svg path');
@@ -73,133 +184,98 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
-            <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-                <p
-                    class="mx-auto mt-2 text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl dark:text-white"
-                >
-                    Professional Experience
-                </p>
-                <div class="swiper w-full h-32">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="../../../public/storage/capa.jpg" class="w-full h-full object-cover" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="../../../public/storage/capa.jpg" class="w-full h-full object-cover" />
-                        </div>
+        <div class="bg-slate-100 dark:bg-slate-900 py-24 sm:py-32 overflow-hidden">
+            <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3">
+                <div class="md:col-span-1">
+                    <h2
+                        class="mx-auto mt-2 text-balance text-center text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white"
+                    >
+                        Professional Experience
+                    </h2>
+                    <h3 class="mt-4 text-xl font-semibold text-sky-600 transition-all">
+                        {{ slides[activeIndex].title }}
+                    </h3>
+
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span
+                            v-for="tag in slides[activeIndex].tags"
+                            :key="tag"
+                            class="px-2 py-1 text-xs font-medium rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
+                        >
+                            {{ tag }}
+                        </span>
                     </div>
+
+                    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {{ slides[activeIndex].description }}
+                    </p>
                 </div>
 
-                <!-- <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-                    <div class="relative lg:row-span-2">
-                        <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem] dark:bg-gray-800"></div>
-                        <div
-                            class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]"
-                        >
-                            <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
-                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Business management modules
-                                </p>
-                                <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
-                                    <li class="list-disc mx-auto mt-8">
-                                        Development of registration modules for managing employees, clients, and suppliers.
-                                    </li>
-                                    <li class="list-disc mx-auto mt-8">
-                                        Creation of inventory modules, including product registration and goods entry via XML.
-                                    </li>
-                                    <li class="list-disc mx-auto mt-8">
-                                        Development of access control modules, including role-based permissions and security policies for
-                                        different departments.
-                                    </li>
-                                </ul>
-                            </div>
+                <swiper
+                    :slidesPerView="1"
+                    :style="{
+                        '--swiper-navigation-color': '#00649e',
+                        '--swiper-pagination-color': '#00649e',
+                    }"
+                    :effect="'cube'"
+                    :zoom="true"
+                    :grabCursor="true"
+                    :loop="true"
+                    :autoplay="{
+                        delay: 15000,
+                        disableOnInteraction: false,
+                    }"
+                    :cubeEffect="{
+                        shadow: true,
+                        slideShadows: true,
+                        shadowOffset: 20,
+                        shadowScale: 0.94,
+                    }"
+                    :navigation="true"
+                    :pagination="{
+                        clickable: true,
+                    }"
+                    :modules="modules"
+                    @slideChange="onSlideChange"
+                    class="md:col-span-2 mt-7 lg:mt-0"
+                >
+                    <swiper-slide v-for="(slide, index) in slides" :key="index" class="bg-slate-600/40">
+                        <div class="swiper-zoom-container">
+                            <img :src="slide.image" class="rounded-lg shadow-xl" />
                         </div>
-                        <div
-                            class="pointer-events-none absolute inset-px rounded-lg shadow outline outline-1 outline-black/5 lg:rounded-l-[2rem] dark:outline-white/15"
-                        ></div>
-                    </div>
-                    <div class="relative max-lg:row-start-1">
-                        <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] dark:bg-gray-800"></div>
-                        <div
-                            class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]"
-                        >
-                            <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Integrations
-                                </p>
-                                <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
-                                    <li class="list-disc mx-auto mt-8">
-                                        System integration with e-commerce platforms such as Nuvemshop, WooCommerce, and Mercado Livre.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div
-                            class="pointer-events-none absolute inset-px rounded-lg shadow outline outline-1 outline-black/5 max-lg:rounded-t-[2rem] dark:outline-white/15"
-                        ></div>
-                    </div>
-                    <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
-                        <div class="absolute inset-px rounded-lg bg-white dark:bg-gray-800"></div>
-                        <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
-                            <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Financial analysis
-                                </p>
-                                <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
-                                    <li class="list-disc mx-auto mt-8">
-                                        Development of custom report screens and interactive dashboards with monthly and annual sales
-                                        charts.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div
-                            class="pointer-events-none absolute inset-px rounded-lg shadow outline outline-1 outline-black/5 dark:outline-white/15"
-                        ></div>
-                    </div>
-                    <div class="relative lg:row-span-2">
-                        <div
-                            class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem] dark:bg-gray-800"
-                        ></div>
-                        <div
-                            class="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]"
-                        >
-                            <div class="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
-                                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
-                                    Customer Relationship Management (CRM)
-                                </p>
-                                <ul class="mt-2 max-w-lg text-lg text-gray-600 max-lg:text-center dark:text-gray-400">
-                                    <li class="list-disc mx-auto mt-8">
-                                        Implementation of CRM modules for tracking clients and sales opportunities
-                                    </li>
-                                    <li class="list-disc mx-auto mt-8">
-                                        Tracking client interactions across the sales cycle, including calls, messages, and follow-ups.
-                                    </li>
-                                    <li class="list-disc mx-auto mt-8">
-                                        Implementation of automated reminders and workflow triggers to improve customer engagement and
-                                        follow-up efficiency.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div
-                            class="pointer-events-none absolute inset-px rounded-lg shadow outline outline-1 outline-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem] dark:outline-white/15"
-                        ></div>
-                    </div>
-                </div> -->
+                    </swiper-slide>
+                </swiper>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-/* 🚨 VERIFIQUE ESTA SEÇÃO! */
 .animated-svg path {
     fill: none;
     stroke: #ffffff;
     stroke-width: 2;
     stroke-linecap: round;
     vector-effect: non-scaling-stroke;
+}
+/* SWIPER JS STYLE*/
+.swiper {
+    width: 100%;
+    max-width: 700px;
+
+    aspect-ratio: 55 / 34;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    color: #004a75;
 }
 </style>

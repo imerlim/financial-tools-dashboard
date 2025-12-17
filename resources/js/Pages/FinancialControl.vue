@@ -14,7 +14,7 @@
                                 v-model="selectType"
                                 id="selectType"
                                 name="selectType"
-                                label="Tipo"
+                                label="Type"
                                 :options="[
                                     { label: 'Income', value: 'E' },
                                     { label: 'Expense', value: 'S' },
@@ -256,7 +256,7 @@ export default {
                 { label: 'Category', key: 'category' },
                 { label: 'Amount', key: 'valorFormatado' },
                 { label: 'Date', key: 'dataFormatada' },
-                { label: 'Tipo', key: 'tipo' },
+                { label: 'Type', key: 'type' },
             ],
             itemsControleFinanceiro: [],
             loadControleFinanceiro: true,
@@ -390,7 +390,7 @@ export default {
                             : parseFloat(w.amountValue).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
                         dataFormatada: w.date,
                         // dataFormatada: w.date.split('-').reverse().join('/'),
-                        tipo: w.tipo,
+                        type: w.type == 'E' ? 'Income' : 'Expense',
                     }));
 
                     const somaCategorias = response.data.somaCategoria || [];

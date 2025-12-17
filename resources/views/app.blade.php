@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('storage/icon.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @inertiaHead
     @routes

@@ -3,7 +3,7 @@
 namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Categoria;
+use App\Models\Category;
 use App\Models\FinancialControl;
 
 class ControleFinanceiroService
@@ -12,13 +12,13 @@ class ControleFinanceiroService
 
     public function createCategory($novaCategoria, $userId)
     {
-        $existe = Categoria::where('category', $novaCategoria)->exists();
+        $existe = Category::where('category', $novaCategoria)->exists();
 
         if ($existe) {
             return ['Error' => 1, 'msg' => 'Category already registered.'];
         }
 
-        $query = new Categoria;
+        $query = new Category;
 
         $query->category = $novaCategoria;
         $query->idUsuario = $userId;
@@ -82,10 +82,10 @@ class ControleFinanceiroService
         ];
     }
 
-    public function allCategoria()
+    public function allCategory()
     {
         $user = Auth::user();
-        $query = Categoria::where('idUsuario', '=', $user->id)->orderBy('category', 'asc')->get();
+        $query = Category::where('idUsuario', '=', $user->id)->orderBy('category', 'asc')->get();
 
         if ($query->isEmpty()) {
             return ['error' => 1, 'msg' => "Could not find the record."];
@@ -96,7 +96,7 @@ class ControleFinanceiroService
 
     public function deleteCategoria($idCategoria)
     {
-        $query = Categoria::where('idCategoria', '=', $idCategoria)->delete();
+        $query = Category::where('idCategoria', '=', $idCategoria)->delete();
 
         if (!$query) {
             return ['error' => 1, 'msg' => "Error deleting category."];

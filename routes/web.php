@@ -18,7 +18,7 @@ Route::controller(ControleFinanceiroController::class)->group(function () {
     Route::post('create-category', 'createCategory')->name('create.category');
     Route::post('create-controle-financeiro', 'createFinancialControl')->name('create.controle.financeiro');
     Route::post('busca-controle-financeiro', 'buscaControleFinanceiro')->name('busca.controle.financeiro');
-    Route::get('all-category', 'allCategoria')->name('all.category');
+    Route::get('all-category', 'allCategory')->name('all.category');
     Route::delete('delete-category', 'deleteCategoria')->name('delete.category');
 });
 

@@ -1,16 +1,23 @@
 {
+  "public/storage/text (2).png": {
+    "file": "assets/text (2)-CheuzYfY.png",
+    "src": "public/storage/text (2).png"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-Dx2y8SGZ.css",
+    "file": "assets/app-Cpmzx2M8.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DzUT7kr_.js",
+    "file": "assets/app-Yyh4pd7k.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Btl2QNQN.css"
+      "assets/app-D_LU609g.css"
+    ],
+    "assets": [
+      "assets/text (2)-CheuzYfY.png"
     ]
   }
 }

@@ -77,11 +77,8 @@ const callsToAction = [
                 <div class="flex lg:flex-1 sm:ml-5">
                     <a href="/" class="-m-1.5 p-1.5">
                         <span class="sr-only">Your Company</span>
-                        <img
-                            class="h-8 w-auto"
-                            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                            alt=""
-                        />
+
+                        <img class="h-8 w-auto" src="../../../public/storage/text (2).png" alt="" />
                     </a>
                 </div>
                 <div class="flex lg:hidden">
