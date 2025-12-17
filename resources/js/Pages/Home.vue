@@ -91,7 +91,7 @@ const slides = [
             'A high-efficiency stock adjustment module designed for rapid data entry. Features real-time product lookups and batch update capabilities, ensuring inventory synchronization with minimal administrative overhead.',
     },
     {
-        image: '/storage/financial_management_new.jpeg',
+        image: '/storage/financial_management_new.png',
         title: 'High-Volume Financial Processing',
         tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Pagination Engine'],
         description:
