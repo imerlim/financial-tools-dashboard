@@ -1,8 +1,4 @@
 {
-  "public/storage/text (2).png": {
-    "file": "assets/text (2)-CheuzYfY.png",
-    "src": "public/storage/text (2).png"
-  },
   "resources/css/app.css": {
     "file": "assets/app-Cpmzx2M8.css",
     "src": "resources/css/app.css",
@@ -19,5 +15,9 @@
     "assets": [
       "assets/text (2)-CheuzYfY.png"
     ]
+  },
+  "storage/app/public/text (2).png": {
+    "file": "assets/text (2)-CheuzYfY.png",
+    "src": "storage/app/public/text (2).png"
   }
 }
