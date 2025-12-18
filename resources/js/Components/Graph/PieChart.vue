@@ -1,5 +1,7 @@
 <template>
-    <Pie ref="pieChart" :key="chartKey" :data="chartData" :options="chartOptions" />
+    <div class="relative w-full h-[300px] md:h-[350px] lg:h-[400px]">
+        <Pie ref="pieChart" :key="chartKey" :data="chartData" :options="chartOptions" />
+    </div>
 
     <div v-if="showModal && modalOnClick" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full shadow-lg">
@@ -82,16 +84,16 @@ export default {
             },
             generatedColors: [],
             fixedColors: [
-                '#4CAF50', // 1. Verde Esmeralda
-                '#2196F3', // 2. Azul Royal
-                '#FF9800', // 3. Laranja Vibrante
-                '#E91E63', // 4. Rosa Choque
-                '#9C27B0', // 5. Roxo Profundo
-                '#00BCD4', // 6. Ciano Claro
-                '#FFEB3B', // 7. Amarelo Sol
-                '#795548', // 8. Marrom Terra
-                '#F44336', // 9. Vermelho Carmin
-                '#607D8B', // 10. Azul Ardósia
+                '#264653', // Azul Petróleo Escuro
+                '#2a9d8f', // Verde Água
+                '#e9c46a', // Amarelo Mostarda
+                '#f4a261', // Laranja Pêssego
+                '#e76f51', // Terracota
+                '#8ab17d', // Verde Folha Seca
+                '#b5838d', // Rosa Queimado
+                '#6d597a', // Roxo Ametista Mudo
+                '#355070', // Azul Noite
+                '#4a4e69', // Cinza Violeta
             ],
         };
     },
@@ -128,6 +130,7 @@ export default {
 
             return {
                 responsive: true,
+                maintainAspectRatio: false,
                 onClick: this.modalOnClick ? this.handleChartClick : null,
                 plugins: {
                     legend: {
@@ -280,5 +283,6 @@ export default {
 <style>
 .tes {
     background-color: #4caf50;
+    background-color: #20737e;
 }
 </style>

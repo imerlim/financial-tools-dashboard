@@ -18,8 +18,8 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'idCategoria',
-        'idUsuario',
-        'Category',
+        'idCategory',
+        'idUser',
+        'category',
     ];
 }

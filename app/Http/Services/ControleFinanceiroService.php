@@ -21,7 +21,7 @@ class ControleFinanceiroService
         $query = new Category;
 
         $query->category = $novaCategoria;
-        $query->idUsuario = $userId;
+        $query->idUser = $userId;
 
         if (!$query->save()) {
             return ['Error' => 2, 'msg' => 'Error saving record.'];
@@ -37,7 +37,7 @@ class ControleFinanceiroService
         $query = new FinancialControl;
 
         $query->idUsuario = $user->id;
-        $query->tipo1 = $selectType;
+        $query->type = $selectType;
         $query->category = $category;
         $query->date = $date;
         $query->amountValue = $amountValue;
@@ -72,20 +72,37 @@ class ControleFinanceiroService
             ->orderBy('amountValue', 'desc')
             ->get();
 
+        $somaPorMes = FinancialControl::filter($filters)
+            ->selectRaw('DATE_FORMAT(date, "%Y-%m") as month,
+            SUM(CASE WHEN TYPE = "I" THEN amountValue ELSE 0 END) as total_income,
+            SUM(CASE WHEN TYPE = "E" THEN amountValue ELSE 0 END) as total_expense
+            ')
+            ->groupBy('month');
+
+        $somaPorMesIncome = (clone $somaPorMes)
+            ->orderBy('total_income', 'desc')
+            ->get();
+
+        $somaPorMesExpense = (clone $somaPorMes)
+            ->orderBy('total_expense', 'desc')
+            ->get();
+
         if ($query->isEmpty()) {
             return ['error' => 1, 'msg' => "Could not find the record."];
         }
 
         return [
             'query' => $query,
-            'somaCategoria' => $somaCategoria
+            'somaCategoria' => $somaCategoria,
+            'somaPorMesIncome' => $somaPorMesIncome,
+            'somaPorMesExpense' => $somaPorMesExpense,
         ];
     }
 
     public function allCategory()
     {
         $user = Auth::user();
-        $query = Category::where('idUsuario', '=', $user->id)->orderBy('category', 'asc')->get();
+        $query = Category::where('idUser', '=', $user->id)->orderBy('category', 'asc')->get();
 
         if ($query->isEmpty()) {
             return ['error' => 1, 'msg' => "Could not find the record."];
@@ -94,9 +111,9 @@ class ControleFinanceiroService
         return $query;
     }
 
-    public function deleteCategoria($idCategoria)
+    public function deleteCategoria($idCategory)
     {
-        $query = Category::where('idCategoria', '=', $idCategoria)->delete();
+        $query = Category::where('idCategory', '=', $idCategory)->delete();
 
         if (!$query) {
             return ['error' => 1, 'msg' => "Error deleting category."];

@@ -184,7 +184,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="bg-slate-100 dark:bg-slate-900 py-24 sm:py-32 overflow-hidden">
+        <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
             <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3">
                 <div class="md:col-span-1">
                     <h2

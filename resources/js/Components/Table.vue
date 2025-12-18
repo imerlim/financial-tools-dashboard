@@ -4,11 +4,11 @@
         <div v-if="!loading">
             <div v-if="showSearch" class="grid md:grid-cols-6 mb-4 sm:justify-between gap-4">
                 <div class="sm:col-span-3">
-                    <CustomInput class="mt-7" v-model="searchQuery" type="text" placeholder="Buscar..."></CustomInput>
+                    <CustomInput class="mt-7" v-model="searchQuery" type="text" placeholder="Search..."></CustomInput>
                 </div>
                 <div class="sm:col-span-3 sm:col-start-6">
                     <CustomSelect
-                        label="Itens por página:"
+                        label="Items per page:"
                         v-model.number="localItemsPerPage"
                         id="localItemsPerPage"
                         name="localItemsPerPage"
@@ -106,7 +106,7 @@
         </div>
 
         <div v-if="!loading && sortedItems.length > 0" class="flex flex-col sm:flex-row items-center justify-between mt-4 px-2">
-            <div class="text-base text-slate-400">Mostrando {{ startRecord }} - {{ endRecord }} de {{ sortedItems.length }}</div>
+            <div class="text-base text-slate-400">Showing {{ startRecord }} - {{ endRecord }} of {{ sortedItems.length }}</div>
             <div class="flex items-center space-x-1 mt-2 sm:mt-0">
                 <Tooltip text="Primeira página">
                     <button :disabled="currentPage === 1" class="btn" @click="changePage(1)">

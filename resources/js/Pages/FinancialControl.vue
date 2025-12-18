@@ -16,8 +16,8 @@
                                 name="selectType"
                                 label="Type"
                                 :options="[
-                                    { label: 'Income', value: 'E' },
-                                    { label: 'Expense', value: 'S' },
+                                    { label: 'Income', value: 'I' },
+                                    { label: 'Expense', value: 'E' },
                                 ]"
                             >
                             </CustomSelect>
@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="sm:col-span-1 flex justify-end self-end">
-                            <PrimaryButton type="submit" :disabled="disableCreateuser"> Salvar </PrimaryButton>
+                            <PrimaryButton type="submit" :disabled="disableCreateuser"> Save </PrimaryButton>
                         </div>
 
                         <div ref="dropdownContainer" class="relative sm:col-span-1 sm:col-start-6 flex justify-end">
@@ -156,16 +156,10 @@
                                     <div></div>
 
                                     <div class="flex justify-end gap-x-2">
-                                        <PrimaryButton type="button" @click="limparFiltros()" :disabled="!this.user">
-                                            Limpar
-                                        </PrimaryButton>
+                                        <PrimaryButton type="button" @click="cleanFilter()" :disabled="!this.user"> Clean </PrimaryButton>
 
-                                        <PrimaryButton
-                                            type="button"
-                                            @click="buscaFiltros()"
-                                            :disabled="!this.user || loadControleFinanceiro"
-                                        >
-                                            Buscar
+                                        <PrimaryButton type="button" @click="searchFilter()" :disabled="!this.user || loadFinancialControl">
+                                            Search
                                         </PrimaryButton>
                                     </div>
                                 </div>
@@ -174,11 +168,11 @@
 
                         <div class="sm:col-span-6">
                             <Table
-                                :headers="headersDadosFinanceiro"
-                                :items="itemsControleFinanceiro"
+                                :headers="headers"
+                                :items="itemsFinancialControl"
                                 :per-page="5"
                                 :show-search="true"
-                                :loading="loadControleFinanceiro"
+                                :loading="loadFinancialControl"
                                 :multi-select="false"
                             >
                                 <template #acoes="{ item }">
@@ -207,25 +201,36 @@
                             </Table>
                         </div>
 
-                        <div class="sm:col-span-3">
+                        <div
+                            class="sm:col-span-2"
+                            v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
+                        >
                             <PieChart
-                                v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
                                 :show-currency="true"
                                 :desabilitaDisplay="true"
                                 :labels="arrayLabelCategoriasTop5"
                                 :series="arraySomaValoresCategoriasTop5"
-                                title="Top 10 Best-Selling Categories"
+                                title="Top 5 Categories"
                             />
                         </div>
 
-                        <div class="sm:col-span-3">
+                        <div class="sm:col-span-2" v-if="Array.isArray(arraySumIncome) && arraySumIncome.length > 0">
                             <PieChart
-                                v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
                                 :show-currency="true"
                                 :desabilitaDisplay="true"
-                                :labels="arrayLabelCategoriasTop5Reverse"
-                                :series="arraySomaValoresCategoriasTop5Reverse"
-                                title="Top 10 Least-Selling Categories"
+                                :labels="arrayLabelIncome"
+                                :series="arraySumIncome"
+                                title="Income per month"
+                            />
+                        </div>
+
+                        <div class="sm:col-span-2" v-if="Array.isArray(arraySumExpense) && arraySumExpense.length > 0">
+                            <PieChart
+                                :show-currency="true"
+                                :desabilitaDisplay="true"
+                                :labels="arrayLabelExpense"
+                                :series="arraySumExpense"
+                                title="Expense per month"
                             />
                         </div>
                     </form>
@@ -252,14 +257,14 @@ export default {
             itemsCategoria: [],
             loadCategoria: true,
 
-            headersDadosFinanceiro: [
+            headers: [
                 { label: 'Category', key: 'category' },
                 { label: 'Amount', key: 'valorFormatado' },
                 { label: 'Date', key: 'dataFormatada' },
                 { label: 'Type', key: 'type' },
             ],
-            itemsControleFinanceiro: [],
-            loadControleFinanceiro: true,
+            itemsFinancialControl: [],
+            loadFinancialControl: true,
 
             dtHoje: null,
             user: null,
@@ -274,8 +279,10 @@ export default {
             optionsCategoria: [],
             arrayLabelCategoriasTop5: [],
             arraySomaValoresCategoriasTop5: [],
-            arrayLabelCategoriasTop5Reverse: [],
-            arraySomaValoresCategoriasTop5Reverse: [],
+            arrayLabelIncome: [],
+            arraySumIncome: [],
+            arrayLabelExpense: [],
+            arraySumExpense: [],
         };
     },
 
@@ -311,10 +318,10 @@ export default {
     methods: {
         async inicia() {
             if (!this.user) {
-                return this.$msg.info('Please log in before proceeding.');
+                return this.$msg.warning('Please log in before proceeding.');
             }
             await this.allCategorias();
-            await this.buscaFiltros();
+            await this.searchFilter();
         },
 
         handleClickOutside(event) {
@@ -328,7 +335,7 @@ export default {
             this.disableCreate = true;
             try {
                 if (!this.user) {
-                    return this.$msg.info('Please log in before proceeding.');
+                    return this.$msg.warning('Please log in before proceeding.');
                 }
                 await axios.post('/create-controle-financeiro', {
                     selectType: this.selectType,
@@ -336,8 +343,9 @@ export default {
                     category: this.category,
                     date: this.date,
                 });
+                this.searchFilter();
             } catch (error) {
-                this.$msg.info('Error creating record.');
+                this.$msg.warning('Error creating record.');
             } finally {
                 this.disableCreate = true;
             }
@@ -350,7 +358,7 @@ export default {
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
-                this.$msg.info('Error creating record.');
+                this.$msg.warning('Error creating record.');
                 this.loadCategoria = false;
             }
         },
@@ -371,49 +379,64 @@ export default {
             }
         },
 
-        async buscaFiltros() {
-            this.loadControleFinanceiro = true;
-            this.itemsControleFinanceiro = [];
+        async searchFilter() {
+            this.loadFinancialControl = true;
+            this.itemsFinancialControl = [];
             this.arrayLabelCategoriasTop5 = [];
             this.arraySomaValoresCategoriasTop5 = [];
-            this.arrayLabelCategoriasTop5Reverse = [];
-            this.arraySomaValoresCategoriasTop5Reverse = [];
+            this.arrayLabelIncome = [];
+            this.arraySumIncome = [];
+            this.arrayLabelExpense = [];
+            this.arraySumExpense = [];
             try {
                 const response = await axios.post('/busca-controle-financeiro', { dataInicio: this.dataInicio, dataFim: this.dataFim });
 
                 if (Array.isArray(response.data.query) && response.data.query.length > 0) {
-                    this.itemsControleFinanceiro = [];
-                    this.itemsControleFinanceiro = response.data.query.map(w => ({
+                    this.itemsFinancialControl = [];
+                    this.itemsFinancialControl = response.data.query.map(w => ({
                         category: w.category,
                         valorFormatado: isNaN(parseFloat(w.amountValue))
                             ? 'R$ 0,00'
                             : parseFloat(w.amountValue).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
                         dataFormatada: w.date,
                         // dataFormatada: w.date.split('-').reverse().join('/'),
-                        type: w.type == 'E' ? 'Income' : 'Expense',
+                        type: w.type == 'I' ? 'Income' : 'Expense',
                     }));
 
                     const somaCategorias = response.data.somaCategoria || [];
+                    const somaPorMesExpense = response.data.somaPorMesExpense || [];
+                    const somaPorMesIncome = response.data.somaPorMesIncome || [];
 
                     this.arrayLabelCategoriasTop5 = [];
                     this.arraySomaValoresCategoriasTop5 = [];
-                    this.arrayLabelCategoriasTop5Reverse = [];
-                    this.arraySomaValoresCategoriasTop5Reverse = [];
 
-                    somaCategorias.slice(0, 10).forEach(item => {
+                    somaCategorias.slice(0, 5).forEach(item => {
                         this.arrayLabelCategoriasTop5.push(item.category);
                         this.arraySomaValoresCategoriasTop5.push(item.amountValue);
                     });
 
-                    somaCategorias.slice(-10).forEach(item => {
-                        this.arrayLabelCategoriasTop5Reverse.push(item.category);
-                        this.arraySomaValoresCategoriasTop5Reverse.push(item.amountValue);
+                    this.arrayLabelIncome = [];
+                    this.arraySumIncome = [];
+
+                    somaPorMesIncome.forEach(item => {
+                        this.arrayLabelIncome.push(item.month);
+                        if (item.total_income != 0) {
+                            this.arraySumIncome.push(item.total_income);
+                        }
                     });
+
+                    somaPorMesExpense.forEach(item => {
+                        this.arrayLabelExpense.push(item.month);
+                        if (item.total_expense != 0) {
+                            this.arraySumExpense.push(item.total_expense);
+                        }
+                    });
+                    console.log(this.arraySumExpense);
                 }
             } catch {
-                this.$msg.info('Error fetching record.');
+                this.$msg.warning('Error fetching record.');
             } finally {
-                this.loadControleFinanceiro = false;
+                this.loadFinancialControl = false;
             }
         },
 
@@ -422,20 +445,20 @@ export default {
             try {
                 await axios.delete('/delete-category', {
                     data: {
-                        idCategoria: item.idCategoria,
+                        idCategory: item.idCategory,
                     },
                 });
                 this.allCategorias();
             } catch {
-                this.$msg.info('Error deleting record.');
+                this.$msg.warning('Error deleting record.');
                 this.loadCategoria = false;
             }
         },
 
-        limparFiltros() {
+        cleanFilter() {
             this.dataInicio = null;
             this.dataFim = null;
-            this.buscaFiltros();
+            this.searchFilter();
         },
     },
 };
