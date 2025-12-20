@@ -186,31 +186,13 @@ onMounted(() => {
 
         <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
             <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3">
-                <div class="md:col-span-1">
+                <div class="md:col-span-3 lg:mb-10">
                     <h2
                         class="mx-auto mt-2 text-balance text-center text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white"
                     >
                         Professional Experience
                     </h2>
-                    <h3 class="mt-4 text-xl font-semibold text-sky-600 transition-all">
-                        {{ slides[activeIndex].title }}
-                    </h3>
-
-                    <div class="mt-3 flex flex-wrap gap-2">
-                        <span
-                            v-for="tag in slides[activeIndex].tags"
-                            :key="tag"
-                            class="px-2 py-1 text-xs font-medium rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
-                        >
-                            {{ tag }}
-                        </span>
-                    </div>
-
-                    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {{ slides[activeIndex].description }}
-                    </p>
                 </div>
-
                 <swiper
                     :slidesPerView="1"
                     :style="{
@@ -245,6 +227,26 @@ onMounted(() => {
                         </div>
                     </swiper-slide>
                 </swiper>
+
+                <div class="md:col-span-1">
+                    <h3 class="mt-4 text-xl font-semibold text-sky-600 transition-all">
+                        {{ slides[activeIndex].title }}
+                    </h3>
+
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span
+                            v-for="tag in slides[activeIndex].tags"
+                            :key="tag"
+                            class="px-2 py-1 text-xs font-medium rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
+                        >
+                            {{ tag }}
+                        </span>
+                    </div>
+
+                    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {{ slides[activeIndex].description }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
