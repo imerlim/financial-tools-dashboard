@@ -184,71 +184,66 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="relative w-full h-screen overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
-            <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3">
-                <div class="md:col-span-3 lg:mb-10">
-                    <h2
-                        class="mx-auto mt-2 text-balance text-center text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white"
-                    >
+        <section
+            class="relative w-full min-h-screen lg:h-screen overflow-y-auto lg:overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900 lg:py-0 flex items-center"
+        >
+            <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-y-8 lg:gap-x-12 items-center">
+                <div class="lg:col-span-3">
+                    <h2 class="text-balance text-center text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white">
                         Professional Experience
                     </h2>
                 </div>
-                <swiper
-                    :slidesPerView="1"
-                    :style="{
-                        '--swiper-navigation-color': '#00649e',
-                        '--swiper-pagination-color': '#00649e',
-                    }"
-                    :effect="'cube'"
-                    :zoom="true"
-                    :grabCursor="true"
-                    :loop="true"
-                    :autoplay="{
-                        delay: 15000,
-                        disableOnInteraction: false,
-                    }"
-                    :cubeEffect="{
-                        shadow: true,
-                        slideShadows: true,
-                        shadowOffset: 20,
-                        shadowScale: 0.94,
-                    }"
-                    :navigation="true"
-                    :pagination="{
-                        clickable: true,
-                    }"
-                    :modules="modules"
-                    @slideChange="onSlideChange"
-                    class="md:col-span-2 mt-7 lg:mt-0"
-                >
-                    <swiper-slide v-for="(slide, index) in slides" :key="index" class="bg-slate-600/40">
-                        <div class="swiper-zoom-container">
-                            <img :src="slide.image" class="rounded-lg shadow-xl" />
-                        </div>
-                    </swiper-slide>
-                </swiper>
 
-                <div class="md:col-span-1">
-                    <h3 class="mt-4 text-xl font-semibold text-sky-600 transition-all">
+                <div class="lg:col-span-2 w-full px-4 lg:px-0">
+                    <swiper
+                        :slidesPerView="1"
+                        :style="{
+                            '--swiper-navigation-color': '#00649e',
+                            '--swiper-pagination-color': '#00649e',
+                        }"
+                        :effect="'cube'"
+                        :zoom="true"
+                        :grabCursor="true"
+                        :loop="true"
+                        :autoplay="{ delay: 15000, disableOnInteraction: false }"
+                        :cubeEffect="{ shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: 0.94 }"
+                        :navigation="true"
+                        :pagination="{ clickable: true }"
+                        :modules="modules"
+                        @slideChange="onSlideChange"
+                        class="rounded-lg shadow-2xl"
+                    >
+                        <swiper-slide v-for="(slide, index) in slides" :key="index" class="bg-slate-600/40">
+                            <div class="swiper-zoom-container">
+                                <img :src="slide.image" class="rounded-lg w-full h-auto object-contain" />
+                            </div>
+                        </swiper-slide>
+                    </swiper>
+                </div>
+
+                <div class="lg:col-span-1 flex flex-col justify-center lg:pb-0">
+                    <h3 class="text-2xl font-bold text-sky-600 transition-all">
                         {{ slides[activeIndex].title }}
                     </h3>
 
-                    <div class="mt-3 flex flex-wrap gap-2">
+                    <div class="mt-4 flex flex-wrap gap-2">
                         <span
                             v-for="tag in slides[activeIndex].tags"
                             :key="tag"
-                            class="px-2 py-1 text-xs font-medium rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
+                            class="px-2 py-1 text-xs font-semibold rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
                         >
                             {{ tag }}
                         </span>
                     </div>
 
-                    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {{ slides[activeIndex].description }}
-                    </p>
+                    <div class="mt-4 max-h-[300px] lg:max-h-none overflow-y-auto">
+                        <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {{ slides[activeIndex].description }}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 

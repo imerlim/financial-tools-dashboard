@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: false, // desativa reload de Blade/PHP
+            refresh: false,
         }),
         vue({
             template: {
@@ -18,8 +18,12 @@ export default defineConfig({
         }),
     ],
     server: {
+        host: '0.0.0.0', // Permite acesso externo
+        hmr: {
+            host: '192.168.0.3', // OBRIGATÓRIO: Coloque o IP do seu PC aqui
+        },
         watch: {
-            ignored: ['**/*.php'], // ignora PHP completamente
+            ignored: ['**/*.php'],
         },
     },
 });

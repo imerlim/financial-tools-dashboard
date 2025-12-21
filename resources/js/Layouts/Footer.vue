@@ -7,7 +7,7 @@ const props = defineProps({
 
 <template>
     <footer class="bg-white dark:bg-slate-950 border-t border-black dark:border-white">
-        <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-6 sm:px-6 md:grid-cols-6 lg:px-8">
             <div class="m-2 flex flex-col lg:flex-row lg:justify-center lg:space-x-6 lg:col-span-6">
                 <div class="flex justify-center items-center space-x-6 mb-6 lg:mb-0">
                     <a href="https://www.instagram.com/i.merlim/" target="_blank" class="text-pink-700 hover:text-pink-500">
