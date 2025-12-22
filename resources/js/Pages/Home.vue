@@ -184,66 +184,72 @@ onMounted(() => {
             </div>
         </div>
 
-        <section
-            class="relative w-full min-h-screen lg:h-screen overflow-y-auto lg:overflow-hidden scroll-snap-start bg-slate-100 dark:bg-slate-900 lg:py-0 flex items-center"
-        >
-            <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-y-8 lg:gap-x-12 items-center">
-                <div class="lg:col-span-3">
-                    <h2 class="text-balance text-center text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white">
-                        Professional Experience
-                    </h2>
-                </div>
+        <main>
+            <div
+                class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y"
+            >
+                <div class="container mx-auto sm:px-16">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-3 lg:px-8">
+                        <div class="lg:col-span-3">
+                            <h2
+                                class="text-balance text-center text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white"
+                            >
+                                Professional Experience
+                            </h2>
+                        </div>
 
-                <div class="lg:col-span-2 w-full px-4 lg:px-0">
-                    <swiper
-                        :slidesPerView="1"
-                        :style="{
-                            '--swiper-navigation-color': '#00649e',
-                            '--swiper-pagination-color': '#00649e',
-                        }"
-                        :effect="'cube'"
-                        :zoom="true"
-                        :grabCursor="true"
-                        :loop="true"
-                        :autoplay="{ delay: 15000, disableOnInteraction: false }"
-                        :cubeEffect="{ shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: 0.94 }"
-                        :navigation="true"
-                        :pagination="{ clickable: true }"
-                        :modules="modules"
-                        @slideChange="onSlideChange"
-                        class="rounded-lg shadow-2xl"
-                    >
-                        <swiper-slide v-for="(slide, index) in slides" :key="index" class="bg-slate-600/40">
-                            <div class="swiper-zoom-container">
-                                <img :src="slide.image" class="rounded-lg w-full h-auto object-contain" />
+                        <div class="lg:col-span-2 w-full px-4 lg:pr-10">
+                            <swiper
+                                :slidesPerView="1"
+                                :style="{
+                                    '--swiper-navigation-color': '#00649e',
+                                    '--swiper-pagination-color': '#00649e',
+                                }"
+                                :effect="'cube'"
+                                :zoom="true"
+                                :grabCursor="true"
+                                :loop="true"
+                                :autoplay="{ delay: 15000, disableOnInteraction: false }"
+                                :cubeEffect="{ shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: 0.94 }"
+                                :navigation="true"
+                                :pagination="{ clickable: true }"
+                                :modules="modules"
+                                @slideChange="onSlideChange"
+                                class="rounded-lg shadow-2xl"
+                            >
+                                <swiper-slide v-for="(slide, index) in slides" :key="index" class="bg-slate-600/40">
+                                    <div class="swiper-zoom-container">
+                                        <img :src="slide.image" class="rounded-lg w-full h-auto object-contain" />
+                                    </div>
+                                </swiper-slide>
+                            </swiper>
+                        </div>
+
+                        <div class="lg:col-span-1 flex flex-col justify-top lg:pb-0">
+                            <h3 class="text-2xl font-bold text-sky-600 transition-all">
+                                {{ slides[activeIndex].title }}
+                            </h3>
+
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span
+                                    v-for="tag in slides[activeIndex].tags"
+                                    :key="tag"
+                                    class="px-2 py-1 text-xs font-semibold rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
+                                >
+                                    {{ tag }}
+                                </span>
                             </div>
-                        </swiper-slide>
-                    </swiper>
-                </div>
 
-                <div class="lg:col-span-1 flex flex-col justify-center lg:pb-0">
-                    <h3 class="text-2xl font-bold text-sky-600 transition-all">
-                        {{ slides[activeIndex].title }}
-                    </h3>
-
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span
-                            v-for="tag in slides[activeIndex].tags"
-                            :key="tag"
-                            class="px-2 py-1 text-xs font-semibold rounded-md bg-sky-300/80 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
-                        >
-                            {{ tag }}
-                        </span>
-                    </div>
-
-                    <div class="mt-4 max-h-[300px] lg:max-h-none overflow-y-auto">
-                        <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                            {{ slides[activeIndex].description }}
-                        </p>
+                            <div class="mt-4 max-h-[300px] lg:max-h-none overflow-y-auto">
+                                <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    {{ slides[activeIndex].description }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </main>
     </div>
 </template>
 
