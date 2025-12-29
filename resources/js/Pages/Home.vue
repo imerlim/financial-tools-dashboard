@@ -28,74 +28,136 @@ const onSlideChange = swiper => {
 };
 const slides = [
     {
-        image: '/storage/consolidated_sales_OLD.jpg',
-        title: 'BI & Interactive Dashboards',
-        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL'],
-        description:
-            'Development of consolidated sales dashboards using Highcharts for real-time data visualization, with a robust backend built on Laravel 7.',
-    },
-    {
-        image: '/storage/sales_agenda_old.jpeg',
-        title: 'Scheduling Management',
-        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'FullCalendar'],
-        description:
-            'Implementation of a complex commercial scheduling system using FullCalendar, enabling dynamic event management and integration with the company’s CRM workflow.',
-    },
-    {
-        image: '/storage/product_registration_old.jpg',
-        title: 'Product Registration UX',
-        tags: ['Laravel 7', 'Vue.js 2', 'PHP 7.4', 'MySQL'],
-        description:
-            'Dense and reactive product registration interface, optimized with Bootstrap-Vue to ensure agility in the entry of technical and tax-related data.',
-    },
-    {
-        image: '/storage/product_registration_new.jpeg',
-        title: 'Redesign Product Registration',
-        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'State Management'],
-        description:
-            'A high-performance SPA redesign of the core product management module. Engineered with Inertia.js to handle complex tax and technical data without page refreshes, featuring a streamlined Tailwind CSS interface optimized for administrative efficiency.',
-    },
-    {
         image: '/storage/nuvemshop_old.jpeg',
         title: 'API Nuvemshop Integration',
-        tags: ['Laravel 7', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'Trumbowyg'],
-        description:
-            'Creation of an integration dashboard with NuvemShop, automating the synchronization of orders and inventory between the ERP and the e-commerce platform.',
+        tags: ['Laravel 7', 'Bootstrap-vue', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'Trumbowyg'],
+        description: `- Automation: Automated sync engine for stock/pricing updates every 5 mins and background CRM registration for new customers.
+
+            - Scalability: Built for bulk product uploads and large-scale order processing.
+
+            - Control: Custom configuration layer for user-defined sync rules.
+            
+            - Tech: Refined API logic & optimized queries for maximum stability during peak demand.`,
     },
     {
         image: '/storage/nuvemshop_new.jpeg',
         title: 'Redesign API Nuvemshop Integration',
         tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Chart.js', 'Real-time Sync'],
-        description:
-            'A high-performance SPA redesign of the NuvemShop integration. Leverages Inertia.js for seamless state management, automating real-time synchronization of orders and inventory between the ERP and e-commerce platforms with a modern Tailwind CSS interface.',
+        description: `- Core: Automates real-time inventory, pricing, and bulk product/order management.
+
+            - Upgrades: Migrated to Inertia.js and PHP 8.4 for a faster, "app-like" experience with near-zero latency.
+
+            - UX/UI: New Tailwind CSS dashboard with Chart.js for better data visibility.
+
+            - Refinement: Improved background logic for customer auto-registration and high-volume data stability.`,
     },
     {
         image: '/storage/mercado_livre_new.jpeg',
         title: 'Marketplace Integration: Mercado Livre',
         tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'REST API'],
-        description:
-            'A sophisticated marketplace integration allowing users to manage Mercado Livre listings directly from the ERP. Features include real-time order tracking and a specialized module to publish new product announcements, bridging internal inventory with the e-commerce ecosystem.',
+        description: `- Bulk Operations: Full control to publish new announcements, pause, or delete listings in mass directly from the ERP.
+
+            - Sync & Tracking: Real-time synchronization of product data, inventory levels, and order status updates.
+
+            - Management: Centralized dashboard to visualize detailed order data and manage the end-to-end sales workflow.
+
+            - Tech: Built as a high-performance SPA using Inertia.js and PHP 8.4, bridging internal inventory with the Meli ecosystem.`,
+    },
+    {
+        image: '/storage/woocommerce.jpeg',
+        title: 'API WooCommerce Integration',
+        tags: ['Laravel 7', 'Bootstrap-vue', 'Vue.js 2', 'PHP 7.4', 'MySQL'],
+        description: `- Product Management: Creation of a centralized dashboard to create, edit, and delete products directly on the WooCommerce platform.
+
+            - Order Tracking: Real-time visualization of order data and customer information synchronized with the ERP.
+
+            - Automation: Streamlined management of order status updates to ensure consistency between sales and logistics.
+
+            - Bridge: Engineered a robust connection to the WooCommerce REST API, facilitating seamless data flow for e-commerce operations.`,
+    },
+    {
+        image: '/storage/sales_agenda_old.jpeg',
+        title: 'Scheduling Management',
+        tags: ['Laravel 7', 'Bootstrap-vue', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL', 'FullCalendar'],
+        description: `- Operations: Implementation of a complex commercial scheduling system for dynamic event and appointment management.
+
+            - CRM Integration: Fully integrated with the company’s CRM workflow to streamline sales tracking and follow-ups.
+
+            - UX/UI: Interactive calendar interface allowing real-time event manipulation and visual organization of sales pipelines.
+
+            - Efficiency: Centralizes commercial activities, reducing scheduling conflicts and improving team productivity.`,
     },
     {
         image: '/storage/tree_view_new.png',
-        title: 'Recursive Data Architecture',
+        title: 'Recursive Data Architecture & Tree View',
         tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Recursive Logic'],
-        description:
-            'Implementation of a dynamic, infinite-level category tree for product grouping. Developed using recursive Vue.js components and optimized Eloquent queries, allowing users to manage complex hierarchical data structures with real-time updates and seamless state management.',
+        description: `- Logic: Algorithms to transform flat data into infinite-level hierarchical relationships.
+
+            - UX/UI: Real-time state sync and recursive rendering with intuitive CRUD workflows.
+
+            - Performance: Optimized rendering and queries for complex datasets with minimal latency.
+
+            - Architecture: High-performance SPA providing a fluid experience for managing organizational data.`,
     },
     {
-        image: '/storage/stock_adjustment_new.png',
-        title: 'Precision Inventory Control',
-        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Batch Updates'],
-        description:
-            'A high-efficiency stock adjustment module designed for rapid data entry. Features real-time product lookups and batch update capabilities, ensuring inventory synchronization with minimal administrative overhead.',
+        image: '/storage/consolidated_sales_OLD.jpg',
+        title: 'BI & Interactive Dashboards',
+        tags: ['Laravel 7', 'Bootstrap-vue', 'Vue.js 2', 'Highcharts', 'PHP 7.4', 'MySQL'],
+        description: `- Analytics: Development of consolidated sales dashboards for high-level business intelligence and performance tracking.
+
+            - Visualization: Implemented interactive and dynamic data charts using Highcharts for real-time sales monitoring.
+
+            - Backend: Built a robust data processing engine on Laravel 7 to handle complex queries and large datasets.
+
+            - UX: Created a clean, responsive interface using Vue.js 2 and Bootstrap-vue to facilitate data-driven decision making.`,
     },
     {
         image: '/storage/financial_management_new.png',
         title: 'High-Volume Financial Processing',
         tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Pagination Engine'],
-        description:
-            'A sophisticated financial management component engineered to process massive datasets. Features an optimized server-side pagination engine that fetches records dynamically, allowing seamless navigation through thousands of financial documents with zero browser latency or performance degradation.',
+        description: `- Performance: Optimized server-side engine engineered to process and fetch massive financial datasets dynamically.
+
+            - Scalability: Seamless navigation through thousands of documents with zero browser latency or performance degradation.
+
+            - UX/UI: High-performance SPA interface designed for fast, fluid management of complex financial records.
+            
+            - Efficiency: Eliminates data bottlenecks via intelligent record fetching and streamlined data flows.`,
+    },
+    {
+        image: '/storage/stock_adjustment_new.png',
+        title: 'Precision Inventory Control',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'Batch Updates'],
+        description: `- Efficiency: High-speed stock adjustment module engineered for rapid data entry and high-volume batch updates.
+
+            - Real-time Sync: Features instant product lookups to ensure inventory accuracy across the entire ERP system.
+
+            - UX/UI: Modern SPA interface focused on administrative speed, reducing friction in daily warehouse operations.
+            
+            - Reliability: Eliminates manual errors by automating complex inventory calculations and synchronization workflows.`,
+    },
+    {
+        image: '/storage/product_registration_old.jpg',
+        title: 'Product Registration UX',
+        tags: ['Laravel 7', 'Bootstrap-vue', 'Vue.js 2', 'PHP 7.4', 'MySQL'],
+        description: `- Efficiency: Optimized for rapid entry of complex technical and tax-related data within the ERP.
+
+            - Reactivity: Developed a dense, reactive interface to handle real-time validation of business-critical information.
+
+            - UX/UI: Engineered a clean, structured workflow to streamline product onboarding and minimize administrative errors.
+            
+            - Impact: Reduced data entry time by providing a stable and fast management environment for large catalogs.`,
+    },
+    {
+        image: '/storage/product_registration_new.jpeg',
+        title: 'Redesign Product Registration',
+        tags: ['Laravel 12', 'Vue.js 3', 'SPA', 'Inertia.js', 'Tailwind CSS', 'PHP 8.4', 'MySQL', 'State Management'],
+        description: `- Performance: High-performance SPA redesign handling complex tax and technical data with zero page refreshes.
+
+            - Modern UX: Re-engineered with a streamlined interface focused on maximizing administrative efficiency and focus.
+
+            - State Management: Advanced logic to manage intricate data relationships and real-time validations seamlessly.
+            
+            - Optimization: Significant reduction in latency, providing a fast, desktop-like experience for core ERP operations.`,
     },
     {
         image: '/storage/margin_calculator_new.png',
@@ -198,7 +260,7 @@ onMounted(() => {
                             </h2>
                         </div>
 
-                        <div class="lg:col-span-2 w-full px-4 lg:pr-10">
+                        <div class="lg:col-span-2 w-full px-4 lg:pr-10 lg:mt-3">
                             <swiper
                                 :slidesPerView="1"
                                 :style="{
@@ -209,7 +271,7 @@ onMounted(() => {
                                 :zoom="true"
                                 :grabCursor="true"
                                 :loop="true"
-                                :autoplay="{ delay: 15000, disableOnInteraction: false }"
+                                :autoplay="{ delay: 1500000000, disableOnInteraction: false }"
                                 :cubeEffect="{ shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: 0.94 }"
                                 :navigation="true"
                                 :pagination="{ clickable: true }"
@@ -241,7 +303,7 @@ onMounted(() => {
                             </div>
 
                             <div class="mt-4 max-h-[300px] lg:max-h-none overflow-y-auto">
-                                <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                <p class="whitespace-pre-line text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                                     {{ slides[activeIndex].description }}
                                 </p>
                             </div>
