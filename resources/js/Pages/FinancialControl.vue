@@ -69,7 +69,7 @@
                                         />
                                     </div>
                                     <div class="sm:col-span-1 self-end flex">
-                                        <PrimaryButton type="submit">Cadastrar</PrimaryButton>
+                                        <PrimaryButton :disabled="!this.user" type="submit">Cadastrar</PrimaryButton>
                                     </div>
 
                                     <div class="sm:col-span-6">

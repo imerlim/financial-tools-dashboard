@@ -34,7 +34,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
-                                @change="calculaJurosCompostos()"
+                                @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -50,7 +50,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
-                                @change="calculaJurosCompostos()"
+                                @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -66,7 +66,7 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
-                                @change="calculaJurosCompostos()"
+                                @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
                                 placeholder="0,00"
                                 :formata="true"
@@ -91,10 +91,9 @@
                         </div>
                         <div class="sm:col-span-1">
                             <CustomInput
-                                @change="calculaJurosCompostos()"
-                                inputmode="numeric"
+                                @keyup.enter="calculaJurosCompostos"
+                                type="number"
                                 placeholder="0"
-                                :formata="true"
                                 :propLargeAppend="true"
                                 v-model="periodo"
                                 label="Period"
@@ -135,11 +134,11 @@
 export default {
     data() {
         return {
-            valorInicial: 0,
-            valorMensal: 0,
+            valorInicial: null,
+            valorMensal: null,
             taxaJuros: null,
-            taxaJurosSelect: 'Mensal',
             periodo: null,
+            taxaJurosSelect: 'Mensal',
             periodoSelect: 'Anos',
             montanteFinal: 'R$ 0,00',
             valorTotalInvestido: 'R$ 0,00',
@@ -149,6 +148,19 @@ export default {
 
     methods: {
         calculaJurosCompostos() {
+            if (!this.valorInicial && !this.valorMensal) {
+                return this.$msg.warning('You need to enter at least one value: initial or monthly.');
+            }
+            if (!this.taxaJuros) {
+                return this.$msg.warning('You need to enter an interest rate.');
+            }
+            if (!this.periodo) {
+                return this.$msg.warning('You need to enter a periodo.');
+            }
+            console.log(this.valorInicial);
+            console.log(this.valorMensal);
+            console.log(this.taxaJuros);
+            console.log(this.periodo);
             const C = parseFloat(this.valorInicial);
             if (!this.valorMensal) {
                 this.valorMensal = 0;

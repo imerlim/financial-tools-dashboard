@@ -31,4 +31,15 @@ export default defineConfig({
     //         ignored: ['**/*.php'],
     //     },
     // },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        return 'vendor'; // Coloca todas as bibliotecas num arquivo separado
+                    }
+                },
+            },
+        },
+    },
 });

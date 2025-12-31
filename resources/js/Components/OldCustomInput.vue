@@ -48,49 +48,39 @@ const hasButtons = computed(() => {
     return props.showSearch || props.showClear || props.showTrash || props.showAdd;
 });
 
-// Function to format the number for display (pt-BR)
-function formatarMoeda(valor) {
-    if (valor === null || valor === undefined || valor === '') return '0,00';
-
-    let numericValue;
-    if (typeof valor === 'number') {
-        // Rounding to avoid floating point issues (e.g., 5.5 * 100 = 550)
-        numericValue = Math.round(valor * 100);
-    } else {
-        // String cleaning: "R$ 1.234,56" -> "123456"
-        const cleanString = String(valor).replace(/\D/g, '');
-        numericValue = parseInt(cleanString, 10);
-    }
-
-    if (isNaN(numericValue) || numericValue === 0) return '0,00';
-
-    return new Intl.NumberFormat('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    }).format(numericValue / 100);
-}
-
-// Function to handle the typing event
-function updateValue(e) {
-    let inputVal = e.target.value;
+const updateValue = event => {
+    let raw = event.target.value;
 
     if (props.formata) {
-        // 1. Remove TUDO que não for número (bloqueia letras, pontos e vírgulas digitadas)
-        const onlyNumbers = inputVal.replace(/\D/g, '');
+        // 1️⃣ Troca vírgula por ponto (trata decimal BR)
+        raw = raw.replace(',', '.');
 
-        // 2. Transforma em decimal (ex: "150" -> 1.50)
-        const numericValue = onlyNumbers ? parseInt(onlyNumbers, 10) / 100 : 0;
+        // 2️⃣ Remove apenas separadores de milhar (ponto no meio dos números inteiros)
+        //    Ex: 1.000.000 -> 1000000
+        //    Mas mantém ponto decimal caso só tenha um
+        const partes = raw.split('.');
+        if (partes.length > 2) {
+            // se tiver mais de um ponto, remove todos menos o último (decimal)
+            const decimal = partes.pop();
+            raw = partes.join('') + '.' + decimal;
+        }
 
-        // 3. Atualiza o modelo com o número real
-        emit('update:modelValue', numericValue);
+        // 3️⃣ Converte para número
+        const numero = parseFloat(raw) || 0;
 
-        // --- TRUQUE PARA O VALOR NO INPUT NÃO FICAR COM LETRAS ---
-        // Forçamos o valor do input a ser o que formatamos,
-        // caso o usuário tenha tentado digitar uma letra.
-        e.target.value = formatarMoeda(numericValue);
+        // 4️⃣ Emite número limpo para o pai
+        emit('update:modelValue', numero);
     } else {
-        emit('update:modelValue', inputVal);
+        emit('update:modelValue', raw);
     }
+};
+
+function formatarMoeda(valor) {
+    if (valor === null || valor === undefined || isNaN(valor)) return '';
+    return Number(valor).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 }
 
 // 🔹 ref do input
@@ -194,22 +184,23 @@ const iconSizeClass = computed(() => {
 
                     <input
                         v-else
-                        ref="fieldRef"
+                        :autofocus="autofocus"
                         :id="id"
+                        ref="fieldRef"
+                        :inputmode="inputmode"
                         :name="name"
                         :type="type"
-                        :autofocus="autofocus"
-                        :inputmode="props.formata ? 'numeric' : inputmode"
+                        :accept="accept"
                         :placeholder="placeholder"
                         :disabled="disabled"
                         :required="required"
                         :maxlength="maxlength"
-                        :autocomplete="autocomplete"
                         :value="props.formata ? formatarMoeda(modelValue) : modelValue"
-                        @input="updateValue"
-                        @focus="$event.target.select()"
-                        class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 focus:outline-none border-none"
+                        :autocomplete="autocomplete"
+                        class="w-full p-2 text-slate-900 bg-slate-50 dark:bg-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none border-none"
                         :class="[textSize, { 'opacity-50 cursor-not-allowed': disabled }]"
+                        :max="type === 'date' ? '9999-12-31' : null"
+                        v-on="props.formata ? { change: updateValue } : { input: updateValue }"
                     />
 
                     <!-- Append -->

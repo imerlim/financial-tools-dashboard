@@ -1,24 +1,26 @@
 // resources/Plugins/msg.js
 export default {
-    install: (app) => {
+    install: app => {
         app.config.globalProperties.$msg = {
             show(title, body, type = 'success') {
-                window.dispatchEvent(new CustomEvent('global-msg', {
-                    detail: { title, body, type }
-                }));
+                window.dispatchEvent(
+                    new CustomEvent('global-msg', {
+                        detail: { title, body, type },
+                    })
+                );
             },
-            success(body, title = 'Sucesso!') {
+            success(body, title = 'Success!') {
                 this.show(title, body, 'success');
             },
-            error(body, title = 'Erro!') {
+            error(body, title = 'Error!') {
                 this.show(title, body, 'error');
             },
-            warning(body, title = 'Atenção!') {
+            warning(body, title = 'Warning!') {
                 this.show(title, body, 'warning');
             },
-            info(body, title = 'Informação') {
+            info(body, title = 'Information') {
                 this.show(title, body, 'info');
             },
         };
-    }
+    },
 };
