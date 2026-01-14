@@ -128,6 +128,7 @@ export default {
             openConfirmDelete: false,
             isDragging: false,
             userId: null,
+            user: null,
             documentToBeDeleted: null,
 
             headersDocuments: [
@@ -141,8 +142,9 @@ export default {
         };
     },
     mounted() {
-        const page = usePage();
-        this.userId = page.props.auth.user?.id ?? null;
+        const userProps = usePage();
+        this.user = userProps.props.auth.user?.name ?? null;
+        this.userId = userProps.props.auth.user?.id ?? null;
         // Carregamento inicial paralelo
         this.refreshData();
     },
@@ -213,10 +215,16 @@ export default {
 
         // Métodos de auxílio
         handleFileUpload(event) {
+            if (!this.user) {
+                return this.$msg.warning('Please log in before proceeding.');
+            }
             const file = event.target.files[0];
             if (file) this.uploadToServer(file);
         },
         handleDrop(event) {
+            if (!this.user) {
+                return this.$msg.warning('Please log in before proceeding.');
+            }
             this.isDragging = false;
             const file = event.dataTransfer.files[0];
             if (file) this.uploadToServer(file);

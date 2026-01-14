@@ -1,6 +1,6 @@
 {
-  "_vendor-CdSt2P6D.js": {
-    "file": "assets/vendor-CdSt2P6D.js",
+  "_vendor-BUpahd6T.js": {
+    "file": "assets/vendor-BUpahd6T.js",
     "name": "vendor",
     "css": [
       "assets/vendor-fVgbM_6u.css"
@@ -11,20 +11,20 @@
     "src": "_vendor-fVgbM_6u.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BS5RDzac.css",
+    "file": "assets/app-CakOo3k_.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-B146P_jC.js",
+    "file": "assets/app-B5F-kW0i.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_vendor-CdSt2P6D.js"
+      "_vendor-BUpahd6T.js"
     ],
     "css": [
-      "assets/app-hRE7PAgE.css"
+      "assets/app-BL6h4bb5.css"
     ],
     "assets": [
       "assets/logo-CheuzYfY.png"
