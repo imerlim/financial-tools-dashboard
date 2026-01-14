@@ -70,77 +70,22 @@
                         <div
                             class="sm:col-span-4 mt-8 bg-white dark:bg-white/5 rounded-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-800"
                         >
-                            <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
-                                <thead class="bg-slate-50 dark:bg-slate-800/50">
-                                    <tr>
-                                        <th
-                                            class="px-6 py-4 text-left text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider"
-                                        >
-                                            Document
-                                        </th>
-                                        <th
-                                            class="px-6 py-4 text-left text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider"
-                                        >
-                                            AI Status
-                                        </th>
-                                        <th
-                                            class="px-6 py-4 text-right text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider"
-                                        >
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-                                    <tr
-                                        v-for="doc in documents"
-                                        :key="doc.id"
-                                        class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-                                    >
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div
-                                                    class="h-10 w-10 flex-shrink-0 bg-sky-500/10 rounded-lg flex items-center justify-center"
-                                                >
-                                                    <svg class="h-6 w-6 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-slate-900 dark:text-white">{{ doc.title }}</div>
-                                                    <div class="text-xs text-slate-500">Uploaded on {{ formatDate(doc.created_at) }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                v-if="doc.status === 'completed'"
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-400"
-                                            >
-                                                <span class="h-1.5 w-1.5 rounded-full bg-green-500 mr-1.5"></span>
-                                                Text Extracted
-                                            </span>
-                                            <span
-                                                v-else
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400"
-                                            >
-                                                <span class="h-1.5 w-1.5 rounded-full bg-yellow-500 mr-1.5 animate-pulse"></span>
-                                                AI Processing...
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button @click="viewDetails(doc)" class="text-sky-500 hover:text-sky-400 mr-4">
-                                                View Content
-                                            </button>
-                                            <button class="text-slate-400 hover:text-white">Download</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <Table :headers="headersDocuments" :items="localDocuments" :per-page="10" :loading="loading">
+                                <template #acoes="{ item }">
+                                    <div class="flex justify-end gap-4">
+                                        <button @click="viewDocument(item)" class="text-sky-500 hover:text-sky-400 font-medium">
+                                            View
+                                        </button>
+                                        <button @click="deleteDoc(item)" class="text-red-500 hover:text-red-400 font-medium">Delete</button>
+                                    </div>
+                                </template>
+
+                                <template #status="{ item }">
+                                    <span :class="item.status === 'completed' ? 'text-green-400' : 'text-yellow-400'">
+                                        {{ item.status === 'completed' ? 'Extracted' : 'Processing...' }}
+                                    </span>
+                                </template>
+                            </Table>
                         </div>
                     </div>
                 </div>
@@ -159,6 +104,12 @@ export default {
     },
     data() {
         return {
+            headersDocuments: [
+                { label: 'Document', key: 'title' }, // Usando a coluna 'title' do seu banco
+                { label: 'Status', key: 'status', customRender: 'status' },
+                { label: 'Size', key: 'size' },
+                { label: '', key: 'acoes', customRender: 'acoes' },
+            ],
             localDocuments: [],
             loading: false,
             isDragging: false,
@@ -183,8 +134,13 @@ export default {
         },
 
         async fetchDocuments() {
-            const response = await axios.get('/documents-list');
-            this.localDocuments = response.data;
+            this.loading = true; // Ativa o spinner do seu componente Table
+            try {
+                const response = await axios.get('/documents-list');
+                this.localDocuments = response.data; // Alimenta o :items do Table
+            } finally {
+                this.loading = false;
+            }
         },
 
         async uploadToServer(file) {
@@ -201,6 +157,28 @@ export default {
                 this.fetchDocuments();
             } catch (error) {
                 this.$msg.warning('Upload failed.');
+            }
+        },
+
+        async viewDocument(doc) {
+            try {
+                const response = await axios.get(`/document-download/${doc.id}`);
+                // Abre o arquivo em uma nova aba do navegador
+                window.open(response.data.url, '_blank');
+            } catch (error) {
+                this.$msg.warning('Error opening document.');
+            }
+        },
+
+        async deleteDoc(doc) {
+            if (!confirm('Are you sure you want to delete this file?')) return;
+
+            try {
+                await axios.delete(`/document-delete/${doc.id}`);
+                this.$msg.success('File removed!');
+                this.fetchDocuments(); // Recarrega a lista para sumir da tela
+            } catch (error) {
+                this.$msg.warning('Error deleting file.');
             }
         },
 

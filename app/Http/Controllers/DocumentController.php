@@ -47,4 +47,25 @@ class DocumentController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function downloadDocument($id) // Recebe o ID, não o Model
+    {
+        try {
+            // O Service agora é responsável por buscar e validar
+            $result = $this->documentService->generateDownloadUrl($id, Auth::id());
+            return response()->json($result, 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function deleteDocument($id)
+    {
+        try {
+            $this->documentService->deleteDocument($id, Auth::id());
+            return response()->json(['message' => 'Document deleted successfully'], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

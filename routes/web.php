@@ -23,6 +23,8 @@ Route::controller(ControleFinanceiroController::class)->group(function () {
 Route::controller(DocumentController::class)->group(function () {
     Route::post('document-upload', 'uploadDocument')->name('document.upload');
     Route::get('documents-list', 'listDocuments')->name('documents.list');
+    Route::get('document-download/{id}', 'downloadDocument');
+    Route::delete('document-delete/{id}', 'deleteDocument');
 });
 
 require __DIR__ . '/auth.php';

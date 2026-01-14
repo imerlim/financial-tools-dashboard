@@ -75,7 +75,7 @@
                                     <div class="sm:col-span-6">
                                         <Table :headers="headersCategoria" :items="itemsCategoria" :per-page="5" :loading="loadCategoria">
                                             <template #acoes="{ item }">
-                                                <div class="flex justify-end">
+                                                <div class="flex justify-end gap-4">
                                                     <button
                                                         type="button"
                                                         title="Excluir"
