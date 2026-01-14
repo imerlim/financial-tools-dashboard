@@ -12,7 +12,15 @@ import {
     PopoverGroup,
     PopoverPanel,
 } from '@headlessui/vue';
-import { MusicalNoteIcon, Bars3Icon, PresentationChartLineIcon, CalculatorIcon, XMarkIcon, ChartPieIcon } from '@heroicons/vue/24/outline';
+import {
+    MusicalNoteIcon,
+    Bars3Icon,
+    PresentationChartLineIcon,
+    CalculatorIcon,
+    XMarkIcon,
+    ChartPieIcon,
+    CloudArrowDownIcon,
+} from '@heroicons/vue/24/outline';
 import ThemeSwitcher from '../Components/ThemeSwitcher.vue';
 
 const logout = () => {
@@ -58,6 +66,12 @@ const products = [
         description: 'Financial data visualization',
         href: '/financial-control',
         icon: ChartPieIcon,
+    },
+    {
+        name: 'DMS',
+        description: 'Document Management System',
+        href: '/financial-control',
+        icon: CloudArrowDownIcon,
     },
     // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
     // { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
