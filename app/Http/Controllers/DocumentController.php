@@ -19,7 +19,6 @@ class DocumentController extends Controller
 
     public function uploadDocument(Request $request)
     {
-        dd($request);
         try {
             $request->validate([
                 'document' => 'required|file|max:10240',

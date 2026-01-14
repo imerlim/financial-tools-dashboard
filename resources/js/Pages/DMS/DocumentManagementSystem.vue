@@ -168,9 +168,6 @@ export default {
     mounted() {
         const page = usePage();
         this.userId = page.props.auth.user?.id ?? null;
-
-        console.log('aki', page.props.auth);
-
         // Carregamento inicial paralelo
         this.refreshData();
     },

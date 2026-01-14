@@ -70,7 +70,7 @@ const products = [
     {
         name: 'DMS',
         description: 'Document Management System',
-        href: '/financial-control',
+        href: '/document-management',
         icon: CloudArrowDownIcon,
     },
     // { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },

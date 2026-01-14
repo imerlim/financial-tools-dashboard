@@ -12,15 +12,17 @@ class DocumentService
      */
     public function processUpload($file, $userId)
     {
-        dd($file);
-        // O método 'store' envia para o bucket 'merlim-dms-storage'
+        // O arquivo está sendo enviado corretamente para o S3!
         $path = $file->store('documents', 's3');
 
         return Document::create([
-            'user_id' => $userId,
-            'title' => $file->getClientOriginalName(),
-            's3_key' => $path,
-            'status' => 'processing',
+            'user_id'           => $userId,
+            'title'             => $file->getClientOriginalName(),
+            'original_filename' => $file->getClientOriginalName(), // Adicionado aqui
+            's3_key'            => $path,
+            'mime_type'         => $file->getMimeType(),           // Adicionado aqui
+            'size'              => $file->getSize(),               // Adicionado aqui
+            'status'            => 'processing',
         ]);
     }
 

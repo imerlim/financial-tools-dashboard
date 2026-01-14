@@ -10,7 +10,7 @@ class Document extends Model
 
     public $incrementing = true;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
