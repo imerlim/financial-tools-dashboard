@@ -9,11 +9,15 @@
 /* Para navegadores WebKit (Chrome, Safari, Opera) */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Para o Firefox */
 input[type='number'] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+html {
+    scrollbar-gutter: stable;
 }

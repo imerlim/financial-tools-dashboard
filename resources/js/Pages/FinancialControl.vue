@@ -173,7 +173,6 @@
                                 :per-page="5"
                                 :show-search="true"
                                 :loading="loadFinancialControl"
-                                :multi-select="false"
                             >
                                 <template #acoes="{ item }">
                                     <div class="flex justify-end">

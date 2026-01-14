@@ -43,7 +43,7 @@
                                 :class="{ 'border-sky-500 bg-sky-500/10': isDragging }"
                                 class="relative border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-12 text-center hover:border-sky-500 transition-all cursor-pointer group"
                             >
-                                <input type="file" @change="handleFileUpload" class="hidden" id="doc-upload" />
+                                <input type="file" ref="fileInput" @change="handleFileUpload" class="hidden" id="doc-upload" />
                                 <label for="doc-upload" class="cursor-pointer">
                                     <svg
                                         class="mx-auto h-12 w-12 text-slate-400 group-hover:text-sky-500 transition-colors"
@@ -67,16 +67,37 @@
                             </div>
                         </div>
 
-                        <div
-                            class="sm:col-span-4 mt-8 bg-white dark:bg-white/5 rounded-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-800"
-                        >
-                            <Table :headers="headersDocuments" :items="localDocuments" :per-page="10" :loading="loading">
+                        <div class="sm:col-span-4">
+                            <Table
+                                :headers="headersDocuments"
+                                :show-search="true"
+                                :items="localDocuments"
+                                :per-page="10"
+                                :loading="loading"
+                            >
                                 <template #acoes="{ item }">
                                     <div class="flex justify-end gap-4">
                                         <button @click="viewDocument(item)" class="text-sky-500 hover:text-sky-400 font-medium">
                                             View
                                         </button>
-                                        <button @click="deleteDoc(item)" class="text-red-500 hover:text-red-400 font-medium">Delete</button>
+                                        <button
+                                            @click="
+                                                documentToBeDeleted = item;
+                                                openConfirmDelete = true;
+                                            "
+                                            class="text-red-500 hover:text-red-400 font-medium"
+                                        >
+                                            Delete
+                                        </button>
+
+                                        <ConfirmDialog
+                                            v-model="openConfirmDelete"
+                                            title="Delete document"
+                                            :message="`Are you sure you want to delete the file: ${documentToBeDeleted?.title}?`"
+                                            type="danger"
+                                            confirm-button-text="Delete"
+                                            @confirm="deleteDoc(documentToBeDeleted)"
+                                        />
                                     </div>
                                 </template>
 
@@ -104,6 +125,11 @@ export default {
     },
     data() {
         return {
+            openConfirmDelete: false,
+            isDragging: false,
+            userId: null,
+            documentToBeDeleted: null,
+
             headersDocuments: [
                 { label: 'Document', key: 'title' }, // Usando a coluna 'title' do seu banco
                 { label: 'Status', key: 'status', customRender: 'status' },
@@ -112,8 +138,6 @@ export default {
             ],
             localDocuments: [],
             loading: false,
-            isDragging: false,
-            userId: null,
         };
     },
     mounted() {
@@ -157,6 +181,12 @@ export default {
                 this.fetchDocuments();
             } catch (error) {
                 this.$msg.warning('Upload failed.');
+            } finally {
+                // A MÁGICA ESTÁ AQUI:
+                // Limpa o valor do input para que o @change funcione na próxima vez
+                if (this.$refs.fileInput) {
+                    this.$refs.fileInput.value = '';
+                }
             }
         },
 
@@ -171,8 +201,7 @@ export default {
         },
 
         async deleteDoc(doc) {
-            if (!confirm('Are you sure you want to delete this file?')) return;
-
+            console.log(doc);
             try {
                 await axios.delete(`/document-delete/${doc.id}`);
                 this.$msg.success('File removed!');

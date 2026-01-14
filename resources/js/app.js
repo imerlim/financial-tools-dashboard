@@ -9,11 +9,6 @@ import { Ziggy } from './ziggy';
 import ModalMedium from './Components/ModalMedium.vue';
 import Modal from './Components/Modal.vue';
 
-import CustomInput from './Components/CustomInput.vue';
-import CustomSelect from './Components/CustomSelect.vue';
-import CustomTextArea from './Components/CustomTextArea.vue';
-import CustomCheckbox from './Components/CustomCheckbox.vue';
-
 import BarChart from './Components/Graph/BarChart.vue';
 import BarChartHorizontal from './Components/Graph/BarChartHorizontal.vue';
 import MultipleBarChart from './Components/Graph/MultipleBarChart.vue';
@@ -21,6 +16,13 @@ import DonutChart from './Components/Graph/DonutChart.vue';
 import Indicadores from './Components/Graph/Indicadores.vue';
 import LineChart from './Components/Graph/LineChart.vue';
 import PieChart from './Components/Graph/PieChart.vue';
+
+import ConfirmDialog from './Components/Resources/ConfirmDialog.vue';
+
+import CustomInput from './Components/CustomInput.vue';
+import CustomSelect from './Components/CustomSelect.vue';
+import CustomTextArea from './Components/CustomTextArea.vue';
+import CustomCheckbox from './Components/CustomCheckbox.vue';
 
 import msg from './Plugins/msg';
 import GlobalMsg from './Components/GlobalMsg.vue';
@@ -58,14 +60,6 @@ createInertiaApp({
         vueApp.component('Link', Link);
         vueApp.component('useForm', useForm);
 
-        vueApp.component('ModalMedium', ModalMedium);
-        vueApp.component('Modal', Modal);
-
-        vueApp.component('CustomInput', CustomInput);
-        vueApp.component('CustomSelect', CustomSelect);
-        vueApp.component('CustomTextArea', CustomTextArea);
-        vueApp.component('CustomCheckbox', CustomCheckbox);
-
         vueApp.component('BarChart', BarChart);
         vueApp.component('BarChartHorizontal', BarChartHorizontal);
         vueApp.component('MultipleBarChart', MultipleBarChart);
@@ -74,6 +68,15 @@ createInertiaApp({
         vueApp.component('LineChart', LineChart);
         vueApp.component('PieChart', PieChart);
 
+        vueApp.component('ConfirmDialog', ConfirmDialog);
+
+        vueApp.component('ModalMedium', ModalMedium);
+        vueApp.component('Modal', Modal);
+
+        vueApp.component('CustomInput', CustomInput);
+        vueApp.component('CustomSelect', CustomSelect);
+        vueApp.component('CustomTextArea', CustomTextArea);
+        vueApp.component('CustomCheckbox', CustomCheckbox);
         vueApp.component('GlobalMsg', GlobalMsg);
         vueApp.component('Table', Table);
         vueApp.component('PrimaryButton', PrimaryButton);
