@@ -1,7 +1,7 @@
-# Usamos a imagem oficial do PHP 8.2 com Apache
-FROM php:8.2-apache
+# 1. Use PHP 8.4 (matches composer.lock)
+FROM php:8.4-apache
 
-# Instalamos extensões necessárias para o Laravel e S3
+# 2. System dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -9,25 +9,39 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
+    curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
 
-# Habilitamos o mod_rewrite do Apache (essencial para rotas do Laravel)
+# 3. Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Definimos o diretório de trabalho
+# 4. Set working directory
 WORKDIR /var/www/html
 
-# Copiamos os arquivos do projeto para o container
+# 5. Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# 6. Copy ONLY composer files first (better caching)
+COPY composer.json composer.lock ./
+
+# 7. Install PHP dependencies
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader
+
+# 8. Copy the rest of the application
 COPY . .
 
-# Instalamos o Composer dentro do container
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader
-
-# Ajustamos permissões para o Laravel
+# 9. Laravel permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Apontamos o Apache para a pasta /public do Laravel
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+# 10. Apache document root → /public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri \
+    -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
+    /etc/apache2/sites-available/*.conf \
+    /etc/apache2/apache2.conf
