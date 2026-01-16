@@ -41,7 +41,7 @@
                                 @dragleave.prevent="isDragging = false"
                                 @drop.prevent="handleDrop"
                                 :class="{ 'border-sky-500 bg-sky-500/10': isDragging }"
-                                class="relative border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-12 text-center hover:border-sky-500 transition-all cursor-pointer group"
+                                class="relative border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-12 text-center hover:border-sky-500 dark:hover:border-sky-500 transition-all cursor-pointer group"
                             >
                                 <input type="file" ref="fileInput" @change="handleFileUpload" class="hidden" id="doc-upload" />
                                 <label for="doc-upload" class="cursor-pointer">
