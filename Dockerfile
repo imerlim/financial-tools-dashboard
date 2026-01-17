@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# 3. Enable Apache rewrite
+# 3. Enable Apache rewrite and fix MPM conflict
 RUN a2enmod rewrite
+RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # 4. Set working directory
 WORKDIR /var/www/html
