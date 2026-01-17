@@ -26,12 +26,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # 6. Copy ONLY composer files first (better caching)
 COPY composer.json composer.lock ./
 
-# 7. Install PHP dependencies
+# 7. Install PHP dependencies (added --no-scripts)
 RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
 
 # 8. Copy the rest of the application
 COPY . .
