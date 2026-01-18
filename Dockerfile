@@ -1,4 +1,3 @@
-# 1. Use PHP 8.4 (matches composer.lock)
 FROM php:8.4-apache
 
 # 2. System dependencies
@@ -15,10 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Enable Apache rewrite and fix MPM conflict
-RUN a2dismod mpm_event || true && a2enmod mpm_prefork
-RUN a2enmod rewrite
-# Adicione esta linha para garantir que o Apache não tente carregar o event de novo
-RUN echo "LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so" > /etc/apache2/mods-available/mpm_prefork.load
+RUN a2dismod mpm_event && a2enmod mpm_prefork rewrite
 
 # 4. Set working directory
 WORKDIR /var/www/html
@@ -26,10 +22,10 @@ WORKDIR /var/www/html
 # 5. Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 6. Copy ONLY composer files first (better caching)
+# 6. Copy ONLY composer files first
 COPY composer.json composer.lock ./
 
-# 7. Install PHP dependencies (added --no-scripts)
+# 7. Install PHP dependencies
 RUN composer install \
     --no-dev \
     --no-interaction \
