@@ -40,6 +40,8 @@ RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs \
     && chmod -R 775 storage bootstrap/cache
 
 # Nginx config
+
+RUN mkdir -p /run/php && chown www-data:www-data /run/php
 RUN rm /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/sites-available/default
 
