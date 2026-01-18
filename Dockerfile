@@ -1,9 +1,10 @@
-FROM php:8.4-fpm
+FROM php:8.4-apache
+
+# Enable Apache modules
+RUN a2enmod rewrite
 
 # System dependencies
 RUN apt-get update && apt-get install -y \
-    nginx \
-    gettext-base \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -14,6 +15,14 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
+
+# Set Apache document root to Laravel public folder
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' \
+    /etc/apache2/sites-available/*.conf \
+    /etc/apache2/apache2.conf \
+    /etc/apache2/conf-available/*.conf
 
 WORKDIR /var/www/html
 
@@ -36,17 +45,9 @@ COPY . .
 
 # Laravel folders
 RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs \
-    && chown -R www-data:www-data storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache storage \
     && chmod -R 775 storage bootstrap/cache
-
-# Nginx config
-
-RUN mkdir -p /run/php && chown www-data:www-data /run/php
-RUN rm /etc/nginx/sites-enabled/default
-COPY nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE 80
 
-CMD envsubst '$PORT' < /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default \
-    && php-fpm -D \
-    && nginx -g "daemon off;"
+CMD ["apache2-foreground"]
