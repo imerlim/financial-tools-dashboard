@@ -45,5 +45,5 @@ RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 # Expose Railway port
 EXPOSE 80
 
-# Start both services
-CMD service php8.4-fpm start && nginx -g "daemon off;"
+# Start PHP-FPM in background and Nginx in foreground
+CMD php-fpm -D && nginx -g "daemon off;"
