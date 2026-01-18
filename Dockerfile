@@ -15,8 +15,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Enable Apache rewrite and fix MPM conflict
+RUN a2dismod mpm_event || true && a2enmod mpm_prefork
 RUN a2enmod rewrite
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+# Adicione esta linha para garantir que o Apache não tente carregar o event de novo
+RUN echo "LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so" > /etc/apache2/mods-available/mpm_prefork.load
 
 # 4. Set working directory
 WORKDIR /var/www/html
