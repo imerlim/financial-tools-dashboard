@@ -41,8 +41,9 @@ RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs \
 # Nginx config
 RUN rm /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 
-CMD php-fpm -D && nginx -g "daemon off;"
+CMD envsubst '$PORT' < /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default \
+    && php-fpm -D \
+    && nginx -g "daemon off;"
