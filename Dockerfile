@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /var/www/html
 
 # Install Composer
@@ -34,23 +33,16 @@ RUN composer install \
 # Copy application
 COPY . .
 
-# Criar pastas necessárias para o Laravel não travar
-RUN mkdir -p /var/www/html/storage/framework/sessions \
-             /var/www/html/storage/framework/views \
-             /var/www/html/storage/framework/cache \
-             /var/www/html/storage/logs
-
-# Garantir que o usuário do servidor (www-data) tenha controle total
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Laravel folders
+RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 # Nginx config
 RUN rm /etc/nginx/sites-enabled/default
 COPY nginx.conf /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Expose Railway port
 EXPOSE 80
 
-# Start PHP-FPM in background and Nginx in foreground
 CMD php-fpm -D && nginx -g "daemon off;"
