@@ -34,9 +34,15 @@ RUN composer install \
 # Copy application
 COPY . .
 
-# Laravel permissions
-RUN mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Criar pastas necessárias para o Laravel não travar
+RUN mkdir -p /var/www/html/storage/framework/sessions \
+             /var/www/html/storage/framework/views \
+             /var/www/html/storage/framework/cache \
+             /var/www/html/storage/logs
+
+# Garantir que o usuário do servidor (www-data) tenha controle total
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Nginx config
 RUN rm /etc/nginx/sites-enabled/default
