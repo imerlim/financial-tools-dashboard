@@ -13,8 +13,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# 3. Enable Apache rewrite and fix MPM conflict
-RUN a2dismod mpm_event && a2enmod mpm_prefork rewrite
+# ... (início do seu arquivo igual)
+
+# 3. Fix Apache MPM conflict and enable rewrite
+# Desativamos os dois possíveis motores conflitantes de uma vez
+RUN a2dismod mpm_event mpm_worker || true
+# Ativamos o prefork (único compatível com PHP mod) e o rewrite
+RUN a2enmod mpm_prefork rewrite
+
+# ... (restante do seu arquivo igual)
 
 # 4. Set working directory
 WORKDIR /var/www/html
