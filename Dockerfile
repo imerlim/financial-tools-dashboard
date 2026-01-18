@@ -3,6 +3,7 @@ FROM php:8.4-fpm
 # System dependencies
 RUN apt-get update && apt-get install -y \
     nginx \
+    gettext-base \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
