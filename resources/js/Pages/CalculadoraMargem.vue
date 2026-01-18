@@ -80,7 +80,7 @@
                             <CustomInput
                                 inputmode="numeric"
                                 placeholder="0,00"
-                                @change="descontoIfood()"
+                                @change="discount()"
                                 :formata="true"
                                 v-model="taxaDesconto"
                                 label="Discount"
@@ -198,7 +198,7 @@ export default {
                     this.lucro = lucroCalculado;
                     this.lucro = lucroCalculado;
 
-                    this.descontoIfood();
+                    this.discount();
                 } else {
                     this.precoVenda = null;
                     this.lucro = null;
@@ -225,7 +225,7 @@ export default {
 
                     const lucroCalculado = precoCalculado - custo;
                     this.lucro = lucroCalculado;
-                    this.descontoIfood();
+                    this.discount();
                 } else {
                     this.precoVenda = null;
                     this.lucro = null;
@@ -254,7 +254,7 @@ export default {
                     const mlv_calculada = (lucroBruto / precoVenda) * 100;
                     this.margem = mlv_calculada;
                     this.margemLiquida = this.margem;
-                    this.descontoIfood();
+                    this.discount();
                 } else {
                     this.margem = null;
                     this.margemLiquida = null;
@@ -279,7 +279,7 @@ export default {
                     const mlc_calculada = (lucroBruto / custo) * 100;
                     this.margem = mlc_calculada;
                     this.margemLiquida = this.margem;
-                    this.descontoIfood();
+                    this.discount();
                 } else {
                     this.margem = null;
                     this.margemLiquida = null;
@@ -287,7 +287,7 @@ export default {
             }
         },
 
-        descontoIfood() {
+        discount() {
             const taxa = isNaN(parseFloat(this.taxaDesconto) / 100) ? 0 : parseFloat(this.taxaDesconto) / 100;
             const preco = parseFloat(this.precoVenda);
             const custo = parseFloat(this.custo);

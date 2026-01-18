@@ -1,7 +1,8 @@
-FROM php:8.4-apache
+FROM php:8.4-fpm
 
-# 2. System dependencies
+# System dependencies
 RUN apt-get update && apt-get install -y \
+    nginx \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -13,26 +14,16 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# ... (início do seu arquivo igual)
-
-# 3. Fix Apache MPM conflict and enable rewrite
-# Desativamos os dois possíveis motores conflitantes de uma vez
-RUN a2dismod mpm_event mpm_worker || true
-# Ativamos o prefork (único compatível com PHP mod) e o rewrite
-RUN a2enmod mpm_prefork rewrite
-
-# ... (restante do seu arquivo igual)
-
-# 4. Set working directory
+# Set working directory
 WORKDIR /var/www/html
 
-# 5. Install Composer
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 6. Copy ONLY composer files first
+# Copy composer files first
 COPY composer.json composer.lock ./
 
-# 7. Install PHP dependencies
+# Install PHP dependencies
 RUN composer install \
     --no-dev \
     --no-interaction \
@@ -40,15 +31,19 @@ RUN composer install \
     --optimize-autoloader \
     --no-scripts
 
-# 8. Copy the rest of the application
+# Copy application
 COPY . .
 
-# 9. Laravel permissions
+# Laravel permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# 10. Apache document root → /public
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri \
-    -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf
+# Nginx config
+RUN rm /etc/nginx/sites-enabled/default
+COPY nginx.conf /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Expose Railway port
+EXPOSE 80
+
+# Start both services
+CMD service php8.4-fpm start && nginx -g "daemon off;"
