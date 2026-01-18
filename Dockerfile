@@ -35,6 +35,7 @@ RUN composer install \
 COPY . .
 
 # Laravel permissions
+RUN mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Nginx config
