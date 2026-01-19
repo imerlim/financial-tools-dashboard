@@ -11,12 +11,12 @@
     "src": "_vendor-fVgbM_6u.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CakOo3k_.css",
+    "file": "assets/app-DIC-oRzC.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-B5F-kW0i.js",
+    "file": "assets/app-MvocoG3e.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -24,7 +24,7 @@
       "_vendor-BUpahd6T.js"
     ],
     "css": [
-      "assets/app-BL6h4bb5.css"
+      "assets/app-CaS-mmtX.css"
     ],
     "assets": [
       "assets/logo-CheuzYfY.png"
