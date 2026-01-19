@@ -6,11 +6,14 @@
                 class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y"
             >
                 <div class="container mx-auto sm:px-16">
-                    <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-4 lg:px-8">
-                        <div class="sm:col-span-4 text-center text-2xl">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 lg:grid-cols-4 lg:px-8">
+                        <div class="col-span-1 lg:col-span-4 text-center text-2xl">
                             <legend class="text-slate-900 dark:text-white">Compound Interest Calculator</legend>
                         </div>
-                        <div class="sm:col-span-4 justify-items-center" v-show="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'">
+                        <div
+                            class="col-span-1 lg:col-span-4 justify-items-center"
+                            v-show="montanteFinal != 'R$ 0,00' && montanteFinal != 'R$ 0,00'"
+                        >
                             <div class="grid grid-cols-1 gap-3 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                                 <div class="flex flex-col bg-slate-400/5 p-8 dark:bg-white/5">
                                     <dt class="text-2xl font-semibold text-slate-900 dark:text-white">Invested Amount</dt>
@@ -32,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sm:col-span-1">
+                        <div class="col-span-1">
                             <CustomInput
                                 @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
@@ -48,7 +51,7 @@
                                 </template>
                             </CustomInput>
                         </div>
-                        <div class="sm:col-span-1">
+                        <div class="col-span-1">
                             <CustomInput
                                 @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
@@ -64,7 +67,7 @@
                                 </template>
                             </CustomInput>
                         </div>
-                        <div class="sm:col-span-1">
+                        <div class="col-span-1">
                             <CustomInput
                                 @keyup.enter="calculaJurosCompostos"
                                 inputmode="numeric"
@@ -89,7 +92,7 @@
                                 </template>
                             </CustomInput>
                         </div>
-                        <div class="sm:col-span-1">
+                        <div class="col-span-1">
                             <CustomInput
                                 @keyup.enter="calculaJurosCompostos"
                                 type="number"
@@ -113,7 +116,7 @@
                                 </template>
                             </CustomInput>
                         </div>
-                        <div class="sm:col-span-4 flex justify-end self-end mt-5">
+                        <div class="col-span-1 lg:col-span-4 flex justify-end self-end mt-5">
                             <button
                                 ref="botaoIncluirItem"
                                 type="button"

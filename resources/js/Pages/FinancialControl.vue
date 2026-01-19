@@ -6,8 +6,8 @@
                 class="relative isolate overflow-hidden text-white dark:text-slate-300 bg-slate-100 dark:bg-slate-900 min-h-screen pt-32 sm:px-5 sm:pt-0 divide-y"
             >
                 <div class="container mx-auto sm:px-16">
-                    <form @submit.prevent="createDados" class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
-                        <div class="sm:col-span-1">
+                    <form @submit.prevent="createDados" class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 lg:grid-cols-6 lg:px-8">
+                        <div class="lg:col-span-1">
                             <CustomSelect
                                 :disabled="!this.user"
                                 required
@@ -22,7 +22,8 @@
                             >
                             </CustomSelect>
                         </div>
-                        <div class="sm:col-span-1">
+
+                        <div class="lg:col-span-1">
                             <CustomInput
                                 :disabled="!this.user"
                                 required
@@ -40,7 +41,8 @@
                                 </template>
                             </CustomInput>
                         </div>
-                        <div class="sm:col-span-2">
+
+                        <div class="grid-col-1 lg:col-span-2">
                             <CustomSelect
                                 :disabled="!this.user"
                                 required
@@ -102,7 +104,8 @@
                                 </form>
                             </ModalMedium>
                         </div>
-                        <div class="sm:col-span-1">
+
+                        <div class="lg:col-span-1">
                             <CustomInput
                                 :disabled="!this.user"
                                 required
@@ -114,11 +117,11 @@
                             ></CustomInput>
                         </div>
 
-                        <div class="sm:col-span-1 flex justify-end self-end">
+                        <div class="lg:col-span-1 flex justify-end self-end">
                             <PrimaryButton type="submit" :disabled="disableCreateuser"> Save </PrimaryButton>
                         </div>
 
-                        <div ref="dropdownContainer" class="relative sm:col-span-1 sm:col-start-6 flex justify-end">
+                        <div ref="dropdownContainer" class="relative lg:col-span-1 lg:col-start-6 flex justify-end">
                             <FunnelIcon
                                 @click="
                                     openFiltro = !openFiltro;
@@ -166,7 +169,7 @@
                             </div>
                         </div>
 
-                        <div class="sm:col-span-6">
+                        <div class="grid-col-1 lg:col-span-6">
                             <Table
                                 :headers="headers"
                                 :items="itemsFinancialControl"
@@ -201,7 +204,7 @@
                         </div>
 
                         <div
-                            class="sm:col-span-2"
+                            class="lg:col-span-2"
                             v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
                         >
                             <PieChart
@@ -213,7 +216,7 @@
                             />
                         </div>
 
-                        <div class="sm:col-span-2" v-if="Array.isArray(arraySumIncome) && arraySumIncome.length > 0">
+                        <div class="grid-col-1 lg:col-span-2" v-if="Array.isArray(arraySumIncome) && arraySumIncome.length > 0">
                             <PieChart
                                 :show-currency="true"
                                 :desabilitaDisplay="true"
@@ -223,7 +226,7 @@
                             />
                         </div>
 
-                        <div class="sm:col-span-2" v-if="Array.isArray(arraySumExpense) && arraySumExpense.length > 0">
+                        <div class="grid-col-1 lg:col-span-2" v-if="Array.isArray(arraySumExpense) && arraySumExpense.length > 0">
                             <PieChart
                                 :show-currency="true"
                                 :desabilitaDisplay="true"

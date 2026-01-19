@@ -6,8 +6,8 @@
                 class="relative isolate overflow-hidden text-white bg-slate-100 dark:bg-slate-900 min-h-screen py-5 sm:px-5 sm:py-2 divide-y"
             >
                 <div class="container mx-auto sm:px-16">
-                    <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 md:grid-cols-6 lg:px-8">
-                        <div class="sm:col-span-6 text-xl">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 py-11 sm:px-6 lg:grid-cols-6 lg:px-8">
+                        <div class="col-span-1 lg:col-span-6 text-xl">
                             <legend class="text-slate-900 dark:text-white">{{ tituloMargem }}</legend>
                         </div>
 
@@ -60,6 +60,7 @@
                                 </template>
                             </CustomInput>
                         </div>
+
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
@@ -76,6 +77,7 @@
                                 </template>
                             </CustomInput>
                         </div>
+
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
@@ -93,6 +95,7 @@
                                 </template>
                             </CustomInput>
                         </div>
+
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
@@ -109,6 +112,7 @@
                                 </template>
                             </CustomInput>
                         </div>
+
                         <div class="sm:col-span-1">
                             <CustomInput
                                 inputmode="numeric"
