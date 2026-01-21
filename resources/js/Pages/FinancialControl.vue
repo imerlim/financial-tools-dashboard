@@ -75,31 +75,15 @@
                                     </div>
 
                                     <div class="sm:col-span-6">
-                                        <Table :headers="headersCategoria" :items="itemsCategoria" :per-page="5" :loading="loadCategoria">
-                                            <template #acoes="{ item }">
-                                                <div class="flex justify-end gap-4">
-                                                    <button
-                                                        type="button"
-                                                        title="Excluir"
-                                                        class="inline-flex size-8 items-center justify-center rounded-full bg-transparent text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
-                                                        @click="handleDeleteCategoria(item)"
-                                                    >
-                                                        <TrashIcon
-                                                            class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 size-5"
-                                                            aria-hidden="true"
-                                                        />
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        title="Alterar"
-                                                        class="inline-flex size-8 items-center justify-center rounded-full bg-transparent text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
-                                                        @click="selecionaFabricante(item)"
-                                                    >
-                                                        <PencilSquareIcon class="size-5" aria-hidden="true" />
-                                                    </button>
-                                                </div>
-                                            </template>
-                                        </Table>
+                                        <Table
+                                            :headers="headersCategoria"
+                                            :items="itemsCategoria"
+                                            :per-page="5"
+                                            :loading="loadCategoria"
+                                            :show-actions="true"
+                                            action-type="delete"
+                                            @delete="handleDeleteCategoria"
+                                        />
                                     </div>
                                 </form>
                             </ModalMedium>
@@ -176,6 +160,9 @@
                                 :per-page="5"
                                 :show-search="true"
                                 :loading="loadFinancialControl"
+                                :show-actions="true"
+                                action-type="delete"
+                                @delete="handleDeleteFinancialData"
                             >
                                 <template #acoes="{ item }">
                                     <div class="flex justify-end">
@@ -202,7 +189,8 @@
                                 </template>
                             </Table>
                         </div>
-
+                    </form>
+                    <div class="pb-5 grid grid-cols-1 lg:grid-cols-6 gap-4 items-start">
                         <div
                             class="lg:col-span-2"
                             v-if="Array.isArray(arraySomaValoresCategoriasTop5) && arraySomaValoresCategoriasTop5.length > 0"
@@ -235,7 +223,7 @@
                                 title="Expense per month"
                             />
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </main>
@@ -356,7 +344,7 @@ export default {
         async createCategoria() {
             this.loadCategoria = true;
             try {
-                await axios.post('/create-category', { novaCategoria: this.novaCategoria, userId: this.userId });
+                await axios.post('/create-category', { novaCategoria: this.novaCategoria });
                 this.allCategorias();
                 this.novaCategoria = null;
             } catch {
@@ -369,6 +357,9 @@ export default {
             this.loadCategoria = true;
             try {
                 const response = await axios.get('/all-category');
+                this.itemsCategoria = [];
+                this.optionsCategoria = [];
+
                 if (Array.isArray(response.data) && response.data.length > 0) {
                     this.itemsCategoria = response.data;
                     this.optionsCategoria = response.data.map(item => ({
@@ -396,6 +387,7 @@ export default {
                 if (Array.isArray(response.data.query) && response.data.query.length > 0) {
                     this.itemsFinancialControl = [];
                     this.itemsFinancialControl = response.data.query.map(w => ({
+                        idControle: w.idControle,
                         category: w.category,
                         valorFormatado: isNaN(parseFloat(w.amountValue))
                             ? 'R$ 0,00'
@@ -421,15 +413,15 @@ export default {
                     this.arraySumIncome = [];
 
                     somaPorMesIncome.forEach(item => {
-                        this.arrayLabelIncome.push(item.month);
                         if (item.total_income != 0) {
+                            this.arrayLabelIncome.push(item.month);
                             this.arraySumIncome.push(item.total_income);
                         }
                     });
 
                     somaPorMesExpense.forEach(item => {
-                        this.arrayLabelExpense.push(item.month);
                         if (item.total_expense != 0) {
+                            this.arrayLabelExpense.push(item.month);
                             this.arraySumExpense.push(item.total_expense);
                         }
                     });
@@ -454,6 +446,22 @@ export default {
             } catch {
                 this.$msg.warning('Error deleting record.');
                 this.loadCategoria = false;
+            }
+        },
+
+        async handleDeleteFinancialData(item) {
+            console.log(item);
+            this.loadFinancialControl = true;
+            try {
+                await axios.delete('/delete-financial-control', {
+                    data: {
+                        idFiancialData: item.idControle,
+                    },
+                });
+                this.searchFilter();
+            } catch {
+                this.$msg.warning('Error deleting record.');
+                this.loadFinancialControl = false;
             }
         },
 

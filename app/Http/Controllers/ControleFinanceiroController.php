@@ -19,7 +19,7 @@ class ControleFinanceiroController extends Controller
     public function createCategory(Request $request)
     {
         try {
-            $result = $this->controleFinanceiroService->createCategory($request->novaCategoria, $request->userId);
+            $result = $this->controleFinanceiroService->createCategory($request->novaCategoria);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
@@ -69,6 +69,18 @@ class ControleFinanceiroController extends Controller
     {
         try {
             $result = $this->controleFinanceiroService->deleteCategoria($request->idCategory);
+            return response()->json($result, 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function deleteFinancialControl(Request $request)
+    {
+        try {
+            $result = $this->controleFinanceiroService->deleteFinancialControl($request->idFiancialData);
             return response()->json($result, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

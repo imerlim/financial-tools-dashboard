@@ -12,9 +12,10 @@ class ControleFinanceiroService
 {
     protected $user;
 
-    public function createCategory($novaCategoria, $userId)
+    public function createCategory($novaCategoria)
     {
-        $existe = Category::where('category', $novaCategoria)->exists();
+        $user = Auth::user();
+        $existe = Category::where('category', $novaCategoria)->where('idUser', '=', $user->id)->exists();
 
         if ($existe) {
             return ['Error' => 1, 'msg' => 'Category already registered.'];
@@ -23,7 +24,7 @@ class ControleFinanceiroService
         $query = new Category;
 
         $query->category = $novaCategoria;
-        $query->idUser = $userId;
+        $query->idUser = $user->id;
 
         if (!$query->save()) {
             return ['Error' => 2, 'msg' => 'Error saving record.'];
@@ -47,6 +48,9 @@ class ControleFinanceiroService
         if (!$query->save()) {
             return ['Error' => 1, 'msg' => 'Error saving record.'];
         }
+
+        // 🔥 Invalida todos os caches de busca financeira desse usuário
+        Cache::tags(['user_finances_' . $user->id])->flush();
 
         return $query;
     }
@@ -76,98 +80,49 @@ class ControleFinanceiroService
             Log::info('[Redis] Cache MISS - buscando no banco', ['key' => $cacheKey]);
         }
 
-        return Cache::remember($cacheKey, now()->addHour(), function () use ($filters, $cacheKey) {
-            Log::info('[Redis] Executando queries no banco', ['key' => $cacheKey]);
+        return Cache::tags(['user_finances_' . $user->id])
+            ->remember($cacheKey, now()->addHour(), function () use ($filters, $cacheKey) {
+                Log::info('[Redis] Executando queries no banco', ['key' => $cacheKey]);
 
-            $query = FinancialControl::filter($filters)->get()->toArray();
+                $query = FinancialControl::filter($filters)->get()->toArray();
 
-            $somaCategoria = FinancialControl::filter($filters)
-                ->select('category')
-                ->selectRaw('SUM(amountValue) as amountValue')
-                ->groupBy('category')
-                ->orderBy('amountValue', 'desc')
-                ->get()
-                ->toArray();
+                $somaCategoria = FinancialControl::filter($filters)
+                    ->select('category')
+                    ->selectRaw('SUM(amountValue) as amountValue')
+                    ->groupBy('category')
+                    ->orderBy('amountValue', 'desc')
+                    ->get()
+                    ->toArray();
 
-            $somaPorMes = FinancialControl::filter($filters)
-                ->selectRaw('
+                $somaPorMes = FinancialControl::filter($filters)
+                    ->selectRaw('
                 DATE_FORMAT(date, "%Y-%m") as month,
                 SUM(CASE WHEN type = "I" THEN amountValue ELSE 0 END) as total_income,
                 SUM(CASE WHEN type = "E" THEN amountValue ELSE 0 END) as total_expense
             ')
-                ->groupBy('month');
+                    ->groupBy('month');
 
-            $somaPorMesIncome = (clone $somaPorMes)->orderBy('total_income', 'desc')->get()->toArray();
-            $somaPorMesExpense = (clone $somaPorMes)->orderBy('total_expense', 'desc')->get()->toArray();
+                $somaPorMesIncome = (clone $somaPorMes)->orderBy('total_income', 'desc')->get()->toArray();
+                $somaPorMesExpense = (clone $somaPorMes)->orderBy('total_expense', 'desc')->get()->toArray();
 
-            if (empty($query)) {
-                Log::warning('[Redis] Consulta vazia', ['key' => $cacheKey]);
-                return ['error' => 1, 'msg' => "Could not find the record."];
-            }
+                if (empty($query)) {
+                    Log::warning('[Redis] Consulta vazia', ['key' => $cacheKey]);
+                    return ['error' => 1, 'msg' => "Could not find the record."];
+                }
 
-            Log::info('[Redis] Dados armazenados no cache', [
-                'key' => $cacheKey,
-                'total_registros' => count($query)
-            ]);
+                Log::info('[Redis] Dados armazenados no cache', [
+                    'key' => $cacheKey,
+                    'total_registros' => count($query)
+                ]);
 
-            return [
-                'query' => $query,
-                'somaCategoria' => $somaCategoria,
-                'somaPorMesIncome' => $somaPorMesIncome,
-                'somaPorMesExpense' => $somaPorMesExpense,
-            ];
-        });
+                return [
+                    'query' => $query,
+                    'somaCategoria' => $somaCategoria,
+                    'somaPorMesIncome' => $somaPorMesIncome,
+                    'somaPorMesExpense' => $somaPorMesExpense,
+                ];
+            });
     }
-
-    // public function buscaControleFinanceiro($idControle, $tipo, $category, $dataInicio, $dataFim, $amountValue)
-    // {
-    //     $user = Auth::user();
-    //     $idUsuario = $user->id;
-    //     $filters = array_filter([
-    //         'idControle' => $idControle,
-    //         'idUsuario' => $idUsuario,
-    //         'tipo' => $tipo,
-    //         'category' => $category,
-    //         'dataInicio' => $dataInicio,
-    //         'dataFim' => $dataFim,
-    //         'amountValue' => $amountValue,
-    //     ], fn($v) => $v !== null && $v !== '');
-
-    //     $query = FinancialControl::filter($filters)->get();
-
-    //     $somaCategoria = FinancialControl::filter($filters)
-    //         ->select('category')
-    //         ->selectRaw('SUM(amountValue) as amountValue')
-    //         ->groupBy('category')
-    //         ->orderBy('amountValue', 'desc')
-    //         ->get();
-
-    //     $somaPorMes = FinancialControl::filter($filters)
-    //         ->selectRaw('DATE_FORMAT(date, "%Y-%m") as month,
-    //         SUM(CASE WHEN TYPE = "I" THEN amountValue ELSE 0 END) as total_income,
-    //         SUM(CASE WHEN TYPE = "E" THEN amountValue ELSE 0 END) as total_expense
-    //         ')
-    //         ->groupBy('month');
-
-    //     $somaPorMesIncome = (clone $somaPorMes)
-    //         ->orderBy('total_income', 'desc')
-    //         ->get();
-
-    //     $somaPorMesExpense = (clone $somaPorMes)
-    //         ->orderBy('total_expense', 'desc')
-    //         ->get();
-
-    //     if ($query->isEmpty()) {
-    //         return ['error' => 1, 'msg' => "Could not find the record."];
-    //     }
-
-    //     return [
-    //         'query' => $query,
-    //         'somaCategoria' => $somaCategoria,
-    //         'somaPorMesIncome' => $somaPorMesIncome,
-    //         'somaPorMesExpense' => $somaPorMesExpense,
-    //     ];
-    // }
 
     public function allCategory()
     {
@@ -183,11 +138,26 @@ class ControleFinanceiroService
 
     public function deleteCategoria($idCategory)
     {
-        $query = Category::where('idCategory', '=', $idCategory)->delete();
+        $user = Auth::user();
+        $query = Category::where('idCategory', '=', $idCategory)->where('idUser', '=', $user->id)->delete();
 
         if (!$query) {
             return ['error' => 1, 'msg' => "Error deleting category."];
         }
+
+        return $query;
+    }
+
+    public function deleteFinancialControl($idFiancialData)
+    {
+        $user = Auth::user();
+        $query = FinancialControl::where('idControle', '=', $idFiancialData)->where('idUsuario', '=', $user->id)->delete();
+
+        if (!$query) {
+            return ['error' => 1, 'msg' => "Error deleting category."];
+        }
+
+        Cache::tags(['user_finances_' . $user->id])->flush();
 
         return $query;
     }

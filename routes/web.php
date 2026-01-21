@@ -18,6 +18,7 @@ Route::controller(ControleFinanceiroController::class)->group(function () {
     Route::post('busca-controle-financeiro', 'buscaControleFinanceiro')->name('busca.controle.financeiro');
     Route::get('all-category', 'allCategory')->name('all.category');
     Route::delete('delete-category', 'deleteCategoria')->name('delete.category');
+    Route::delete('delete-financial-control', 'deleteFinancialControl')->name('delete.financial.control');
 });
 
 Route::controller(DocumentController::class)->group(function () {

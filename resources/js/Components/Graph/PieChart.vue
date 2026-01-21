@@ -137,6 +137,8 @@ export default {
                         display: true,
                         position: 'bottom',
                         labels: {
+                            boxWidth: 12, // Legendas menores ajudam a sobrar espaço
+                            usePointStyle: true, // Bolinhas em vez de quadrados economizam espaço
                             color: dark ? '#f3f4f6' : '#444',
                             padding: 20,
                             font: {
