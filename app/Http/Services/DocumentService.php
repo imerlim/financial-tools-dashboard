@@ -15,12 +15,27 @@ class DocumentService
      */
     public function processUpload($file, $userId)
     {
-        return DB::transaction(function () use ($file, $userId) {
-            // 1. Tenta salvar no S3 primeiro
-            $path = $file->store('documents', 's3');
+        // 1. Enforce 15MB limit (15 * 1024 * 1024 bytes)
+        if ($file->getSize() > 15728640) {
+            throw new \Exception("File is too large. Max limit is 15MB.");
+        }
+
+        // 2. Redis Power: Use a unique key for EACH user
+        $redisKey = "user_upload_count:{$userId}";
+
+        // Get current count from Redis (defaults to 0 if key doesn't exist)
+        $currentCount = \Illuminate\Support\Facades\Redis::get($redisKey) ?? 0;
+
+        if ($currentCount >= 3) {
+            throw new \Exception("Upload limit reached. You can only upload 3 files for this demo.");
+        }
+
+        return DB::transaction(function () use ($file, $userId, $redisKey) {
+            // 3. Save locally to 'public' to avoid AWS costs
+            $path = $file->store('documents', 'public');
 
             if (!$path) {
-                throw new \Exception("Erro ao subir arquivo para o S3");
+                throw new \Exception("Erro ao subir arquivo para o disco local");
             }
 
             $document = Document::create([
@@ -34,7 +49,10 @@ class DocumentService
                 'extracted_text'    => 'Processing skipped for demo...',
             ]);
 
-            // Comente a chamada abaixo para o vídeo, mas deixe-a visível no código!
+            // 4. THE MAGIC STEP: Increment the Redis counter for this specific user
+            \Illuminate\Support\Facades\Redis::incr($redisKey);
+
+            // Keep this visible for the video but commented out
             // $this->extractText($document); 
 
             return $document;
@@ -72,7 +90,7 @@ class DocumentService
                 'status' => 'completed'
             ]);
         } catch (\Exception $e) {
-            // Se der erro de assinatura/permissão, registramos mas não paramos o sistema
+            // If there's a signature/permission error, we log it but don't stop the system
             Log::error("AWS Textract Error: " . $e->getMessage());
             $document->update(['status' => 'error']);
         }
@@ -85,12 +103,12 @@ class DocumentService
 
     public function generateDownloadUrl($id, $userId)
     {
-        // Buscamos o documento garantindo que pertence ao usuário
+        // We fetch the document ensuring it belongs to the user
         $document = Document::where('id', $id)
             ->where('user_id', $userId)
             ->firstOrFail();
 
-        // No seu método generateDownloadUrl:
+        // In your generateDownloadUrl method:
         /** @var \Illuminate\Filesystem\S3FilesystemAdapter $disk */
         $disk = Storage::disk('s3');
         $url = $disk->temporaryUrl($document->s3_key, now()->addMinutes(15));
@@ -104,12 +122,12 @@ class DocumentService
             ->where('user_id', $userId)
             ->firstOrFail();
 
-        // 1. Remove do S3 primeiro
+        // 1. Remove from S3 first
         if (Storage::disk('s3')->exists($document->s3_key)) {
             Storage::disk('s3')->delete($document->s3_key);
         }
 
-        // 2. Remove do Banco de Dados
+        // 2. Remove from the Database
         return $document->delete();
     }
 }

@@ -170,6 +170,17 @@ export default {
         },
 
         async uploadToServer(file) {
+            const currentDocs = this.localDocuments.length;
+            if (currentDocs >= 3) {
+                return this.$msg.warning('Limit reached! Delete a file to upload more.');
+            }
+
+            const MAX_SIZE = 5 * 1024 * 1024;
+
+            if (file.size > MAX_SIZE) {
+                return this.$msg.warning('File too large! Maximum limit is 5MB.');
+            }
+
             let formData = new FormData();
             formData.append('document', file);
             formData.append('userId', this.userId);
