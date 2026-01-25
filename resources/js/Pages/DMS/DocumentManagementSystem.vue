@@ -17,7 +17,7 @@
                                 <div class="flex flex-col bg-white p-8 dark:bg-white/5 shadow-sm">
                                     <dt class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Documents</dt>
                                     <dd class="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-                                        {{ documents?.length || 0 }}
+                                        {{ totalDocumentsCount }}
                                     </dd>
                                 </div>
                                 <div
@@ -148,6 +148,28 @@ export default {
         // Carregamento inicial paralelo
         this.refreshData();
     },
+    computed: {
+        // Calcula o total de documentos
+        totalDocumentsCount() {
+            return this.localDocuments.length;
+        },
+        // Filtra e conta quantos estão com status 'completed'
+        processedCount() {
+            return this.localDocuments.filter(doc => doc.status === 'completed').length;
+        },
+        // Soma o tamanho de todos os arquivos e converte para MB
+        totalSize() {
+            const totalBytes = this.localDocuments.reduce((acc, doc) => {
+                // Garantimos que o valor seja tratado como número
+                return acc + (parseFloat(doc.size) || 0);
+            }, 0);
+
+            // CONVERSÃO: Divide por 1024 para KB e por 1024 novamente para MB
+            const sizeInMB = totalBytes / (1024 * 1024);
+
+            return sizeInMB.toFixed(2);
+        },
+    },
     methods: {
         async refreshData() {
             this.loading = true;
@@ -187,12 +209,14 @@ export default {
 
             try {
                 // Aqui você pode disparar o upload e já limpar o input
-                await axios.post('document-upload', formData);
-                this.$msg.success('Upload complete!');
+                const response = await axios.post('document-upload', formData);
+                console.log('aki', response);
+                if (response.data.error) return this.$msg.warning(response.data.msg);
 
-                // Atualiza a lista imediatamente após o upload
+                this.$msg.success('Upload complete!');
                 this.fetchDocuments();
             } catch (error) {
+                console.log(error);
                 this.$msg.warning('Upload failed.');
             } finally {
                 // A MÁGICA ESTÁ AQUI:

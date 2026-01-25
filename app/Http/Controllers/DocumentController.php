@@ -20,11 +20,6 @@ class DocumentController extends Controller
     public function uploadDocument(Request $request)
     {
         try {
-            $request->validate([
-                'document' => 'required|file|max:10240',
-            ]);
-
-            // Usando Auth::id() para evitar o erro do VS Code
             $result = $this->documentService->processUpload(
                 $request->file('document'),
                 Auth::id()
