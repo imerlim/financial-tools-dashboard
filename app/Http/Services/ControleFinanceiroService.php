@@ -58,6 +58,7 @@ class ControleFinanceiroService
     public function buscaControleFinanceiro($idControle, $tipo, $category, $dataInicio, $dataFim, $amountValue)
     {
         $user = Auth::user();
+        // return Log::info('[Redis] Cache limpo', ['cache' => Cache::tags(['user_finances_' . $user->id])->flush()]);
         $idUsuario = $user->id;
 
         $filters = array_filter([
