@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Models\Document;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB; // RESOLVE O ERRO DA IMAGEM E1C4F0
 use Illuminate\Support\Facades\Log; // RESOLVE O ERRO DA IMAGEM E1C4F0
@@ -10,36 +11,39 @@ use Aws\Textract\TextractClient;
 
 class DocumentService
 {
+    protected $user;
     /**
      * Envia o arquivo para o S3 e salva no MySQL
      */
-    public function processUpload($file, $userId)
+    public function processUpload($file)
     {
+        $user = Auth::user();
         // 1. Enforce 15MB limit (15 * 1024 * 1024 bytes)
-        if ($file->getSize() > 15728640) {
-            throw new \Exception("File is too large. Max limit is 15MB.");
+        if ($file->getSize() > 5 * 1024 * 1024) {
+            return ['error' => 2, 'msg' => 'File is too large. Max limit is 5MB.'];
         }
 
         // 2. Redis Power: Use a unique key for EACH user
-        $redisKey = "user_upload_count:{$userId}";
+        $redisKey = "user_upload_count:{$user->id}";
 
         // Get current count from Redis (defaults to 0 if key doesn't exist)
         $currentCount = \Illuminate\Support\Facades\Redis::get($redisKey) ?? 0;
 
         if ($currentCount >= 3) {
-            throw new \Exception("Upload limit reached. You can only upload 3 files for this demo.");
+            return ['error' => 3, 'msg' => 'You have reached the limit of 3 files.'];
         }
 
-        return DB::transaction(function () use ($file, $userId, $redisKey) {
+        return DB::transaction(function () use ($file, $redisKey) {
+            $user = Auth::user();
             // 3. Save locally to 'public' to avoid AWS costs
-            $path = $file->store('documents', 'public');
+            $path = $file->store('documents', 's3');
 
             if (!$path) {
-                throw new \Exception("Erro ao subir arquivo para o disco local");
+                return ['error' => 1, 'msg' => 'Erro ao subir arquivo para o S3'];
             }
 
             $document = Document::create([
-                'user_id'           => $userId,
+                'user_id'           => $user->id,
                 'title'             => $file->getClientOriginalName(),
                 'original_filename' => $file->getClientOriginalName(),
                 's3_key'            => $path,
