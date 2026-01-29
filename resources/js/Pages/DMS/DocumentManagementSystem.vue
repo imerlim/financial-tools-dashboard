@@ -75,6 +75,7 @@
                                 :per-page="10"
                                 :loading="loading"
                             >
+                                <template #formatSizeMB="{ item }"> {{ (item.size / (1024 * 1024)).toFixed(2) }} MB </template>
                                 <template #acoes="{ item }">
                                     <div class="flex justify-end gap-4">
                                         <button @click="viewDocument(item)" class="text-sky-500 hover:text-sky-400 font-medium">
@@ -134,7 +135,7 @@ export default {
             headersDocuments: [
                 { label: 'Document', key: 'title' }, // Usando a coluna 'title' do seu banco
                 { label: 'Status', key: 'status', customRender: 'status' },
-                { label: 'Size', key: 'size' },
+                { label: 'Size (MB)', key: 'size', customRender: 'formatSizeMB' },
                 { label: '', key: 'acoes', customRender: 'acoes' },
             ],
             localDocuments: [],
