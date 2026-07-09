@@ -30,4 +30,4 @@ I am currently showcasing my proficiency in:
 - **Performance:** Optimized queries for financial calculations.
 
 ---
-Developed by [Seu Nome] - [Seu LinkedIn]
+Developed by Igor Merlim - https://www.linkedin.com/in/igor-merlim/
